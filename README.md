@@ -1,69 +1,37 @@
-## QRCodeReaderViewController
+## QRCodeReader.swift
 
-The _QRCodeReaderViewController_ is a simple QRCode Reader/Scanner based on the _AVFoundation_ framework from Apple. It aims to replace ZXing or ZBar for iOS 7 and over.
+The _QRCodeReader.swift_ is a simple QRCode Reader/Scanner based on the _AVFoundation_ framework from Apple written in swift. It aims to replace ZXing or ZBar for iOS 8 and over.
 
 ### Installation
 
-The recommended approach to use _QRCodeReaderViewController_ in your project is using the [CocoaPods](http://cocoapods.org/) package manager, as it provides flexible dependency management and dead simple installation.
-
-#### CocoaPods
-
-Install CocoaPods if not already available:
-
-``` bash
-$ [sudo] gem install cocoapods
-$ pod setup
-```
-Go to the directory of your Xcode project, and Create and Edit your Podfile and add _QRCodeReaderViewController_:
-
-``` bash
-$ cd /path/to/MyProject
-$ touch Podfile
-$ edit Podfile
-platform :ios, '7.0'
-pod 'QRCodeReaderViewController', '~> 1.0.0'
-```
-
-Install into your project:
-
-``` bash
-$ pod install
-```
-
-Open your project in Xcode from the .xcworkspace file (not the usual project file)
-
-``` bash
-$ open MyProject.xcworkspace
-```
-
 #### Manually
 
-[Download](https://github.com/YannickL/QRCodeReaderViewController/archive/master.zip) the project and copy the `QRCodeReaderViewController` folder into your project and then simply `#import "QRCodeReaderViewController.h"` in the file(s) you would like to use it in.
+[Download](https://github.com/YannickL/QRCodeReader.swift/archive/master.zip) the project and copy the `QRCodeReader.swift` file into your project to use it in.
 
 ## Usage
 
-```objective-c
-- (IBAction)scanAction:(id)sender
-{
-  QRCodeReaderViewController *reader = [QRCodeReaderViewController new];
-  reader.modalPresentationStyle      = UIModalPresentationFormSheet;
-  reader.delegate                    = self;
+```swift
+lazy var reader: QRCodeReader = QRCodeReader(cancelButtonTitle: "Cancel")
 
-  [self presentViewController:reader animated:YES completion:NULL];
+@IBAction func scanAction(sender: AnyObject) {
+  reader.modalPresentationStyle = .FormSheet
+  reader.delegate               = self
+
+  reader.completionBlock = { (result: String?) in
+    println(result)
+  }
+
+  presentViewController(reader, animated: true, completion: nil)
 }
 
-#pragma mark - QRCodeReader Delegate Methods
+// MARK: - QRCodeReader Delegate Methods
 
-- (void)reader:(QRCodeReaderViewController *)reader didScanResult:(NSString *)result
-{
-  [self dismissViewControllerAnimated:YES completion:^{
-    NSLog(@"%@", result);
-  }];
+func reader(reader: QRCodeReader, didScanResult result: String) {
+  self.dismissViewControllerAnimated(true, completion: nil)
 }
 
-- (void)readerDidCancel:(QRCodeReaderViewController *)reader
-{
-  [self dismissViewControllerAnimated:YES completion:NULL];
+func readerDidCancel(reader: QRCodeReader) {
+  self.dismissViewControllerAnimated(true, completion: nil)
 }
 ```
 

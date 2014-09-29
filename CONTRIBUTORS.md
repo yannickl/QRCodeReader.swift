@@ -1,5 +1,5 @@
 ## Contributors
-This is the official list of people who can contribute (and typically have contributed) code to the QRCodeReaderViewController repository.
+This is the official list of people who can contribute (and typically have contributed) code to the QRCodeReader.swift repository.
 
 Names should be added to this file like so:
 ``` * [Firstname Lastname|Nickname](github_page_url)```
