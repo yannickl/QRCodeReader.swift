@@ -17,8 +17,12 @@ lazy var reader: QRCodeReader = QRCodeReader(cancelButtonTitle: "Cancel")
 
 @IBAction func scanAction(sender: AnyObject) {
   reader.modalPresentationStyle = .FormSheet
-  reader.delegate               = self
+  
+  // Retrieve the QRCode content
+  // By using the delegate pattern
+  reader.delegate = self
 
+  // Or by using the closure pattern
   reader.completionBlock = { (result: String?) in
     println(result)
   }
