@@ -13,11 +13,11 @@ The _QRCodeReader.swift_ is a simple QRCode Reader/Scanner based on the _AVFound
 ## Usage
 
 ```swift
+// Good practive: create the reader lazily to avoid cpu overload during the
+// initialization and each time we need to scan a QRCode
 lazy var reader: QRCodeReader = QRCodeReader(cancelButtonTitle: "Cancel")
 
 @IBAction func scanAction(sender: AnyObject) {
-  reader.modalPresentationStyle = .FormSheet
-  
   // Retrieve the QRCode content
   // By using the delegate pattern
   reader.delegate = self
@@ -27,6 +27,8 @@ lazy var reader: QRCodeReader = QRCodeReader(cancelButtonTitle: "Cancel")
     println(result)
   }
 
+  // Presents the reader as modal form sheet
+  reader.modalPresentationStyle = .FormSheet
   presentViewController(reader, animated: true, completion: nil)
 }
 
