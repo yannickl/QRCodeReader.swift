@@ -28,12 +28,12 @@ import UIKit
 import AVFoundation
 
 class QRCodeReader: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
-  private var cameraView: UIView                     = UIView()
-  private var cancelButton: UIButton                 = UIButton()
+  private var cameraView: UIView     = UIView()
+  private var cancelButton: UIButton = UIButton()
   private var switchCameraButton: SwitchCameraButton?
   
-  private var defaultDevice: AVCaptureDevice                = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
-  private var frontDevice: AVCaptureDevice?                 = {
+  private var defaultDevice: AVCaptureDevice? = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+  private var frontDevice: AVCaptureDevice?   = {
     for device in AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo) {
       if let _device = device as? AVCaptureDevice {
         if _device.position == AVCaptureDevicePosition.Front {
@@ -44,7 +44,13 @@ class QRCodeReader: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
   
     return nil
     }()
-  private lazy var defaultDeviceInput: AVCaptureDeviceInput = { return AVCaptureDeviceInput(device: self.defaultDevice, error: nil) }()
+  private lazy var defaultDeviceInput: AVCaptureDeviceInput? = {
+    if let _defaultDevice = self.defaultDevice {
+      return AVCaptureDeviceInput(device: _defaultDevice, error: nil)
+    }
+    
+    return nil
+    }()
   private lazy var frontDeviceInput: AVCaptureDeviceInput?  = {
     if let _frontDevice = self.frontDevice {
       return AVCaptureDeviceInput(device: _frontDevice, error: nil)
@@ -172,13 +178,20 @@ class QRCodeReader: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
   
   private func configureDefaultComponents() {
     session.addOutput(metadataOutput)
-    session.addInput(defaultDeviceInput)
+    
+    if let _defaultDeviceInput = defaultDeviceInput {
+      session.addInput(defaultDeviceInput)
+    }
     
     metadataOutput.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())
-    metadataOutput.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
+    if let _availableMetadataObjectTypes = metadataOutput.availableMetadataObjectTypes as? [String] {
+      if _availableMetadataObjectTypes.filter({ $0 == AVMetadataObjectTypeQRCode }).count > 0 {
+        metadataOutput.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
+      }
+    }
     previewLayer.videoGravity          = AVLayerVideoGravityResizeAspectFill
-    
-    if previewLayer.connection.supportsVideoOrientation {
+
+    if previewLayer.connection != nil && previewLayer.connection.supportsVideoOrientation {
       previewLayer.connection.videoOrientation = QRCodeReader.videoOrientationFromInterfaceOrientation(interfaceOrientation)
     }
   }
