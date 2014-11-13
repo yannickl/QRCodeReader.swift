@@ -2,7 +2,9 @@
 
 The _QRCodeReader.swift_ is a simple QRCode Reader/Scanner based on the _AVFoundation_ framework from Apple written in swift. It aims to replace ZXing or ZBar for iOS 8 and over.
 
-![screenshot](https://github.com/YannickL/QRCodeReader.swift/blob/master/Example/resources/QRCodeReader.gif)
+It also allows you to switch between the front and the back cameras.
+
+![screenshot](https://github.com/YannickL/QRCodeReader.swift/blob/master/Example/resources/Screenshot.jpg)
 
 ### Installation
 
