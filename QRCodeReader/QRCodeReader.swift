@@ -41,10 +41,17 @@ class QRCodeReader: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         }
       }
     }
+  
+    return nil
+    }()
+  private lazy var defaultDeviceInput: AVCaptureDeviceInput = { return AVCaptureDeviceInput(device: self.defaultDevice, error: nil) }()
+  private lazy var frontDeviceInput: AVCaptureDeviceInput?  = {
+    if let _frontDevice = self.frontDevice {
+      return AVCaptureDeviceInput(device: _frontDevice, error: nil)
+    }
     
     return nil
-  }()
-  private lazy var deviceInput: AVCaptureDeviceInput        = { return AVCaptureDeviceInput(device: self.defaultDevice, error: nil) }()
+    }()
   private var metadataOutput: AVCaptureMetadataOutput       = AVCaptureMetadataOutput()
   private var session: AVCaptureSession                     = AVCaptureSession()
   private lazy var previewLayer: AVCaptureVideoPreviewLayer = { return AVCaptureVideoPreviewLayer(session: self.session) }()
@@ -59,7 +66,7 @@ class QRCodeReader: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
   required init(cancelButtonTitle: String) {
     super.init()
     
-    configureComponents()
+    configureDefaultComponents()
     setupUIComponentsWithCancelButtonTitle(cancelButtonTitle)
     setupAutoLayoutConstraints()
     
@@ -163,15 +170,31 @@ class QRCodeReader: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     }
   }
   
-  private func configureComponents() {
+  private func configureDefaultComponents() {
     session.addOutput(metadataOutput)
-    session.addInput(deviceInput)
+    session.addInput(defaultDeviceInput)
+    
     metadataOutput.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())
     metadataOutput.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
     previewLayer.videoGravity          = AVLayerVideoGravityResizeAspectFill
     
     if previewLayer.connection.supportsVideoOrientation {
       previewLayer.connection.videoOrientation = QRCodeReader.videoOrientationFromInterfaceOrientation(interfaceOrientation)
+    }
+  }
+  
+  private func switchDeviceInput() {
+    if let _frontDeviceInput = frontDeviceInput {
+      session.beginConfiguration()
+      
+      if let _currentInput = session.inputs.first as? AVCaptureDeviceInput {
+        session.removeInput(_currentInput)
+        
+        let newDeviceInput = (_currentInput.device.position == .Front) ? defaultDeviceInput : _frontDeviceInput
+        session.addInput(newDeviceInput)
+      }
+      
+      session.commitConfiguration()
     }
   }
   
@@ -202,7 +225,7 @@ class QRCodeReader: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
   }
   
   func switchCameraAction(button: SwitchCameraButton) {
-    
+    switchDeviceInput()
   }
   
   // MARK: - AVCaptureMetadataOutputObjects Delegate Methods
