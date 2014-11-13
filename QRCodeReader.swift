@@ -78,6 +78,10 @@ class QRCodeReader: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         super.viewWillDisappear(animated)
     }
     
+    override func viewWillLayoutSubviews() {
+        previewLayer.frame = view.bounds
+    }
+    
     // MARK: - Managing the Orientation
     
     func orientationDidChanged(notification: NSNotification) {
@@ -137,7 +141,6 @@ class QRCodeReader: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         metadataOutput.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())
         metadataOutput.metadataObjectTypes = [ AVMetadataObjectTypeQRCode ]
         previewLayer.videoGravity          = AVLayerVideoGravityResizeAspectFill
-        previewLayer.frame                 = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height)
         
         if previewLayer.connection.supportsVideoOrientation {
             previewLayer.connection.videoOrientation = QRCodeReader.videoOrientationFromInterfaceOrientation(interfaceOrientation)
