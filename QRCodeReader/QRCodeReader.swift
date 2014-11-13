@@ -252,6 +252,8 @@ class QRCodeReader: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     for current in metadataObjects {
       if let _readableCodeObject = current as? AVMetadataMachineReadableCodeObject {
         if _readableCodeObject.type == AVMetadataObjectTypeQRCode {
+          stopScanning()
+          
           let scannedResult: String = _readableCodeObject.stringValue
           
           if let _completionBlock = completionBlock {
