@@ -28,7 +28,7 @@ import UIKit
 import AVFoundation
 
 class QRCodeReader: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
-  private var cameraView: UIView     = UIView()
+  private var cameraView: ReaderView = ReaderView()
   private var cancelButton: UIButton = UIButton()
   private var switchCameraButton: SwitchCameraButton?
   
@@ -110,19 +110,24 @@ class QRCodeReader: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
   // MARK: - Managing the Orientation
   
   func orientationDidChanged(notification: NSNotification) {
-    var interfaceOrientation: UIInterfaceOrientation = .Portrait
-    switch (UIDevice.currentDevice().orientation) {
-    case .LandscapeLeft:
-      interfaceOrientation = .LandscapeRight
-    case .LandscapeRight:
-      interfaceOrientation = .LandscapeLeft
-    case .PortraitUpsideDown:
-      interfaceOrientation = .PortraitUpsideDown
-    default:
-      interfaceOrientation = .Portrait
-    }
+    cameraView.setNeedsDisplay()
     
-    previewLayer.connection.videoOrientation = QRCodeReader.videoOrientationFromInterfaceOrientation(interfaceOrientation)
+    if previewLayer.connection != nil {
+      var interfaceOrientation: UIInterfaceOrientation = .Portrait
+      
+      switch (UIDevice.currentDevice().orientation) {
+      case .LandscapeLeft:
+        interfaceOrientation = .LandscapeRight
+      case .LandscapeRight:
+        interfaceOrientation = .LandscapeLeft
+      case .PortraitUpsideDown:
+        interfaceOrientation = .PortraitUpsideDown
+      default:
+        interfaceOrientation = .Portrait
+      }
+      
+      previewLayer.connection.videoOrientation = QRCodeReader.videoOrientationFromInterfaceOrientation(interfaceOrientation)
+    }
   }
   
   class func videoOrientationFromInterfaceOrientation(interfaceOrientation: UIInterfaceOrientation) -> AVCaptureVideoOrientation {
