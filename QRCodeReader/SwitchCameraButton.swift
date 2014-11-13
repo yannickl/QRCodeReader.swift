@@ -1,20 +1,46 @@
-// Playground - CameraSwiftIcon: a place where people can play
+/*
+* QRCodeReader.swift
+*
+* Copyright 2014-present Yannick Loriot.
+* http://yannickloriot.com
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in
+* all copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
+*
+*/
 
 import UIKit
-import XCPlayground
 
-class SwitchCameraButton: UIButton {
-  var strokeColor: UIColor = UIColor.whiteColor() {
+@IBDesignable class SwitchCameraButton: UIButton {
+  @IBInspectable var edgeColor: UIColor = UIColor.whiteColor() {
     didSet {
       setNeedsDisplay()
     }
   }
   
-  var paintColor: UIColor  = UIColor.darkGrayColor() {
+  @IBInspectable var fillColor: UIColor  = UIColor.darkGrayColor() {
     didSet {
       setNeedsDisplay()
     }
   }
+  
+  @IBInspectable var edgeHighlightedColor: UIColor = UIColor.whiteColor()
+  @IBInspectable var fillHighlightedColor: UIColor = UIColor.blackColor()
   
   override func drawRect(rect: CGRect) {
     let width  = rect.width
@@ -24,14 +50,20 @@ class SwitchCameraButton: UIButton {
     
     let strokeLineWidth = CGFloat(2)
     
+    // Colors
+    
+    let paintColor  = (self.state != .Highlighted) ? fillColor : fillHighlightedColor
+    let strokeColor = (self.state != .Highlighted) ? edgeColor : edgeHighlightedColor
+    
     // Camera box
     
     let cameraWidth  = width * 0.4
     let cameraHeight = cameraWidth * 0.6
     let cameraX      = center - cameraWidth / 2
     let cameraY      = middle - cameraHeight / 2
+    let cameraRadius = cameraWidth / 80
     
-    let boxPath = UIBezierPath(roundedRect: CGRectMake(cameraX, cameraY, cameraWidth, cameraHeight), cornerRadius: 4)
+    let boxPath = UIBezierPath(roundedRect: CGRectMake(cameraX, cameraY, cameraWidth, cameraHeight), cornerRadius: cameraRadius)
     
     // Camera lens
     
@@ -107,7 +139,7 @@ class SwitchCameraButton: UIButton {
     strokeColor.setStroke()
     rigthArrowPath.lineWidth = strokeLineWidth
     rigthArrowPath.stroke()
-
+    
     paintColor.setFill()
     boxPath.fill()
     strokeColor.setStroke()
@@ -119,7 +151,7 @@ class SwitchCameraButton: UIButton {
     
     paintColor.setFill()
     innerLensPath.fill()
-
+    
     paintColor.setFill()
     flashPath.fill()
     strokeColor.setStroke()
@@ -133,9 +165,29 @@ class SwitchCameraButton: UIButton {
     leftArrowPath.lineWidth = strokeLineWidth
     leftArrowPath.stroke()
   }
+  
+  // MARK: - UIResponder Methods
+  
+  override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+    super.touchesBegan(touches, withEvent: event)
+    
+    setNeedsDisplay()
+  }
+
+  override func touchesMoved(touches: NSSet, withEvent event: UIEvent) {
+    super.touchesMoved(touches, withEvent: event)
+    
+    setNeedsDisplay()
+  }
+  
+  override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
+    super.touchesEnded(touches, withEvent: event)
+    setNeedsDisplay()
+  }
+  
+  override func touchesCancelled(touches: NSSet!, withEvent event: UIEvent!) {
+    super.touchesCancelled(touches, withEvent: event)
+    
+    setNeedsDisplay()
+  }
 }
-
-var view             = SwitchCameraButton(frame: CGRect(x: 0, y: 0, width: 200, height: 100))
-view.backgroundColor = UIColor.whiteColor()
-
-XCPShowView("Camera Switch Icon", view)

@@ -13,7 +13,8 @@
 		CE412E9619D9A1E4000F294E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE412E9519D9A1E4000F294E /* Images.xcassets */; };
 		CE412E9919D9A1E4000F294E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE412E9719D9A1E4000F294E /* LaunchScreen.xib */; };
 		CE412EA519D9A1E4000F294E /* QRCodeReader_swiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE412EA419D9A1E4000F294E /* QRCodeReader_swiftTests.swift */; };
-		CE412EAF19D9A252000F294E /* QRCodeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE412EAE19D9A252000F294E /* QRCodeReader.swift */; };
+		CED23DDC1A15079300BE7A72 /* QRCodeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED23DDB1A15079300BE7A72 /* QRCodeReader.swift */; };
+		CED23DDE1A1507CB00BE7A72 /* SwitchCameraButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED23DDD1A1507CB00BE7A72 /* SwitchCameraButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,8 +38,9 @@
 		CE412E9E19D9A1E4000F294E /* QRCodeReader.swiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QRCodeReader.swiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE412EA319D9A1E4000F294E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE412EA419D9A1E4000F294E /* QRCodeReader_swiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeReader_swiftTests.swift; sourceTree = "<group>"; };
-		CE412EAE19D9A252000F294E /* QRCodeReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QRCodeReader.swift; path = ../QRCodeReader.swift; sourceTree = "<group>"; };
 		CEC20A861A14EF0D00E7D0AD /* CameraSwitchIcon.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = CameraSwitchIcon.playground; path = resources/CameraSwitchIcon.playground; sourceTree = "<group>"; };
+		CED23DDB1A15079300BE7A72 /* QRCodeReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeReader.swift; sourceTree = "<group>"; };
+		CED23DDD1A1507CB00BE7A72 /* SwitchCameraButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchCameraButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,10 +64,10 @@
 		CE412E8019D9A1E4000F294E = {
 			isa = PBXGroup;
 			children = (
+				CED23DDA1A15079300BE7A72 /* QRCodeReader */,
+				CE412E8B19D9A1E4000F294E /* Example */,
+				CE412EA119D9A1E4000F294E /* ExampleTests */,
 				CEC20A871A14EF1400E7D0AD /* Resources */,
-				CE412EAE19D9A252000F294E /* QRCodeReader.swift */,
-				CE412E8B19D9A1E4000F294E /* QRCodeReader.swift */,
-				CE412EA119D9A1E4000F294E /* QRCodeReader.swiftTests */,
 				CE412E8A19D9A1E4000F294E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -79,7 +81,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		CE412E8B19D9A1E4000F294E /* QRCodeReader.swift */ = {
+		CE412E8B19D9A1E4000F294E /* Example */ = {
 			isa = PBXGroup;
 			children = (
 				CE412E8E19D9A1E4000F294E /* AppDelegate.swift */,
@@ -89,6 +91,7 @@
 				CE412E9719D9A1E4000F294E /* LaunchScreen.xib */,
 				CE412E8C19D9A1E4000F294E /* Supporting Files */,
 			);
+			name = Example;
 			path = QRCodeReader.swift;
 			sourceTree = "<group>";
 		};
@@ -100,12 +103,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		CE412EA119D9A1E4000F294E /* QRCodeReader.swiftTests */ = {
+		CE412EA119D9A1E4000F294E /* ExampleTests */ = {
 			isa = PBXGroup;
 			children = (
 				CE412EA419D9A1E4000F294E /* QRCodeReader_swiftTests.swift */,
 				CE412EA219D9A1E4000F294E /* Supporting Files */,
 			);
+			name = ExampleTests;
 			path = QRCodeReader.swiftTests;
 			sourceTree = "<group>";
 		};
@@ -123,6 +127,16 @@
 				CEC20A861A14EF0D00E7D0AD /* CameraSwitchIcon.playground */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		CED23DDA1A15079300BE7A72 /* QRCodeReader */ = {
+			isa = PBXGroup;
+			children = (
+				CED23DDB1A15079300BE7A72 /* QRCodeReader.swift */,
+				CED23DDD1A1507CB00BE7A72 /* SwitchCameraButton.swift */,
+			);
+			name = QRCodeReader;
+			path = ../QRCodeReader;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -226,7 +240,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE412E9119D9A1E4000F294E /* ViewController.swift in Sources */,
-				CE412EAF19D9A252000F294E /* QRCodeReader.swift in Sources */,
+				CED23DDC1A15079300BE7A72 /* QRCodeReader.swift in Sources */,
+				CED23DDE1A1507CB00BE7A72 /* SwitchCameraButton.swift in Sources */,
 				CE412E8F19D9A1E4000F294E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
