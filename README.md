@@ -10,7 +10,7 @@ It also allows you to switch between the front and the back cameras.
 
 #### Manually
 
-[Download](https://github.com/YannickL/QRCodeReader.swift/archive/master.zip) the project and copy the `QRCodeReader.swift` file into your project to use it in.
+[Download](https://github.com/YannickL/QRCodeReader.swift/archive/master.zip) the project and copy the `QRCodeReader` folder into your project to use it in.
 
 ## Usage
 
