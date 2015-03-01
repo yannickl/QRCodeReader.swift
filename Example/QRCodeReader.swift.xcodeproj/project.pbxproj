@@ -14,6 +14,7 @@
 		CE412E9919D9A1E4000F294E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE412E9719D9A1E4000F294E /* LaunchScreen.xib */; };
 		CE412EA519D9A1E4000F294E /* QRCodeReader_swiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE412EA419D9A1E4000F294E /* QRCodeReader_swiftTests.swift */; };
 		CECCE4CD1A1527DE00071669 /* ReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECCE4CC1A1527DE00071669 /* ReaderView.swift */; };
+		CECD170B1AA3531C00A9ACDE /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD170A1AA3531C00A9ACDE /* QRCodeViewController.swift */; };
 		CED23DDC1A15079300BE7A72 /* QRCodeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED23DDB1A15079300BE7A72 /* QRCodeReader.swift */; };
 		CED23DDE1A1507CB00BE7A72 /* SwitchCameraButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED23DDD1A1507CB00BE7A72 /* SwitchCameraButton.swift */; };
 /* End PBXBuildFile section */
@@ -41,6 +42,7 @@
 		CE412EA419D9A1E4000F294E /* QRCodeReader_swiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeReader_swiftTests.swift; sourceTree = "<group>"; };
 		CEC20A861A14EF0D00E7D0AD /* CameraSwitchIcon.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = CameraSwitchIcon.playground; path = resources/CameraSwitchIcon.playground; sourceTree = "<group>"; };
 		CECCE4CC1A1527DE00071669 /* ReaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReaderView.swift; sourceTree = "<group>"; };
+		CECD170A1AA3531C00A9ACDE /* QRCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeViewController.swift; sourceTree = "<group>"; };
 		CED23DDB1A15079300BE7A72 /* QRCodeReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeReader.swift; sourceTree = "<group>"; };
 		CED23DDD1A1507CB00BE7A72 /* SwitchCameraButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchCameraButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -137,6 +139,7 @@
 				CED23DDB1A15079300BE7A72 /* QRCodeReader.swift */,
 				CED23DDD1A1507CB00BE7A72 /* SwitchCameraButton.swift */,
 				CECCE4CC1A1527DE00071669 /* ReaderView.swift */,
+				CECD170A1AA3531C00A9ACDE /* QRCodeViewController.swift */,
 			);
 			name = QRCodeReader;
 			path = ../QRCodeReader;
@@ -242,6 +245,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CECD170B1AA3531C00A9ACDE /* QRCodeViewController.swift in Sources */,
 				CE412E9119D9A1E4000F294E /* ViewController.swift in Sources */,
 				CECCE4CD1A1527DE00071669 /* ReaderView.swift in Sources */,
 				CED23DDC1A15079300BE7A72 /* QRCodeReader.swift in Sources */,

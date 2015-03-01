@@ -1,0 +1,199 @@
+/*
+* QRCodeReader.swift
+*
+* Copyright 2014-present Yannick Loriot.
+* http://yannickloriot.com
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in
+* all copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
+*
+*/
+
+import UIKit
+import AVFoundation
+
+public final class QRCodeReaderViewController: UIViewController {
+  private var cameraView: ReaderView
+  private var codeReader: QRCodeReader
+  private var cancelButton: UIButton = UIButton()
+  private var switchCameraButton: SwitchCameraButton?
+  
+  weak var delegate: QRCodeReaderViewControllerDelegate?
+  var completionBlock: ((String?) -> ())? {
+    didSet {
+      if let _completionBlock = completionBlock {
+        codeReader.completionBlock = { [unowned self] (resultAsString) in
+          _completionBlock(resultAsString)
+          
+          if let _delegate = self.delegate {
+            if let _resultAsString = resultAsString {
+              _delegate.reader(self, didScanResult: _resultAsString)
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  deinit {
+    codeReader.stopScanning()
+    
+    NSNotificationCenter.defaultCenter().removeObserver(self)
+  }
+  
+  convenience init(cancelButtonTitle: String) {
+    self.init(cancelButtonTitle: cancelButtonTitle, metadataObjectTypes: [AVMetadataObjectTypeQRCode])
+  }
+  
+  convenience init(metadataObjectTypes: [String]) {
+    self.init(cancelButtonTitle: "Cancel", metadataObjectTypes:[AVMetadataObjectTypeQRCode])
+  }
+    
+  convenience init(cancelButtonTitle: String, metadataObjectTypes: [String]) {
+    let reader = QRCodeReader(metadataObjectTypes: metadataObjectTypes)
+    
+    self.init(cancelButtonTitle: cancelButtonTitle, coderReader: reader)
+  }
+  
+  required public init(cancelButtonTitle: String, coderReader reader: QRCodeReader) {
+    cameraView = ReaderView()
+    codeReader = reader
+    
+    super.init()
+    
+    view.backgroundColor = UIColor.blackColor()
+
+    setupUIComponentsWithCancelButtonTitle(cancelButtonTitle)
+    setupAutoLayoutConstraints()
+
+    cameraView.layer.insertSublayer(codeReader.previewLayer, atIndex: 0)
+    
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "orientationDidChanged:", name: UIDeviceOrientationDidChangeNotification, object: nil)
+  }
+  
+  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    cameraView = ReaderView()
+    codeReader = QRCodeReader(metadataObjectTypes: [])
+    
+    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+  }
+  
+  required public init(coder aDecoder: NSCoder) {
+    cameraView = ReaderView()
+    codeReader = QRCodeReader(metadataObjectTypes: [])
+    
+    super.init(coder: aDecoder)
+  }
+  
+  override public func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    codeReader.startScanning()
+  }
+  
+  override public func viewWillDisappear(animated: Bool) {
+    codeReader.stopScanning()
+    
+    super.viewWillDisappear(animated)
+  }
+  
+  override public func viewWillLayoutSubviews() {
+    super.viewWillLayoutSubviews()
+    
+    codeReader.previewLayer.frame = view.bounds
+  }
+  
+  // MARK: - Managing the Orientation
+  
+  func orientationDidChanged(notification: NSNotification) {
+    cameraView.setNeedsDisplay()
+    
+    if codeReader.previewLayer.connection != nil {
+      let currentDevice = UIDevice.currentDevice()
+      
+      codeReader.previewLayer.connection.videoOrientation = QRCodeReader.videoOrientationFromDeviceOrientation(currentDevice.orientation)
+    }
+  }
+  
+  // MARK: - Initializing the AV Components
+  
+  private func setupUIComponentsWithCancelButtonTitle(cancelButtonTitle: String) {
+    cameraView.clipsToBounds = true
+    cameraView.setTranslatesAutoresizingMaskIntoConstraints(false)
+    view.addSubview(cameraView)
+    
+    codeReader.previewLayer.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height)
+    
+    if codeReader.previewLayer.connection.supportsVideoOrientation {
+      let currentDevice = UIDevice.currentDevice()
+      
+      codeReader.previewLayer.connection.videoOrientation = QRCodeReader.videoOrientationFromDeviceOrientation(currentDevice.orientation)
+    }
+    
+    if codeReader.hasFrontDevice() {
+      let newSwitchCameraButton = SwitchCameraButton()
+      newSwitchCameraButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+      newSwitchCameraButton.addTarget(self, action: "switchCameraAction:", forControlEvents: .TouchUpInside)
+      view.addSubview(newSwitchCameraButton)
+      
+      switchCameraButton = newSwitchCameraButton
+    }
+    
+    cancelButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+    cancelButton.setTitle(cancelButtonTitle, forState: .Normal)
+    cancelButton.setTitleColor(UIColor.grayColor(), forState: .Highlighted)
+    cancelButton.addTarget(self, action: "cancelAction:", forControlEvents: .TouchUpInside)
+    view.addSubview(cancelButton)
+  }
+  
+  private func setupAutoLayoutConstraints() {
+    let views: [NSObject: AnyObject] = ["cameraView": cameraView, "cancelButton": cancelButton]
+    
+    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[cameraView][cancelButton(40)]|", options: .allZeros, metrics: nil, views: views))
+    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[cameraView]|", options: .allZeros, metrics: nil, views: views))
+    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[cancelButton]-|", options: .allZeros, metrics: nil, views: views))
+    
+    if let _switchCameraButton = switchCameraButton {
+      let switchViews: [NSObject: AnyObject] = ["switchCameraButton": _switchCameraButton]
+      
+      view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[switchCameraButton(50)]", options: .allZeros, metrics: nil, views: switchViews))
+      view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[switchCameraButton(70)]|", options: .allZeros, metrics: nil, views: switchViews))
+    }
+  }
+  
+  // MARK: - Catching Button Events
+  
+  func cancelAction(button: UIButton) {
+    codeReader.stopScanning()
+    
+    if let _completionBlock = completionBlock {
+      _completionBlock(nil)
+    }
+    
+    delegate?.readerDidCancel(self)
+  }
+  
+  func switchCameraAction(button: SwitchCameraButton) {
+    codeReader.switchDeviceInput()
+  }
+}
+
+protocol QRCodeReaderViewControllerDelegate: class {
+  func reader(reader: QRCodeReaderViewController, didScanResult result: String)
+  func readerDidCancel(reader: QRCodeReaderViewController)
+}

@@ -26,8 +26,8 @@
 
 import UIKit
 
-class ViewController: UIViewController, QRCodeReaderDelegate {
-    lazy var reader: QRCodeReader = QRCodeReader(cancelButtonTitle: "Cancel")
+class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
+    lazy var reader: QRCodeReaderViewController = QRCodeReaderViewController(cancelButtonTitle: "Cancel")
     
     @IBAction func scanAction(sender: AnyObject) {
         reader.modalPresentationStyle = .FormSheet
@@ -42,11 +42,11 @@ class ViewController: UIViewController, QRCodeReaderDelegate {
     
     // MARK: - QRCodeReader Delegate Methods
     
-    func reader(reader: QRCodeReader, didScanResult result: String) {
+    func reader(reader: QRCodeReaderViewController, didScanResult result: String) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func readerDidCancel(reader: QRCodeReader) {
+    func readerDidCancel(reader: QRCodeReaderViewController) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 }

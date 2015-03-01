@@ -27,11 +27,8 @@
 import UIKit
 import AVFoundation
 
-class QRCodeReader: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
-  private var cameraView: ReaderView = ReaderView()
-  private var cancelButton: UIButton = UIButton()
-  private var switchCameraButton: SwitchCameraButton?
-  
+/// Reader object base on the `AVCaptureDevice` to read / scan 1D and 2D codes.
+public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegate {
   private var defaultDevice: AVCaptureDevice? = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
   private var frontDevice: AVCaptureDevice?   = {
     for device in AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo) {
@@ -41,7 +38,7 @@ class QRCodeReader: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         }
       }
     }
-  
+    
     return nil
     }()
   private lazy var defaultDeviceInput: AVCaptureDeviceInput? = {
@@ -60,127 +57,26 @@ class QRCodeReader: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     }()
   private var metadataOutput: AVCaptureMetadataOutput       = AVCaptureMetadataOutput()
   private var session: AVCaptureSession                     = AVCaptureSession()
-  private lazy var previewLayer: AVCaptureVideoPreviewLayer = { return AVCaptureVideoPreviewLayer(session: self.session) }()
   
-  weak var delegate: QRCodeReaderDelegate?
-  var completionBlock: ((String?) -> ())?
+    /// CALayer that you use to display video as it is being captured by an input device.
+  public lazy var previewLayer: AVCaptureVideoPreviewLayer = { return AVCaptureVideoPreviewLayer(session: self.session) }()
   
-  deinit {
-    NSNotificationCenter.defaultCenter().removeObserver(self)
-  }
+  /// An array of strings identifying the types of metadata objects to process.
+  public let metadataObjectTypes: [String]
   
-  required init(cancelButtonTitle: String) {
+  /// Block is executing when a QRCode or when the user did stopped the scan.
+  public var completionBlock: ((String?) -> ())?
+  
+  init(metadataObjectTypes types: [String]) {
+    metadataObjectTypes = types
+    
     super.init()
     
     configureDefaultComponents()
-    setupUIComponentsWithCancelButtonTitle(cancelButtonTitle)
-    setupAutoLayoutConstraints()
-    
-    view.backgroundColor = UIColor.blackColor()
-    
-    cameraView.layer.insertSublayer(previewLayer, atIndex: 0)
-  }
-  
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-  }
-  
-  required init(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
-  }
-  
-  override func viewWillAppear(animated: Bool) {
-    super.viewWillAppear(animated)
-    
-    startScanning()
-    
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: "orientationDidChanged:", name: UIDeviceOrientationDidChangeNotification, object: nil)
-  }
-  
-  override func viewWillDisappear(animated: Bool) {
-    stopScanning()
-    
-    super.viewWillDisappear(animated)
-  }
-  
-  override func viewWillLayoutSubviews() {
-    previewLayer.frame = view.bounds
-  }
-  
-  // MARK: - Managing the Orientation
-  
-  func orientationDidChanged(notification: NSNotification) {
-    cameraView.setNeedsDisplay()
-    
-    if previewLayer.connection != nil {
-      var interfaceOrientation: UIInterfaceOrientation = .Portrait
-      
-      switch (UIDevice.currentDevice().orientation) {
-      case .LandscapeLeft:
-        interfaceOrientation = .LandscapeRight
-      case .LandscapeRight:
-        interfaceOrientation = .LandscapeLeft
-      case .PortraitUpsideDown:
-        interfaceOrientation = .PortraitUpsideDown
-      default:
-        interfaceOrientation = .Portrait
-      }
-      
-      previewLayer.connection.videoOrientation = QRCodeReader.videoOrientationFromInterfaceOrientation(interfaceOrientation)
-    }
-  }
-  
-  class func videoOrientationFromInterfaceOrientation(interfaceOrientation: UIInterfaceOrientation) -> AVCaptureVideoOrientation {
-    switch (interfaceOrientation) {
-    case .LandscapeLeft:
-      return .LandscapeLeft
-    case .LandscapeRight:
-      return .LandscapeRight
-    case .Portrait:
-      return .Portrait
-    default:
-      return .PortraitUpsideDown
-    }
   }
   
   // MARK: - Initializing the AV Components
-  
-  private func setupUIComponentsWithCancelButtonTitle(cancelButtonTitle: String) {
-    cameraView.clipsToBounds = true
-    cameraView.setTranslatesAutoresizingMaskIntoConstraints(false)
-    view.addSubview(cameraView)
-    
-    if let _frontDevice = frontDevice {
-      let newSwitchCameraButton = SwitchCameraButton()
-      newSwitchCameraButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-      newSwitchCameraButton.addTarget(self, action: "switchCameraAction:", forControlEvents: .TouchUpInside)
-      view.addSubview(newSwitchCameraButton)
-      
-      switchCameraButton = newSwitchCameraButton
-    }
-    
-    cancelButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-    cancelButton.setTitle(cancelButtonTitle, forState: .Normal)
-    cancelButton.setTitleColor(UIColor.grayColor(), forState: .Highlighted)
-    cancelButton.addTarget(self, action: "cancelAction:", forControlEvents: .TouchUpInside)
-    view.addSubview(cancelButton)
-  }
-  
-  private func setupAutoLayoutConstraints() {
-    let views: [NSObject: AnyObject] = ["cameraView": cameraView, "cancelButton": cancelButton]
-    
-    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[cameraView][cancelButton(40)]|", options: .allZeros, metrics: nil, views: views))
-    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[cameraView]|", options: .allZeros, metrics: nil, views: views))
-    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[cancelButton]-|", options: .allZeros, metrics: nil, views: views))
-    
-    if let _switchCameraButton = switchCameraButton {
-      let switchViews: [NSObject: AnyObject] = ["switchCameraButton": _switchCameraButton]
-      
-      view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[switchCameraButton(50)]", options: .allZeros, metrics: nil, views: switchViews))
-      view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[switchCameraButton(70)]|", options: .allZeros, metrics: nil, views: switchViews))
-    }
-  }
-  
+
   private func configureDefaultComponents() {
     session.addOutput(metadataOutput)
     
@@ -189,19 +85,12 @@ class QRCodeReader: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     }
     
     metadataOutput.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())
-    if let _availableMetadataObjectTypes = metadataOutput.availableMetadataObjectTypes as? [String] {
-      if _availableMetadataObjectTypes.filter({ $0 == AVMetadataObjectTypeQRCode }).count > 0 {
-        metadataOutput.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
-      }
-    }
+    metadataOutput.metadataObjectTypes = metadataObjectTypes
     previewLayer.videoGravity          = AVLayerVideoGravityResizeAspectFill
-
-    if previewLayer.connection != nil && previewLayer.connection.supportsVideoOrientation {
-      previewLayer.connection.videoOrientation = QRCodeReader.videoOrientationFromInterfaceOrientation(interfaceOrientation)
-    }
   }
   
-  private func switchDeviceInput() {
+  /// Switch between the back and the front camera.
+  public func switchDeviceInput() {
     if let _frontDeviceInput = frontDeviceInput {
       session.beginConfiguration()
       
@@ -218,37 +107,44 @@ class QRCodeReader: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
   
   // MARK: - Controlling Reader
   
-  private func startScanning() {
+  /// Starts scanning the codes.
+  public func startScanning() {
     if !session.running {
       session.startRunning()
     }
   }
   
-  private func stopScanning() {
+  /// Stops scanning the codes.
+  public func stopScanning() {
     if session.running {
       session.stopRunning()
     }
   }
   
-  // MARK: - Catching Button Events
-  
-  func cancelAction(button: UIButton) {
-    stopScanning()
-    
-    if let _completionBlock = completionBlock {
-      _completionBlock(nil)
-    }
-    
-    delegate?.readerDidCancel(self)
+  /// Returns true whether a front device is available.
+  public func hasFrontDevice() -> Bool {
+    return frontDevice != nil
   }
   
-  func switchCameraAction(button: SwitchCameraButton) {
-    switchDeviceInput()
+  // MARK: - Managing the Orientation
+  
+  /// Returns the video orientation correspongind to the given device orientation.
+  public class func videoOrientationFromDeviceOrientation(deviceOrientation: UIDeviceOrientation) -> AVCaptureVideoOrientation {
+    switch (deviceOrientation) {
+    case .LandscapeLeft:
+      return .LandscapeRight
+    case .LandscapeRight:
+      return .LandscapeLeft
+    case .Portrait:
+      return .Portrait
+    default:
+      return .PortraitUpsideDown
+    }
   }
   
   // MARK: - AVCaptureMetadataOutputObjects Delegate Methods
   
-  func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
+  public func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
     for current in metadataObjects {
       if let _readableCodeObject = current as? AVMetadataMachineReadableCodeObject {
         if _readableCodeObject.type == AVMetadataObjectTypeQRCode {
@@ -259,15 +155,8 @@ class QRCodeReader: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
           if let _completionBlock = completionBlock {
             _completionBlock(scannedResult)
           }
-          
-          delegate?.reader(self, didScanResult: scannedResult)
         }
       }
     }
   }
-}
-
-protocol QRCodeReaderDelegate: class {
-  func reader(reader: QRCodeReader, didScanResult result: String)
-  func readerDidCancel(reader: QRCodeReader)
 }
