@@ -8,6 +8,45 @@ It provides a default view controller to display the camera view with the scan a
 
 ### Installation
 
+The recommended approach to use _QRCodeReaderViewController_ in your project is using the [CocoaPods](http://cocoapods.org/) package manager, as it provides flexible dependency management and dead simple installation.
+
+#### CocoaPods
+
+Install CocoaPods if not already available:
+
+``` bash
+$ [sudo] gem install cocoapods
+$ pod setup
+```
+Go to the directory of your Xcode project, and Create and Edit your Podfile and add _QRCodeReade.swift_:
+
+``` bash
+$ cd /path/to/MyProject
+$ touch Podfile
+$ edit Podfile
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
+pod 'QRCodeReader.swift', '~> 3.0.0'
+```
+
+Install into your project:
+
+``` bash
+$ pod install
+```
+
+Open your project in Xcode from the .xcworkspace file (not the usual project file)
+
+``` bash
+$ open MyProject.xcworkspace
+```
+
+Note that you have to use CocoaPods version 0.36, the pre-released version which supports swift. If you don't already have it, you can grab it with a single command.
+
+``` bash
+[sudo] gem install cocoapods --pre
+```
+
 #### Manually
 
 [Download](https://github.com/YannickL/QRCodeReader.swift/archive/master.zip) the project and copy the `QRCodeReader` folder into your project to use it in.
