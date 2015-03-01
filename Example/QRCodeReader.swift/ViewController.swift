@@ -25,9 +25,10 @@
 */
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
-    lazy var reader: QRCodeReaderViewController = QRCodeReaderViewController(cancelButtonTitle: "Cancel")
+    lazy var reader = QRCodeReaderViewController(metadataObjectTypes: [AVMetadataObjectTypeQRCode])
     
     @IBAction func scanAction(sender: AnyObject) {
         reader.modalPresentationStyle = .FormSheet

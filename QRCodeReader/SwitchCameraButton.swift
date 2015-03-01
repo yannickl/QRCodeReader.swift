@@ -26,7 +26,8 @@
 
 import UIKit
 
-@IBDesignable class SwitchCameraButton: UIButton {
+/// The camera switch button.
+@IBDesignable final class SwitchCameraButton: UIButton {
   @IBInspectable var edgeColor: UIColor = UIColor.whiteColor() {
     didSet {
       setNeedsDisplay()

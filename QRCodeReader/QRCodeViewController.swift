@@ -27,8 +27,9 @@
 import UIKit
 import AVFoundation
 
+/// Convenient controller to display a view to scan/read 1D or 2D bar codes like the QRCodes. It is based on the `AVFoundation` framework from Apple. It aims to replace ZXing or ZBar for iOS 7 and over.
 public final class QRCodeReaderViewController: UIViewController {
-  private var cameraView: ReaderView
+  private var cameraView: ReaderOverlayView
   private var codeReader: QRCodeReader
   private var cancelButton: UIButton = UIButton()
   private var switchCameraButton: SwitchCameraButton?
@@ -56,22 +57,26 @@ public final class QRCodeReaderViewController: UIViewController {
     NSNotificationCenter.defaultCenter().removeObserver(self)
   }
   
+  /// Initializes a view controller to read QRCodes from a displayed video preview and a cancel button to be go back.
   convenience init(cancelButtonTitle: String) {
     self.init(cancelButtonTitle: cancelButtonTitle, metadataObjectTypes: [AVMetadataObjectTypeQRCode])
   }
   
+  /// Initializes a reader view controller with a list of metadata object types.
   convenience init(metadataObjectTypes: [String]) {
     self.init(cancelButtonTitle: "Cancel", metadataObjectTypes:[AVMetadataObjectTypeQRCode])
   }
-    
+  
+  /// Initializes a view controller to read wanted metadata object types from a displayed video preview and a cancel button to be go back.
   convenience init(cancelButtonTitle: String, metadataObjectTypes: [String]) {
     let reader = QRCodeReader(metadataObjectTypes: metadataObjectTypes)
     
     self.init(cancelButtonTitle: cancelButtonTitle, coderReader: reader)
   }
   
+  /// Initializes a view controller using a cancel button title and a code reader.
   required public init(cancelButtonTitle: String, coderReader reader: QRCodeReader) {
-    cameraView = ReaderView()
+    cameraView = ReaderOverlayView()
     codeReader = reader
     
     super.init()
@@ -87,14 +92,14 @@ public final class QRCodeReaderViewController: UIViewController {
   }
   
   override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-    cameraView = ReaderView()
+    cameraView = ReaderOverlayView()
     codeReader = QRCodeReader(metadataObjectTypes: [])
     
     super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
   }
   
   required public init(coder aDecoder: NSCoder) {
-    cameraView = ReaderView()
+    cameraView = ReaderOverlayView()
     codeReader = QRCodeReader(metadataObjectTypes: [])
     
     super.init(coder: aDecoder)
@@ -193,7 +198,11 @@ public final class QRCodeReaderViewController: UIViewController {
   }
 }
 
+/// This protocol defines delegate methods for objects that implements the `QRCodeReaderDelegate`. The methods of the protocol allow the delegate to be notified when the reader did scan result and or when the user wants to stop to read some QRCodes.
 protocol QRCodeReaderViewControllerDelegate: class {
+  /// Tells the delegate that the reader did scan a code.
   func reader(reader: QRCodeReaderViewController, didScanResult result: String)
+  
+  /// Tells the delegate that the user wants to stop scanning codes.
   func readerDidCancel(reader: QRCodeReaderViewController)
 }

@@ -1,8 +1,8 @@
 ![QRCodeReader.swift](http://yannickloriot.com/resources/qrcodereader.swift-logo.png)
 
-The _QRCodeReader.swift_ is a simple QRCode Reader/Scanner based on the _AVFoundation_ framework from Apple written in swift. It aims to replace ZXing or ZBar for iOS 8 and over.
+The _QRCodeReader.swift_ was initialy a simple QRCode reader but it now lets you the possibility to specify the [format type](https://developer.apple.com/library/ios/documentation/AVFoundation/Reference/AVMetadataMachineReadableCodeObject_Class/index.html#//apple_ref/doc/constant_group/Machine_Readable_Object_Types) you want to decode. It is based on the `AVFoundation` framework from Apple in order to replace ZXing or ZBar for iOS 8 and over.
 
-It also allows you to switch between the front and the back cameras.
+It provides a default view controller to display the camera view with the scan area overlay and it also provides a button to switch between the front and the back cameras.
 
 ![screenshot](http://yannickloriot.com/resources/qrcodereader.swift-screenshot.jpg)
 
@@ -17,7 +17,7 @@ It also allows you to switch between the front and the back cameras.
 ```swift
 // Good practive: create the reader lazily to avoid cpu overload during the
 // initialization and each time we need to scan a QRCode
-lazy var reader: QRCodeReader = QRCodeReader(cancelButtonTitle: "Cancel")
+lazy var reader = QRCodeReaderViewController(metadataObjectTypes: [AVMetadataObjectTypeQRCode])
 
 @IBAction func scanAction(sender: AnyObject) {
   // Retrieve the QRCode content
