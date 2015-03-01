@@ -69,7 +69,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   
   init(metadataObjectTypes types: [String]) {
     metadataObjectTypes = types
-    
+
     super.init()
     
     configureDefaultComponents()
@@ -150,7 +150,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
         if _readableCodeObject.type == AVMetadataObjectTypeQRCode {
           stopScanning()
           
-          let scannedResult: String = _readableCodeObject.stringValue
+          let scannedResult = _readableCodeObject.stringValue
           
           if let _completionBlock = completionBlock {
             _completionBlock(scannedResult)
