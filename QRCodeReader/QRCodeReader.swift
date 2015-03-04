@@ -142,6 +142,45 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
     }
   }
   
+  // MARK: - Checking the Reader Availabilities
+  
+  /// Checks whethere the reader is available
+  class func isAvailable() -> Bool {
+    let videoDevices = AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo)
+    
+    if videoDevices.count == 0 {
+      return false
+    }
+    
+    let captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo) as AVCaptureDevice
+    
+    var error: NSError?
+    let deviceInput = AVCaptureDeviceInput.deviceInputWithDevice(captureDevice, error: &error) as AVCaptureDeviceInput
+    
+    if let _error = error {
+      return false
+    }
+    
+    return true
+  }
+  
+  /// Checks and return whether the given metadata object types are available
+  class func areMetadataObjectTypesAvailable(metadataObjectTypes: [String]) -> Bool {
+    if !isAvailable() {
+      return false
+    }
+    
+    let output = AVCaptureMetadataOutput()
+    
+    for metadataObjectType in metadataObjectTypes {
+      if !contains(output.availableMetadataObjectTypes, { $0 as String == metadataObjectType }) {
+        return false
+      }
+    }
+    
+    return true
+  }
+  
   // MARK: - AVCaptureMetadataOutputObjects Delegate Methods
   
   public func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
