@@ -35,21 +35,7 @@ public final class QRCodeReaderViewController: UIViewController {
   private var switchCameraButton: SwitchCameraButton?
   
   weak var delegate: QRCodeReaderViewControllerDelegate?
-  var completionBlock: ((String?) -> ())? {
-    didSet {
-      if let _completionBlock = completionBlock {
-        codeReader?.completionBlock = { [unowned self] (resultAsString) in
-          _completionBlock(resultAsString)
-          
-          if let _delegate = self.delegate {
-            if let _resultAsString = resultAsString {
-              _delegate.reader(self, didScanResult: _resultAsString)
-            }
-          }
-        }
-      }
-    }
-  }
+  var completionBlock: ((String?) -> ())?
   
   deinit {
     codeReader?.stopScanning()
@@ -80,6 +66,18 @@ public final class QRCodeReaderViewController: UIViewController {
     
     codeReader           = reader
     view.backgroundColor = UIColor.blackColor()
+    
+    codeReader?.completionBlock = { [unowned self] (resultAsString) in
+      if let _completionBlock = self.completionBlock {
+        _completionBlock(resultAsString)
+      }
+      
+      if let _delegate = self.delegate {
+        if let _resultAsString = resultAsString {
+          _delegate.reader(self, didScanResult: _resultAsString)
+        }
+      }
+    }
 
     setupUIComponentsWithCancelButtonTitle(cancelButtonTitle)
     setupAutoLayoutConstraints()
