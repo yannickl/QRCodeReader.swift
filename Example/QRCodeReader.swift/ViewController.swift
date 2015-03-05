@@ -31,14 +31,22 @@ class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
     lazy var reader = QRCodeReaderViewController(metadataObjectTypes: [AVMetadataObjectTypeQRCode])
     
     @IBAction func scanAction(sender: AnyObject) {
+      if QRCodeReader.isAvailable() && QRCodeReader.supportsMetadataObjectTypes() {
         reader.modalPresentationStyle = .FormSheet
         reader.delegate               = self
         
         reader.completionBlock = { (result: String?) in
-            println(result)
+          println(result)
         }
         
         presentViewController(reader, animated: true, completion: nil)
+      }
+      else {
+        let alert = UIAlertController(title: "Error", message: "Reader not supported by the current device", preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
+        
+        presentViewController(alert, animated: true, completion: nil)
+      }
     }
     
     // MARK: - QRCodeReader Delegate Methods

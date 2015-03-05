@@ -26,7 +26,7 @@ $ touch Podfile
 $ edit Podfile
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
-pod 'QRCodeReader.swift', '~> 3.1.0'
+pod 'QRCodeReader.swift', '~> 3.1.1'
 ```
 
 Install into your project:
@@ -41,7 +41,7 @@ Open your project in Xcode from the .xcworkspace file (not the usual project fil
 $ open MyProject.xcworkspace
 ```
 
-Note that you have to use CocoaPods version 0.36, the pre-released version which supports swift. If you don't already have it, you can grab it with a single command.
+*Note that you have to use CocoaPods version 0.36, the pre-released version which supports swift. If you don't already have it, you can grab it with a single command.*
 
 ``` bash
 [sudo] gem install cocoapods --pre
@@ -83,6 +83,8 @@ func readerDidCancel(reader: QRCodeReader) {
   self.dismissViewControllerAnimated(true, completion: nil)
 }
 ```
+
+*Note that you should check whether the device supports the reader library by using the `QRCodeReader.isAvailable()` and the `QRCodeReader.supportsMetadataObjectTypes()` methods.*
 
 ## Contact
 

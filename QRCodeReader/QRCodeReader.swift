@@ -164,15 +164,18 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
     return true
   }
   
-  /// Checks and return whether the given metadata object types are available
-  class func areMetadataObjectTypesAvailable(metadataObjectTypes: [String]) -> Bool {
-    if !isAvailable() {
-      return false
-    }
-    
+  /// Checks and return whether the given metadata object types are supported by the current device
+  class func supportsMetadataObjectTypes(_ metadataTypes: [String]? = nil) -> Bool {
     let output = AVCaptureMetadataOutput()
     
-    for metadataObjectType in metadataObjectTypes {
+    var metadataObjectTypes = metadataTypes
+    
+    if metadataObjectTypes == nil || metadataObjectTypes?.count == 0 {
+      // Check the QRCode metadata object type by default
+      metadataObjectTypes = [AVMetadataObjectTypeQRCode]
+    }
+    
+    for metadataObjectType in metadataObjectTypes! {
       if !contains(output.availableMetadataObjectTypes, { $0 as String == metadataObjectType }) {
         return false
       }
