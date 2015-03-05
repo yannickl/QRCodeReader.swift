@@ -55,8 +55,8 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
     
     return nil
     }()
-  private var metadataOutput: AVCaptureMetadataOutput       = AVCaptureMetadataOutput()
-  private var session: AVCaptureSession                     = AVCaptureSession()
+  private var metadataOutput = AVCaptureMetadataOutput()
+  private var session        = AVCaptureSession()
   
     /// CALayer that you use to display video as it is being captured by an input device.
   public lazy var previewLayer: AVCaptureVideoPreviewLayer = { return AVCaptureVideoPreviewLayer(session: self.session) }()
@@ -166,7 +166,18 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   
   /// Checks and return whether the given metadata object types are supported by the current device
   class func supportsMetadataObjectTypes(_ metadataTypes: [String]? = nil) -> Bool {
-    let output = AVCaptureMetadataOutput()
+    if !isAvailable() {
+      return false
+    }
+
+    // Setup components
+    let captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo) as AVCaptureDevice
+    let deviceInput   = AVCaptureDeviceInput.deviceInputWithDevice(captureDevice, error: nil) as AVCaptureDeviceInput
+    let output        = AVCaptureMetadataOutput()
+    let session       = AVCaptureSession()
+    
+    session.addInput(deviceInput)
+    session.addOutput(output)
     
     var metadataObjectTypes = metadataTypes
     

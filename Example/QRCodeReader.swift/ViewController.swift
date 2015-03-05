@@ -31,7 +31,7 @@ class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
     lazy var reader = QRCodeReaderViewController(metadataObjectTypes: [AVMetadataObjectTypeQRCode])
     
     @IBAction func scanAction(sender: AnyObject) {
-      if QRCodeReader.isAvailable() && QRCodeReader.supportsMetadataObjectTypes() {
+      if QRCodeReader.supportsMetadataObjectTypes() {
         reader.modalPresentationStyle = .FormSheet
         reader.delegate               = self
         

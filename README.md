@@ -26,7 +26,7 @@ $ touch Podfile
 $ edit Podfile
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
-pod 'QRCodeReader.swift', '~> 3.1.1'
+pod 'QRCodeReader.swift', '~> 3.1.2'
 ```
 
 Install into your project:
@@ -84,7 +84,7 @@ func readerDidCancel(reader: QRCodeReader) {
 }
 ```
 
-*Note that you should check whether the device supports the reader library by using the `QRCodeReader.isAvailable()` and the `QRCodeReader.supportsMetadataObjectTypes()` methods.*
+*Note that you should check whether the device supports the reader library by using the `QRCodeReader.isAvailable()` or the `QRCodeReader.supportsMetadataObjectTypes()` methods.*
 
 ## Contact
 
