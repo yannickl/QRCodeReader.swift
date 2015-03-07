@@ -128,13 +128,13 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   
   // MARK: - Managing the Orientation
   
-  /// Returns the video orientation correspongind to the given device orientation.
-  public class func videoOrientationFromDeviceOrientation(deviceOrientation: UIDeviceOrientation) -> AVCaptureVideoOrientation {
-    switch (deviceOrientation) {
+  /// Returns the video orientation correspongind to the given interface orientation.
+  public class func videoOrientationFromInterfaceOrientation(orientation: UIInterfaceOrientation) -> AVCaptureVideoOrientation {
+    switch (orientation) {
     case .LandscapeLeft:
-      return .LandscapeRight
-    case .LandscapeRight:
       return .LandscapeLeft
+    case .LandscapeRight:
+      return .LandscapeRight
     case .Portrait:
       return .Portrait
     default:

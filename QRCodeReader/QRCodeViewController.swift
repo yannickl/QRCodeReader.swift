@@ -119,9 +119,9 @@ public final class QRCodeReaderViewController: UIViewController {
     cameraView.setNeedsDisplay()
     
     if codeReader?.previewLayer.connection != nil {
-      let currentDevice = UIDevice.currentDevice()
+      let orientation = UIApplication.sharedApplication().statusBarOrientation
       
-      codeReader?.previewLayer.connection.videoOrientation = QRCodeReader.videoOrientationFromDeviceOrientation(currentDevice.orientation)
+      codeReader?.previewLayer.connection.videoOrientation = QRCodeReader.videoOrientationFromInterfaceOrientation(orientation)
     }
   }
   
@@ -136,9 +136,9 @@ public final class QRCodeReaderViewController: UIViewController {
       _codeReader.previewLayer.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height)
       
       if _codeReader.previewLayer.connection.supportsVideoOrientation {
-        let currentDevice = UIDevice.currentDevice()
+        let orientation = UIApplication.sharedApplication().statusBarOrientation
         
-        _codeReader.previewLayer.connection.videoOrientation = QRCodeReader.videoOrientationFromDeviceOrientation(currentDevice.orientation)
+        _codeReader.previewLayer.connection.videoOrientation = QRCodeReader.videoOrientationFromInterfaceOrientation(orientation)
       }
       
       if _codeReader.hasFrontDevice() {
