@@ -44,17 +44,17 @@ public final class QRCodeReaderViewController: UIViewController {
   }
   
   /// Initializes a view controller to read QRCodes from a displayed video preview and a cancel button to be go back.
-  convenience init(cancelButtonTitle: String) {
+  convenience public init(cancelButtonTitle: String) {
     self.init(cancelButtonTitle: cancelButtonTitle, metadataObjectTypes: [AVMetadataObjectTypeQRCode])
   }
   
   /// Initializes a reader view controller with a list of metadata object types.
-  convenience init(metadataObjectTypes: [String]) {
+  convenience public init(metadataObjectTypes: [String]) {
     self.init(cancelButtonTitle: "Cancel", metadataObjectTypes:[AVMetadataObjectTypeQRCode])
   }
   
   /// Initializes a view controller to read wanted metadata object types from a displayed video preview and a cancel button to be go back.
-  convenience init(cancelButtonTitle: String, metadataObjectTypes: [String]) {
+  convenience public init(cancelButtonTitle: String, metadataObjectTypes: [String]) {
     let reader = QRCodeReader(metadataObjectTypes: metadataObjectTypes)
     
     self.init(cancelButtonTitle: cancelButtonTitle, coderReader: reader)
