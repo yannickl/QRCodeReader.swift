@@ -8,8 +8,9 @@ Please keep the list sorted.
 
 ### Lead developer
 
- * [Yannick Loriot](https://github.com/YannickL)
+ * [Yannick Loriot](https://github.com/yannickl)
 
 ### People and companies, who have contributed
 
- * 
+ * [Daniel Tartaglia](https://github.com/dtartaglia)
+ * [Mesashi Beheim](https://github.com/beheim)
