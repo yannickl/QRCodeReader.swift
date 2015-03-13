@@ -45,11 +45,7 @@ $ open MyProject.xcworkspace
 
 You can now `import QRCodeReader` framework into your files.
 
-*Note that you have to use CocoaPods version 0.36 or over*
-
-``` bash
-[sudo] gem install cocoapods --pre
-```
+*Note: you have to use CocoaPods version 0.36 or over.*
 
 #### Manually
 
