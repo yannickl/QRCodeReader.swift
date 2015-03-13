@@ -165,7 +165,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   }
   
   /// Checks and return whether the given metadata object types are supported by the current device
-  class func supportsMetadataObjectTypes(_ metadataTypes: [String]? = nil) -> Bool {
+  public class func supportsMetadataObjectTypes(_ metadataTypes: [String]? = nil) -> Bool {
     if !isAvailable() {
       return false
     }

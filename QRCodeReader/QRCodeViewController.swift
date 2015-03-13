@@ -34,8 +34,8 @@ public final class QRCodeReaderViewController: UIViewController {
   private var cancelButton: UIButton = UIButton()
   private var switchCameraButton: SwitchCameraButton?
   
-  weak var delegate: QRCodeReaderViewControllerDelegate?
-  var completionBlock: ((String?) -> ())?
+  public weak var delegate: QRCodeReaderViewControllerDelegate?
+  public var completionBlock: ((String?) -> ())?
   
   deinit {
     codeReader?.stopScanning()
@@ -191,7 +191,7 @@ public final class QRCodeReaderViewController: UIViewController {
 }
 
 /// This protocol defines delegate methods for objects that implements the `QRCodeReaderDelegate`. The methods of the protocol allow the delegate to be notified when the reader did scan result and or when the user wants to stop to read some QRCodes.
-protocol QRCodeReaderViewControllerDelegate: class {
+public protocol QRCodeReaderViewControllerDelegate: class {
   /// Tells the delegate that the reader did scan a code.
   func reader(reader: QRCodeReaderViewController, didScanResult result: String)
   
