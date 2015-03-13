@@ -18,7 +18,7 @@ Install CocoaPods if not already available:
 $ [sudo] gem install cocoapods
 $ pod setup
 ```
-Go to the directory of your Xcode project, and Create and Edit your Podfile and add _QRCodeReade.swift_:
+Go to the directory of your Xcode project, and Create and Edit your Podfile and add _QRCodeReader.swift_:
 
 ``` bash
 $ cd /path/to/MyProject
@@ -26,6 +26,8 @@ $ touch Podfile
 $ edit Podfile
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
+
+use_frameworks!
 pod 'QRCodeReader.swift', '~> 3.1.7'
 ```
 
@@ -35,11 +37,13 @@ Install into your project:
 $ pod install
 ```
 
-Open your project in Xcode from the .xcworkspace file (not the usual project file)
+Open your project in Xcode from the .xcworkspace file (not the usual project file):
 
 ``` bash
 $ open MyProject.xcworkspace
 ```
+
+You can now `import QRCodeReader` framework into your files.
 
 *Note that you have to use CocoaPods version 0.36 or over*
 
