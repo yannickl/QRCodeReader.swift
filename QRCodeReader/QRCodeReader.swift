@@ -67,7 +67,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   /// Block is executing when a QRCode or when the user did stopped the scan.
   public var completionBlock: ((String?) -> ())?
   
-  init(metadataObjectTypes types: [String]) {
+  public init(metadataObjectTypes types: [String]) {
     metadataObjectTypes = types
 
     super.init()
