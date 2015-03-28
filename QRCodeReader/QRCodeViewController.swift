@@ -30,11 +30,14 @@ import AVFoundation
 /// Convenient controller to display a view to scan/read 1D or 2D bar codes like the QRCodes. It is based on the `AVFoundation` framework from Apple. It aims to replace ZXing or ZBar for iOS 7 and over.
 public final class QRCodeReaderViewController: UIViewController {
   private var cameraView = ReaderOverlayView()
-  private var codeReader: QRCodeReader?
   private var cancelButton: UIButton = UIButton()
+  private var codeReader: QRCodeReader?
   private var switchCameraButton: SwitchCameraButton?
   
+  /// The receiver's delegate that will be called when a result is found.
   public weak var delegate: QRCodeReaderViewControllerDelegate?
+  
+  /// The completion blocak that will be called when a result is found.
   public var completionBlock: ((String?) -> ())?
   
   deinit {
@@ -50,7 +53,7 @@ public final class QRCodeReaderViewController: UIViewController {
   
   /// Initializes a reader view controller with a list of metadata object types.
   convenience public init(metadataObjectTypes: [String]) {
-    self.init(cancelButtonTitle: "Cancel", metadataObjectTypes:[AVMetadataObjectTypeQRCode])
+    self.init(cancelButtonTitle: "Cancel", metadataObjectTypes: metadataObjectTypes)
   }
   
   /// Initializes a view controller to read wanted metadata object types from a displayed video preview and a cancel button to be go back.

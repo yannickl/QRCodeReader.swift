@@ -200,7 +200,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   public func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
     for current in metadataObjects {
       if let _readableCodeObject = current as? AVMetadataMachineReadableCodeObject {
-        if _readableCodeObject.type == AVMetadataObjectTypeQRCode {
+        if contains(metadataObjectTypes, _readableCodeObject.type) {
           stopScanning()
           
           let scannedResult = _readableCodeObject.stringValue
