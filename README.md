@@ -28,7 +28,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 
 use_frameworks!
-pod 'QRCodeReader.swift', '~> 3.1.7'
+pod 'QRCodeReader.swift', '~> 3.1.8'
 ```
 
 Install into your project:
