@@ -40,9 +40,9 @@ final class ReaderOverlayView: UIView {
     return overlay
   }()
   
-  override init() {
-    super.init()
-    
+	init() {
+	super.init(frame: CGRectZero)  // Workaround for init in iOS SDK 8.3
+		
     layer.addSublayer(overlay)
   }
   
