@@ -169,24 +169,24 @@ import UIKit
   
   // MARK: - UIResponder Methods
   
-  override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+  override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
     super.touchesBegan(touches, withEvent: event)
     
     setNeedsDisplay()
   }
 
-  override func touchesMoved(touches: NSSet, withEvent event: UIEvent) {
+  override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
     super.touchesMoved(touches, withEvent: event)
     
     setNeedsDisplay()
   }
   
-  override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
+  override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
     super.touchesEnded(touches, withEvent: event)
     setNeedsDisplay()
   }
   
-  override func touchesCancelled(touches: NSSet!, withEvent event: UIEvent!) {
+  override func touchesCancelled(touches: Set<NSObject>!, withEvent event: UIEvent!) {
     super.touchesCancelled(touches, withEvent: event)
     
     setNeedsDisplay()
