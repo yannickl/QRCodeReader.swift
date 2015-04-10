@@ -155,7 +155,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
     let captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo) as AVCaptureDevice
     
     var error: NSError?
-    let deviceInput = AVCaptureDeviceInput.deviceInputWithDevice(captureDevice, error: &error) as AVCaptureDeviceInput
+    let deviceInput = AVCaptureDeviceInput.deviceInputWithDevice(captureDevice, error: &error) as! AVCaptureDeviceInput
     
     if let _error = error {
       return false
@@ -172,7 +172,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
 
     // Setup components
     let captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo) as AVCaptureDevice
-    let deviceInput   = AVCaptureDeviceInput.deviceInputWithDevice(captureDevice, error: nil) as AVCaptureDeviceInput
+    let deviceInput   = AVCaptureDeviceInput.deviceInputWithDevice(captureDevice, error: nil) as! AVCaptureDeviceInput
     let output        = AVCaptureMetadataOutput()
     let session       = AVCaptureSession()
     
@@ -187,7 +187,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
     }
     
     for metadataObjectType in metadataObjectTypes! {
-      if !contains(output.availableMetadataObjectTypes, { $0 as String == metadataObjectType }) {
+      if !contains(output.availableMetadataObjectTypes, { $0 as! String == metadataObjectType }) {
         return false
       }
     }
