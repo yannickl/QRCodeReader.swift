@@ -1,10 +1,12 @@
 ![QRCodeReader.swift](http://yannickloriot.com/resources/qrcodereader.swift-logo.png)
 
-The _QRCodeReader.swift_ was initialy a simple QRCode reader but it now lets you the possibility to specify the [format type](https://developer.apple.com/library/ios/documentation/AVFoundation/Reference/AVMetadataMachineReadableCodeObject_Class/index.html#//apple_ref/doc/constant_group/Machine_Readable_Object_Types) you want to decode. It is based on the `AVFoundation` framework from Apple in order to replace ZXing or ZBar for iOS 8 and over.
+The _QRCodeReader.swift_ was initialy a simple QRCode reader but it now lets you the possibility to specify the [format type](https://developer.apple.com/library/ios/documentation/AVFoundation/Reference/AVMetadataMachineReadableCodeObject_Class/index.html#//apple_ref/doc/constant_group/Machine_Readable_Object_Types) you want to decode. It is based on the `AVFoundation` framework from Apple in order to replace ZXing or ZBar for iOS 8.3 and over.
 
 It provides a default view controller to display the camera view with the scan area overlay and it also provides a button to switch between the front and the back cameras.
 
 ![screenshot](http://yannickloriot.com/resources/qrcodereader.swift-screenshot.jpg)
+
+*Note: the v4 is compatible with swift 1.2, use the v3 with XCode 6.2 or lower.*
 
 ### Installation
 
@@ -25,10 +27,10 @@ $ cd /path/to/MyProject
 $ touch Podfile
 $ edit Podfile
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '8.0'
+platform :ios, '8.3'
 
 use_frameworks!
-pod 'QRCodeReader.swift', '~> 3.1.8'
+pod 'QRCodeReader.swift', '~> 4.0.0'
 ```
 
 Install into your project:
