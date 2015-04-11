@@ -12,5 +12,6 @@ Please keep the list sorted.
 
 ### People and companies, who have contributed
 
+ * [Alex Kreutz](https://github.com/bbsan2k)
  * [Daniel Tartaglia](https://github.com/dtartaglia)
  * [Mesashi Beheim](https://github.com/beheim)

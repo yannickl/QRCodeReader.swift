@@ -47,8 +47,6 @@ $ open MyProject.xcworkspace
 
 You can now `import QRCodeReader` framework into your files.
 
-*Note: you have to use CocoaPods version 0.36 or over.*
-
 #### Manually
 
 [Download](https://github.com/YannickL/QRCodeReader.swift/archive/master.zip) the project and copy the `QRCodeReader` folder into your project to use it in.
