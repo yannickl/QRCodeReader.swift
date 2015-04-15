@@ -58,15 +58,26 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   private var metadataOutput = AVCaptureMetadataOutput()
   private var session        = AVCaptureSession()
   
+  // MARK: - Managing the Properties
+  
   /// CALayer that you use to display video as it is being captured by an input device.
   public lazy var previewLayer: AVCaptureVideoPreviewLayer = { return AVCaptureVideoPreviewLayer(session: self.session) }()
   
   /// An array of strings identifying the types of metadata objects to process.
   public let metadataObjectTypes: [String]
   
+  // MARK: - Managing the Completion Block
+  
   /// Block is executing when a QRCode or when the user did stopped the scan.
   public var completionBlock: ((String?) -> ())?
   
+  // MARK: - Creating the Code Reader
+  
+  /**
+  Initializes the code reader with an array of metadata object types.
+  
+  :param: metadataObjectTypes An array of strings identifying the types of metadata objects to process.
+  */
   public init(metadataObjectTypes types: [String]) {
     metadataObjectTypes = types
     
@@ -124,7 +135,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   /**
   Indicates whether the session is currently running.
   
-  The value of this property is a BOOL indicating whether the receiver is running.
+  The value of this property is a Bool indicating whether the receiver is running.
   Clients can key value observe the value of this property to be notified when
   the session automatically starts or stops running.
   */
@@ -134,14 +145,22 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
     }
   }
   
-  /// Returns true whether a front device is available.
+  /**
+  Returns true whether a front device is available.
+  
+  :returns: true whether the device has a front device.
+  */
   public func hasFrontDevice() -> Bool {
     return frontDevice != nil
   }
   
   // MARK: - Managing the Orientation
   
-  /// Returns the video orientation correspongind to the given interface orientation.
+  /**
+  Returns the video orientation correspongind to the given interface orientation.
+  
+  :param: orientation The orientation of the app's user interface.
+  */
   public class func videoOrientationFromInterfaceOrientation(orientation: UIInterfaceOrientation) -> AVCaptureVideoOrientation {
     switch (orientation) {
     case .LandscapeLeft:
@@ -157,7 +176,11 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   
   // MARK: - Checking the Reader Availabilities
   
-  /// Checks whethere the reader is available
+  /**
+  Checks whether the reader is available.
+  
+  :returns: A boolean value that indicates whether the reader is available.
+  */
   class func isAvailable() -> Bool {
     let videoDevices = AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo)
     
@@ -177,7 +200,13 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
     return true
   }
   
-  /// Checks and return whether the given metadata object types are supported by the current device
+  /**
+  Checks and return whether the given metadata object types are supported by the current device.
+  
+  :param: metadataTypes An array of strings identifying the types of metadata objects to check.
+  
+  :returns: A boolean value that indicates whether the device supports the given metadata object types.
+  */
   public class func supportsMetadataObjectTypes(_ metadataTypes: [String]? = nil) -> Bool {
     if !isAvailable() {
       return false

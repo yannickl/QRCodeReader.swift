@@ -34,6 +34,8 @@ public final class QRCodeReaderViewController: UIViewController {
   private var codeReader: QRCodeReader?
   private var switchCameraButton: SwitchCameraButton?
   
+  // MARK: - Managing the Callback Responders
+  
   /// The receiver's delegate that will be called when a result is found.
   public weak var delegate: QRCodeReaderViewControllerDelegate?
   
@@ -46,27 +48,53 @@ public final class QRCodeReaderViewController: UIViewController {
     NSNotificationCenter.defaultCenter().removeObserver(self)
   }
   
-  /// Initializes a view controller to read QRCodes from a displayed video preview and a cancel button to be go back.
+  // MARK: - Creating the View Controller
+  
+  /**
+  Initializes a view controller to read QRCodes from a displayed video preview and a cancel button to be go back.
+  
+  :param: cancelButtonTitle The title to use for the cancel button.
+  
+  :see: init(cancelButtonTitle:, metadataObjectTypes:)
+  */
   convenience public init(cancelButtonTitle: String) {
     self.init(cancelButtonTitle: cancelButtonTitle, metadataObjectTypes: [AVMetadataObjectTypeQRCode])
   }
   
-  /// Initializes a reader view controller with a list of metadata object types.
+  /**
+  Initializes a reader view controller with a list of metadata object types.
+  
+  :param: metadataObjectTypes An array of strings identifying the types of metadata objects to process.
+  
+  :see: init(cancelButtonTitle:, metadataObjectTypes:)
+  */
   convenience public init(metadataObjectTypes: [String]) {
     self.init(cancelButtonTitle: "Cancel", metadataObjectTypes: metadataObjectTypes)
   }
   
-  /// Initializes a view controller to read wanted metadata object types from a displayed video preview and a cancel button to be go back.
+  /**
+  Initializes a view controller to read wanted metadata object types from a displayed video preview and a cancel button to be go back.
+  
+  :param: cancelButtonTitle   The title to use for the cancel button.
+  :param: metadataObjectTypes An array of strings identifying the types of metadata objects to process.
+  
+  :see: init(cancelButtonTitle:, coderReader:)
+  */
   convenience public init(cancelButtonTitle: String, metadataObjectTypes: [String]) {
     let reader = QRCodeReader(metadataObjectTypes: metadataObjectTypes)
     
     self.init(cancelButtonTitle: cancelButtonTitle, coderReader: reader)
   }
   
-  /// Initializes a view controller using a cancel button title and a code reader.
+  /**
+  Initializes a view controller using a cancel button title and a code reader.
+  
+  :param: cancelButtonTitle The title to use for the cancel button.
+  :param: coderReader       The code reader object used to scan the bar code.
+  */
   required public init(cancelButtonTitle: String, coderReader reader: QRCodeReader) {
-	super.init(nibName: nil, bundle: nil) // Workaround for init in iOS SDK 8.3
-	
+    super.init(nibName: nil, bundle: nil) // Workaround for init in iOS SDK 8.3
+    
     codeReader           = reader
     view.backgroundColor = UIColor.blackColor()
     
@@ -81,17 +109,13 @@ public final class QRCodeReaderViewController: UIViewController {
         }
       }
     }
-
+    
     setupUIComponentsWithCancelButtonTitle(cancelButtonTitle)
     setupAutoLayoutConstraints()
-
+    
     cameraView.layer.insertSublayer(codeReader!.previewLayer, atIndex: 0)
-
+    
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "orientationDidChanged:", name: UIDeviceOrientationDidChangeNotification, object: nil)
-  }
-  
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
   }
   
   required public init(coder aDecoder: NSCoder) {
@@ -195,11 +219,22 @@ public final class QRCodeReaderViewController: UIViewController {
   }
 }
 
-/// This protocol defines delegate methods for objects that implements the `QRCodeReaderDelegate`. The methods of the protocol allow the delegate to be notified when the reader did scan result and or when the user wants to stop to read some QRCodes.
+/**
+This protocol defines delegate methods for objects that implements the `QRCodeReaderDelegate`. The methods of the protocol allow the delegate to be notified when the reader did scan result and or when the user wants to stop to read some QRCodes.
+*/
 public protocol QRCodeReaderViewControllerDelegate: class {
-  /// Tells the delegate that the reader did scan a code.
+  /**
+  Tells the delegate that the reader did scan a code.
+  
+  :param: reader A code reader object informing the delegate about the scan result.
+  :param: result The result of the scan
+  */
   func reader(reader: QRCodeReaderViewController, didScanResult result: String)
   
-  /// Tells the delegate that the user wants to stop scanning codes.
+  /**
+  Tells the delegate that the user wants to stop scanning codes.
+  
+  :param: reader A code reader object informing the delegate about the cancellation.
+  */
   func readerDidCancel(reader: QRCodeReaderViewController)
 }
