@@ -58,7 +58,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   private var metadataOutput = AVCaptureMetadataOutput()
   private var session        = AVCaptureSession()
   
-    /// CALayer that you use to display video as it is being captured by an input device.
+  /// CALayer that you use to display video as it is being captured by an input device.
   public lazy var previewLayer: AVCaptureVideoPreviewLayer = { return AVCaptureVideoPreviewLayer(session: self.session) }()
   
   /// An array of strings identifying the types of metadata objects to process.
@@ -69,14 +69,14 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   
   public init(metadataObjectTypes types: [String]) {
     metadataObjectTypes = types
-
+    
     super.init()
     
     configureDefaultComponents()
   }
   
   // MARK: - Initializing the AV Components
-
+  
   private func configureDefaultComponents() {
     session.addOutput(metadataOutput)
     
@@ -118,6 +118,19 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   public func stopScanning() {
     if session.running {
       session.stopRunning()
+    }
+  }
+  
+  /**
+  Indicates whether the session is currently running.
+  
+  The value of this property is a BOOL indicating whether the receiver is running.
+  Clients can key value observe the value of this property to be notified when
+  the session automatically starts or stops running.
+  */
+  public var running: Bool {
+    get {
+      return session.running
     }
   }
   
@@ -169,7 +182,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
     if !isAvailable() {
       return false
     }
-
+    
     // Setup components
     let captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo) as AVCaptureDevice
     let deviceInput   = AVCaptureDeviceInput.deviceInputWithDevice(captureDevice, error: nil) as! AVCaptureDeviceInput

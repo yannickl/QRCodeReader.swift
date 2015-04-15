@@ -174,7 +174,7 @@ import UIKit
     
     setNeedsDisplay()
   }
-
+  
   override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
     super.touchesMoved(touches, withEvent: event)
     

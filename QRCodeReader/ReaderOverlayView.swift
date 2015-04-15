@@ -38,11 +38,11 @@ final class ReaderOverlayView: UIView {
     overlay.lineDashPhase   = 0
     
     return overlay
-  }()
+    }()
   
-	init() {
-	super.init(frame: CGRectZero)  // Workaround for init in iOS SDK 8.3
-		
+  init() {
+    super.init(frame: CGRectZero)  // Workaround for init in iOS SDK 8.3
+    
     layer.addSublayer(overlay)
   }
   
@@ -51,9 +51,9 @@ final class ReaderOverlayView: UIView {
     
     layer.addSublayer(overlay)
   }
-
+  
   required init(coder aDecoder: NSCoder) {
-      super.init(coder: aDecoder)
+    super.init(coder: aDecoder)
     
     layer.addSublayer(overlay)
   }
@@ -72,7 +72,7 @@ final class ReaderOverlayView: UIView {
     }
     
     let offsetRect = CGRectOffset(innerRect, 0, 15)
-
+    
     overlay.path  = UIBezierPath(roundedRect: offsetRect
       , cornerRadius: 5).CGPath
   }

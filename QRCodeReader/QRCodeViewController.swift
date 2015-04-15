@@ -98,6 +98,8 @@ public final class QRCodeReaderViewController: UIViewController {
     super.init(coder: aDecoder)
   }
   
+  // MARK: - Responding to View Events
+  
   override public func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
     
