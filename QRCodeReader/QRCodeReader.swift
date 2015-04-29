@@ -92,7 +92,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
     session.addOutput(metadataOutput)
     
     if let _defaultDeviceInput = defaultDeviceInput {
-      session.addInput(defaultDeviceInput)
+      session.addInput(_defaultDeviceInput)
     }
     
     metadataOutput.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())
