@@ -33,6 +33,7 @@ public final class QRCodeReaderViewController: UIViewController {
   private var cancelButton: UIButton = UIButton()
   private var codeReader: QRCodeReader?
   private var switchCameraButton: SwitchCameraButton?
+  private var startScanningAtLoad: Bool = true
 
   // MARK: - Managing the Callback Responders
 
@@ -53,23 +54,25 @@ public final class QRCodeReaderViewController: UIViewController {
   /**
   Initializes a view controller to read QRCodes from a displayed video preview and a cancel button to be go back.
 
-  :param: cancelButtonTitle The title to use for the cancel button.
+  :param: cancelButtonTitle   The title to use for the cancel button.
+  :param: startScanningAtLoad Flag to know whether the view controller start scanning the codes when the view will appear.
 
   :see: init(cancelButtonTitle:, metadataObjectTypes:)
   */
-  convenience public init(cancelButtonTitle: String) {
-    self.init(cancelButtonTitle: cancelButtonTitle, metadataObjectTypes: [AVMetadataObjectTypeQRCode])
+  convenience public init(cancelButtonTitle: String, startScanningAtLoad: Bool = true) {
+    self.init(cancelButtonTitle: cancelButtonTitle, metadataObjectTypes: [AVMetadataObjectTypeQRCode], startScanningAtLoad: startScanningAtLoad)
   }
 
   /**
   Initializes a reader view controller with a list of metadata object types.
 
   :param: metadataObjectTypes An array of strings identifying the types of metadata objects to process.
+  :param: startScanningAtLoad Flag to know whether the view controller start scanning the codes when the view will appear.
 
   :see: init(cancelButtonTitle:, metadataObjectTypes:)
   */
-  convenience public init(metadataObjectTypes: [String]) {
-    self.init(cancelButtonTitle: "Cancel", metadataObjectTypes: metadataObjectTypes)
+  convenience public init(metadataObjectTypes: [String], startScanningAtLoad: Bool = true) {
+    self.init(cancelButtonTitle: "Cancel", metadataObjectTypes: metadataObjectTypes, startScanningAtLoad: startScanningAtLoad)
   }
 
   /**
@@ -77,24 +80,27 @@ public final class QRCodeReaderViewController: UIViewController {
 
   :param: cancelButtonTitle   The title to use for the cancel button.
   :param: metadataObjectTypes An array of strings identifying the types of metadata objects to process.
+  :param: startScanningAtLoad Flag to know whether the view controller start scanning the codes when the view will appear.
 
   :see: init(cancelButtonTitle:, coderReader:)
   */
-  convenience public init(cancelButtonTitle: String, metadataObjectTypes: [String]) {
+  convenience public init(cancelButtonTitle: String, metadataObjectTypes: [String], startScanningAtLoad: Bool = true) {
     let reader = QRCodeReader(metadataObjectTypes: metadataObjectTypes)
 
-    self.init(cancelButtonTitle: cancelButtonTitle, coderReader: reader)
+    self.init(cancelButtonTitle: cancelButtonTitle, coderReader: reader, startScanningAtLoad: startScanningAtLoad)
   }
 
   /**
   Initializes a view controller using a cancel button title and a code reader.
 
-  :param: cancelButtonTitle The title to use for the cancel button.
-  :param: coderReader       The code reader object used to scan the bar code.
+  :param: cancelButtonTitle   The title to use for the cancel button.
+  :param: coderReader         The code reader object used to scan the bar code.
+  :param: startScanningAtLoad Flag to know whether the view controller start scanning the codes when the view will appear.
   */
-  required public init(cancelButtonTitle: String, coderReader reader: QRCodeReader) {
+  required public init(cancelButtonTitle: String, coderReader reader: QRCodeReader, startScanningAtLoad startScan: Bool = true) {
     super.init(nibName: nil, bundle: nil) // Workaround for init in iOS SDK 8.3
 
+    startScanningAtLoad  = startScan
     codeReader           = reader
     view.backgroundColor = UIColor.blackColor()
 
@@ -127,11 +133,13 @@ public final class QRCodeReaderViewController: UIViewController {
   override public func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
 
-    codeReader?.startScanning()
+    if startScanningAtLoad {
+      startScanning()
+    }
   }
 
   override public func viewWillDisappear(animated: Bool) {
-    codeReader?.stopScanning()
+    stopScanning()
 
     super.viewWillDisappear(animated)
   }
@@ -200,6 +208,18 @@ public final class QRCodeReaderViewController: UIViewController {
       view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[switchCameraButton(50)]", options: .allZeros, metrics: nil, views: switchViews))
       view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[switchCameraButton(70)]|", options: .allZeros, metrics: nil, views: switchViews))
     }
+  }
+
+  // MARK: - Controlling the Reader
+
+  /// Starts scanning the codes.
+  public func startScanning() {
+    codeReader?.startScanning()
+  }
+
+  /// Stops scanning the codes.
+  public func stopScanning() {
+    codeReader?.stopScanning()
   }
 
   // MARK: - Catching Button Events
