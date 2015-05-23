@@ -6,7 +6,7 @@ It provides a default view controller to display the camera view with the scan a
 
 ![screenshot](http://yannickloriot.com/resources/qrcodereader.swift-screenshot.jpg)
 
-*Note: the v4 is compatible with swift 1.2, use the v3 with XCode 6.2 or lower.*
+*Note: the v4.x or over are compatibles with swift 1.2, use the v3 with XCode 6.2 or lower.*
 
 ### Installation
 
@@ -27,10 +27,10 @@ $ cd /path/to/MyProject
 $ touch Podfile
 $ edit Podfile
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '8.3'
+platform :ios, '8.0'
 
 use_frameworks!
-pod 'QRCodeReader.swift', '~> 4.1.0'
+pod 'QRCodeReader.swift', '~> 4.2.0'
 ```
 
 Install into your project:
