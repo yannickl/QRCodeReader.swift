@@ -15,3 +15,4 @@ Please keep the list sorted.
  * [Alex Kreutz](https://github.com/bbsan2k)
  * [Daniel Tartaglia](https://github.com/dtartaglia)
  * [Mesashi Beheim](https://github.com/beheim)
+ * [Søren Lind Kristiansen](https://github.com/sorenlind)
