@@ -1,28 +1,28 @@
 /*
-* QRCodeReader.swift
-*
-* Copyright 2014-present Yannick Loriot.
-* http://yannickloriot.com
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*/
+ * QRCodeReader.swift
+ *
+ * Copyright 2014-present Yannick Loriot.
+ * http://yannickloriot.com
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ */
 
 import UIKit
 import AVFoundation
@@ -41,22 +41,34 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
 
     return nil
     }()
-  private lazy var defaultDeviceInput: AVCaptureDeviceInput? = {
+  private var session = AVCaptureSession()
+
+  // MARK: - Getting Inputs and Outputs
+
+  /// Accessing to the `AVCaptureDeviceInput` object representing the default device input (generally the back camera).
+  public lazy var defaultDeviceInput: AVCaptureDeviceInput? = {
     if let _defaultDevice = self.defaultDevice {
       return AVCaptureDeviceInput(device: _defaultDevice, error: nil)
     }
 
     return nil
     }()
-  private lazy var frontDeviceInput: AVCaptureDeviceInput?  = {
+
+  /// Accessing to the `AVCaptureDeviceInput` object representing the front device input.
+  public lazy var frontDeviceInput: AVCaptureDeviceInput?  = {
     if let _frontDevice = self.frontDevice {
       return AVCaptureDeviceInput(device: _frontDevice, error: nil)
     }
 
     return nil
     }()
-  private var metadataOutput = AVCaptureMetadataOutput()
-  private var session        = AVCaptureSession()
+
+  /**
+  Accessing to the `AVCaptureMetadataOutput` object.
+
+  It allows you to configure the scanner to restrict the area of the scan to the overlay one for example.
+  */
+  public private(set) var metadataOutput = AVCaptureMetadataOutput()
 
   // MARK: - Managing the Properties
 
