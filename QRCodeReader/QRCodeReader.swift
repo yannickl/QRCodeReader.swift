@@ -200,16 +200,12 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
       return false
     }
 
-    let captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo) as AVCaptureDevice
+    let captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
 
     var error: NSError?
-    let deviceInput = AVCaptureDeviceInput.deviceInputWithDevice(captureDevice, error: &error) as! AVCaptureDeviceInput
+    AVCaptureDeviceInput.deviceInputWithDevice(captureDevice, error: &error)
 
-    if let _error = error {
-      return false
-    }
-
-    return true
+    return error == nil
   }
 
   /**
@@ -225,7 +221,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
     }
 
     // Setup components
-    let captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo) as AVCaptureDevice
+    let captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
     let deviceInput   = AVCaptureDeviceInput.deviceInputWithDevice(captureDevice, error: nil) as! AVCaptureDeviceInput
     let output        = AVCaptureMetadataOutput()
     let session       = AVCaptureSession()
@@ -233,14 +229,17 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
     session.addInput(deviceInput)
     session.addOutput(output)
 
-    var metadataObjectTypes = metadataTypes
+    let metadataObjectTypes: [String]
 
-    if metadataObjectTypes == nil || metadataObjectTypes?.count == 0 {
-      // Check the QRCode metadata object type by default
+    // Check the QRCode metadata object type by default
+    if let _metadataObjectTypes = metadataTypes where _metadataObjectTypes.count > 0 {
+      metadataObjectTypes = _metadataObjectTypes
+    }
+    else {
       metadataObjectTypes = [AVMetadataObjectTypeQRCode]
     }
 
-    for metadataObjectType in metadataObjectTypes! {
+    for metadataObjectType in metadataObjectTypes {
       if !contains(output.availableMetadataObjectTypes, { $0 as! String == metadataObjectType }) {
         return false
       }
