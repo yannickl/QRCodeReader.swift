@@ -30,7 +30,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 
 use_frameworks!
-pod 'QRCodeReader.swift', '~> 4.3.0'
+pod 'QRCodeReader.swift', '~> 5.0.0'
 ```
 
 Install into your project:
@@ -46,6 +46,23 @@ $ open MyProject.xcworkspace
 ```
 
 You can now `import QRCodeReader` framework into your files.
+
+#### Carthage
+
+[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that automates the process of adding frameworks to your Cocoa application.
+
+You can install Carthage with [Homebrew](http://brew.sh/) using the following command:
+
+```bash
+$ brew update
+$ brew install carthage
+```
+
+To integrate `QRCodeReader` into your Xcode project using Carthage, specify it in your `Cartfile` file:
+
+```ogdl
+github "yannickl/QRCodeReader.swift" >= 5.0.0
+```
 
 #### Manually
 
