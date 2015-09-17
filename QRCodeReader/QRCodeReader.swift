@@ -41,34 +41,30 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
 
     return nil
     }()
-  private var session = AVCaptureSession()
-
-  // MARK: - Getting Inputs and Outputs
-
-  /// Accessing to the `AVCaptureDeviceInput` object representing the default device input (generally the back camera).
-  public lazy var defaultDeviceInput: AVCaptureDeviceInput? = {
+  private lazy var defaultDeviceInput: AVCaptureDeviceInput? = {
     if let _defaultDevice = self.defaultDevice {
-      return AVCaptureDeviceInput(device: _defaultDevice, error: nil)
+      do {
+        return try AVCaptureDeviceInput(device: _defaultDevice)
+      } catch _ {
+        return nil
+      }
     }
 
     return nil
     }()
-
-  /// Accessing to the `AVCaptureDeviceInput` object representing the front device input.
-  public lazy var frontDeviceInput: AVCaptureDeviceInput?  = {
+  private lazy var frontDeviceInput: AVCaptureDeviceInput?  = {
     if let _frontDevice = self.frontDevice {
-      return AVCaptureDeviceInput(device: _frontDevice, error: nil)
+      do {
+        return try AVCaptureDeviceInput(device: _frontDevice)
+      } catch _ {
+        return nil
+      }
     }
 
     return nil
     }()
-
-  /**
-  Accessing to the `AVCaptureMetadataOutput` object.
-
-  It allows you to configure the scanner to restrict the area of the scan to the overlay one for example.
-  */
-  public private(set) var metadataOutput = AVCaptureMetadataOutput()
+  private var metadataOutput = AVCaptureMetadataOutput()
+  private var session        = AVCaptureSession()
 
   // MARK: - Managing the Properties
 
@@ -88,7 +84,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   /**
   Initializes the code reader with an array of metadata object types.
 
-  :param: metadataObjectTypes An array of strings identifying the types of metadata objects to process.
+  - parameter metadataObjectTypes: An array of strings identifying the types of metadata objects to process.
   */
   public init(metadataObjectTypes types: [String]) {
     metadataObjectTypes = types
@@ -160,7 +156,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   /**
   Returns true whether a front device is available.
 
-  :returns: true whether the device has a front device.
+  - returns: true whether the device has a front device.
   */
   public func hasFrontDevice() -> Bool {
     return frontDevice != nil
@@ -171,7 +167,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   /**
   Returns the video orientation correspongind to the given interface orientation.
 
-  :param: orientation The orientation of the app's user interface.
+  - parameter orientation: The orientation of the app's user interface.
   */
   public class func videoOrientationFromInterfaceOrientation(orientation: UIInterfaceOrientation) -> AVCaptureVideoOrientation {
     switch (orientation) {
@@ -191,7 +187,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   /**
   Checks whether the reader is available.
 
-  :returns: A boolean value that indicates whether the reader is available.
+  - returns: A boolean value that indicates whether the reader is available.
   */
   class func isAvailable() -> Bool {
     let videoDevices = AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo)
@@ -200,47 +196,47 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
       return false
     }
 
-    let captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+    let captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo) as AVCaptureDevice
 
-    var error: NSError?
-    AVCaptureDeviceInput.deviceInputWithDevice(captureDevice, error: &error)
-
-    return error == nil
+    
+    do {
+      let _ = try AVCaptureDeviceInput(device: captureDevice)
+      return true
+    } catch _ {
+      return false
+    }
   }
 
   /**
   Checks and return whether the given metadata object types are supported by the current device.
 
-  :param: metadataTypes An array of strings identifying the types of metadata objects to check.
+  - parameter metadataTypes: An array of strings identifying the types of metadata objects to check.
 
-  :returns: A boolean value that indicates whether the device supports the given metadata object types.
+  - returns: A boolean value that indicates whether the device supports the given metadata object types.
   */
-  public class func supportsMetadataObjectTypes(_ metadataTypes: [String]? = nil) -> Bool {
+  public class func supportsMetadataObjectTypes(metadataTypes: [String]? = nil) -> Bool {
     if !isAvailable() {
       return false
     }
 
     // Setup components
-    let captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
-    let deviceInput   = AVCaptureDeviceInput.deviceInputWithDevice(captureDevice, error: nil) as! AVCaptureDeviceInput
+    let captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo) as AVCaptureDevice
+    let deviceInput   = try! AVCaptureDeviceInput(device: captureDevice) as AVCaptureDeviceInput
     let output        = AVCaptureMetadataOutput()
     let session       = AVCaptureSession()
 
     session.addInput(deviceInput)
     session.addOutput(output)
 
-    let metadataObjectTypes: [String]
+    var metadataObjectTypes = metadataTypes
 
-    // Check the QRCode metadata object type by default
-    if let _metadataObjectTypes = metadataTypes where _metadataObjectTypes.count > 0 {
-      metadataObjectTypes = _metadataObjectTypes
-    }
-    else {
+    if metadataObjectTypes == nil || metadataObjectTypes?.count == 0 {
+      // Check the QRCode metadata object type by default
       metadataObjectTypes = [AVMetadataObjectTypeQRCode]
     }
 
-    for metadataObjectType in metadataObjectTypes {
-      if !contains(output.availableMetadataObjectTypes, { $0 as! String == metadataObjectType }) {
+    for metadataObjectType in metadataObjectTypes! {
+      if !output.availableMetadataObjectTypes.contains({ $0 as! String == metadataObjectType }) {
         return false
       }
     }
@@ -253,7 +249,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   public func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
     for current in metadataObjects {
       if let _readableCodeObject = current as? AVMetadataMachineReadableCodeObject {
-        if contains(metadataObjectTypes, _readableCodeObject.type) {
+        if metadataObjectTypes.contains(_readableCodeObject.type) {
           stopScanning()
 
           let scannedResult = _readableCodeObject.stringValue

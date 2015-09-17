@@ -36,7 +36,7 @@ class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
       reader.delegate               = self
 
       reader.completionBlock = { (result: String?) in
-        println("Completion with result: \(result)")
+        print("Completion with result: \(result)")
       }
 
       presentViewController(reader, animated: true, completion: nil)

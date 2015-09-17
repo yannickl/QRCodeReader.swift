@@ -54,8 +54,8 @@ public final class QRCodeReaderViewController: UIViewController {
   /**
   Initializes a view controller to read QRCodes from a displayed video preview and a cancel button to be go back.
 
-  :param: cancelButtonTitle   The title to use for the cancel button.
-  :param: startScanningAtLoad Flag to know whether the view controller start scanning the codes when the view will appear.
+  - parameter cancelButtonTitle:   The title to use for the cancel button.
+  - parameter startScanningAtLoad: Flag to know whether the view controller start scanning the codes when the view will appear.
 
   :see: init(cancelButtonTitle:, metadataObjectTypes:)
   */
@@ -66,8 +66,8 @@ public final class QRCodeReaderViewController: UIViewController {
   /**
   Initializes a reader view controller with a list of metadata object types.
 
-  :param: metadataObjectTypes An array of strings identifying the types of metadata objects to process.
-  :param: startScanningAtLoad Flag to know whether the view controller start scanning the codes when the view will appear.
+  - parameter metadataObjectTypes: An array of strings identifying the types of metadata objects to process.
+  - parameter startScanningAtLoad: Flag to know whether the view controller start scanning the codes when the view will appear.
 
   :see: init(cancelButtonTitle:, metadataObjectTypes:)
   */
@@ -78,9 +78,9 @@ public final class QRCodeReaderViewController: UIViewController {
   /**
   Initializes a view controller to read wanted metadata object types from a displayed video preview and a cancel button to be go back.
 
-  :param: cancelButtonTitle   The title to use for the cancel button.
-  :param: metadataObjectTypes An array of strings identifying the types of metadata objects to process.
-  :param: startScanningAtLoad Flag to know whether the view controller start scanning the codes when the view will appear.
+  - parameter cancelButtonTitle:   The title to use for the cancel button.
+  - parameter metadataObjectTypes: An array of strings identifying the types of metadata objects to process.
+  - parameter startScanningAtLoad: Flag to know whether the view controller start scanning the codes when the view will appear.
 
   :see: init(cancelButtonTitle:, coderReader:)
   */
@@ -93,9 +93,9 @@ public final class QRCodeReaderViewController: UIViewController {
   /**
   Initializes a view controller using a cancel button title and a code reader.
 
-  :param: cancelButtonTitle   The title to use for the cancel button.
-  :param: coderReader         The code reader object used to scan the bar code.
-  :param: startScanningAtLoad Flag to know whether the view controller start scanning the codes when the view will appear.
+  - parameter cancelButtonTitle:   The title to use for the cancel button.
+  - parameter coderReader:         The code reader object used to scan the bar code.
+  - parameter startScanningAtLoad: Flag to know whether the view controller start scanning the codes when the view will appear.
   */
   required public init(cancelButtonTitle: String, coderReader reader: QRCodeReader, startScanningAtLoad startScan: Bool = true) {
     super.init(nibName: nil, bundle: nil) // Workaround for init in iOS SDK 8.3
@@ -124,7 +124,7 @@ public final class QRCodeReaderViewController: UIViewController {
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "orientationDidChanged:", name: UIDeviceOrientationDidChangeNotification, object: nil)
   }
 
-  required public init(coder aDecoder: NSCoder) {
+  required public init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
   }
 
@@ -166,7 +166,7 @@ public final class QRCodeReaderViewController: UIViewController {
 
   private func setupUIComponentsWithCancelButtonTitle(cancelButtonTitle: String) {
     cameraView.clipsToBounds = true
-    cameraView.setTranslatesAutoresizingMaskIntoConstraints(false)
+    cameraView.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(cameraView)
 
     if let _codeReader = codeReader {
@@ -180,7 +180,7 @@ public final class QRCodeReaderViewController: UIViewController {
 
       if _codeReader.hasFrontDevice() {
         let newSwitchCameraButton = SwitchCameraButton()
-        newSwitchCameraButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        newSwitchCameraButton.translatesAutoresizingMaskIntoConstraints = false
         newSwitchCameraButton.addTarget(self, action: "switchCameraAction:", forControlEvents: .TouchUpInside)
         view.addSubview(newSwitchCameraButton)
 
@@ -188,7 +188,7 @@ public final class QRCodeReaderViewController: UIViewController {
       }
     }
 
-    cancelButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+    cancelButton.translatesAutoresizingMaskIntoConstraints = false
     cancelButton.setTitle(cancelButtonTitle, forState: .Normal)
     cancelButton.setTitleColor(UIColor.grayColor(), forState: .Highlighted)
     cancelButton.addTarget(self, action: "cancelAction:", forControlEvents: .TouchUpInside)
@@ -196,17 +196,17 @@ public final class QRCodeReaderViewController: UIViewController {
   }
 
   private func setupAutoLayoutConstraints() {
-    let views: [NSObject: AnyObject] = ["cameraView": cameraView, "cancelButton": cancelButton]
+    let views: [String: AnyObject] = ["cameraView": cameraView, "cancelButton": cancelButton]
 
-    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[cameraView][cancelButton(40)]|", options: .allZeros, metrics: nil, views: views))
-    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[cameraView]|", options: .allZeros, metrics: nil, views: views))
-    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[cancelButton]-|", options: .allZeros, metrics: nil, views: views))
+    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[cameraView][cancelButton(40)]|", options: [], metrics: nil, views: views))
+    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[cameraView]|", options: [], metrics: nil, views: views))
+    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[cancelButton]-|", options: [], metrics: nil, views: views))
 
     if let _switchCameraButton = switchCameraButton {
-      let switchViews: [NSObject: AnyObject] = ["switchCameraButton": _switchCameraButton]
+      let switchViews: [String: AnyObject] = ["switchCameraButton": _switchCameraButton]
 
-      view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[switchCameraButton(50)]", options: .allZeros, metrics: nil, views: switchViews))
-      view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[switchCameraButton(70)]|", options: .allZeros, metrics: nil, views: switchViews))
+      view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[switchCameraButton(50)]", options: [], metrics: nil, views: switchViews))
+      view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[switchCameraButton(70)]|", options: [], metrics: nil, views: switchViews))
     }
   }
 
@@ -246,15 +246,15 @@ public protocol QRCodeReaderViewControllerDelegate: class {
   /**
   Tells the delegate that the reader did scan a code.
 
-  :param: reader A code reader object informing the delegate about the scan result.
-  :param: result The result of the scan
+  - parameter reader: A code reader object informing the delegate about the scan result.
+  - parameter result: The result of the scan
   */
   func reader(reader: QRCodeReaderViewController, didScanResult result: String)
 
   /**
   Tells the delegate that the user wants to stop scanning codes.
 
-  :param: reader A code reader object informing the delegate about the cancellation.
+  - parameter reader: A code reader object informing the delegate about the cancellation.
   */
   func readerDidCancel(reader: QRCodeReaderViewController)
 }
