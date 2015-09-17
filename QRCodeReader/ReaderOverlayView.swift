@@ -52,7 +52,7 @@ final class ReaderOverlayView: UIView {
     layer.addSublayer(overlay)
   }
 
-  required init(coder aDecoder: NSCoder) {
+  required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
 
     layer.addSublayer(overlay)
