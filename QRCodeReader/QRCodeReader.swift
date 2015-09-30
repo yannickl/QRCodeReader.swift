@@ -161,6 +161,37 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   public func hasFrontDevice() -> Bool {
     return frontDevice != nil
   }
+    
+  /**
+  Returns true whether a torch is available.
+
+  - returns: true if a torch is available.
+  */
+  public func isTorchAvailable() -> Bool {
+    if let _defaultDevice = defaultDevice {
+      return _defaultDevice.torchAvailable
+    } else {
+      return false
+    }
+  }
+  
+  /**
+  Toggles torch on the default device
+  */
+  public func toggleTorch() -> Bool {
+    if let _defaultDevice = defaultDevice {
+      do {
+        try _defaultDevice.lockForConfiguration()
+        let current = _defaultDevice.torchMode
+        _defaultDevice.torchMode = AVCaptureTorchMode.On == current ? .Off : .On
+        _defaultDevice.unlockForConfiguration()
+      }
+      catch (_) {
+        
+      }
+    }
+    return true
+  }
 
   // MARK: - Managing the Orientation
 
