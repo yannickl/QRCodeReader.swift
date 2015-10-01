@@ -178,7 +178,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   /**
   Toggles torch on the default device
   */
-  public func toggleTorch() -> Bool {
+  public func toggleTorch() {
     if let _defaultDevice = defaultDevice {
       do {
         try _defaultDevice.lockForConfiguration()
@@ -186,11 +186,8 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
         _defaultDevice.torchMode = AVCaptureTorchMode.On == current ? .Off : .On
         _defaultDevice.unlockForConfiguration()
       }
-      catch (_) {
-        
-      }
+      catch (_) { }
     }
-    return true
   }
 
   // MARK: - Managing the Orientation
