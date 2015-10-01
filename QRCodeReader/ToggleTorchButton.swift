@@ -44,127 +44,32 @@ import UIKit
     @IBInspectable var fillHighlightedColor: UIColor = UIColor.blackColor()
     
     override func drawRect(rect: CGRect) {
+        UIColor.whiteColor().setFill()
+        UIColor.yellowColor().setStroke()
+        
         let width  = rect.width
         let height = rect.height
         let center = width / 2
         let middle = height / 2
         
         let strokeLineWidth = CGFloat(2)
+        let circleRadius = width / 10
+        let lineLength = width / 7
+        let lineOffset = width / 14
         
-        // Colors
+        let circlePath = UIBezierPath()
+        circlePath.addArcWithCenter(CGPoint(x: center, y: middle), radius: circleRadius, startAngle: 0.0, endAngle: CGFloat(M_PI), clockwise: true)
+        circlePath.addArcWithCenter(CGPoint(x: center, y: middle), radius: circleRadius, startAngle: CGFloat(M_PI), endAngle: CGFloat(M_PI * 2), clockwise: true)
         
-        let paintColor  = (self.state != .Highlighted) ? fillColor : fillHighlightedColor
-        let strokeColor = (self.state != .Highlighted) ? edgeColor : edgeHighlightedColor
+        let linePath = UIBezierPath()
+        linePath.moveToPoint(CGPointMake(center, middle + circleRadius + lineOffset))
+        linePath.addLineToPoint(CGPointMake(center, middle + circleRadius + lineOffset + lineLength))
+        linePath.lineWidth = strokeLineWidth
+        linePath.stroke()
         
-        // Camera box
-        
-        let cameraWidth  = width * 0.4
-        let cameraHeight = cameraWidth * 0.6
-        let cameraX      = center - cameraWidth / 2
-        let cameraY      = middle - cameraHeight / 2
-        let cameraRadius = cameraWidth / 80
-        
-        let boxPath = UIBezierPath(roundedRect: CGRectMake(cameraX, cameraY, cameraWidth, cameraHeight), cornerRadius: cameraRadius)
-        
-        // Camera lens
-        
-        let outerLensSize = cameraHeight * 0.8
-        let outerLensX    = center - outerLensSize / 2
-        let outerLensY    = middle - outerLensSize / 2
-        
-        let innerLensSize = outerLensSize * 0.7
-        let innerLensX    = center - innerLensSize / 2
-        let innerLensY    = middle - innerLensSize / 2
-        
-        let outerLensPath = UIBezierPath(ovalInRect: CGRectMake(outerLensX, outerLensY, outerLensSize, outerLensSize))
-        let innerLensPath = UIBezierPath(ovalInRect: CGRectMake(innerLensX, innerLensY, innerLensSize, innerLensSize))
-        
-        // Draw flash box
-        
-        let flashBoxWidth      = cameraWidth * 0.8
-        let flashBoxHeight     = cameraHeight * 0.17
-        let flashBoxDeltaWidth = flashBoxWidth * 0.14
-        let flashLeftMostX     = cameraX + (cameraWidth - flashBoxWidth) * 0.5
-        let flashBottomMostY   = cameraY
-        
-        let flashPath = UIBezierPath()
-        flashPath.moveToPoint(CGPointMake(flashLeftMostX, flashBottomMostY))
-        flashPath.addLineToPoint(CGPointMake(flashLeftMostX + flashBoxWidth, flashBottomMostY))
-        flashPath.addLineToPoint(CGPointMake(flashLeftMostX + flashBoxWidth - flashBoxDeltaWidth, flashBottomMostY - flashBoxHeight))
-        flashPath.addLineToPoint(CGPointMake(flashLeftMostX + flashBoxDeltaWidth, flashBottomMostY - flashBoxHeight))
-        flashPath.closePath()
-        flashPath.lineCapStyle = CGLineCap.Round
-        flashPath.lineJoinStyle = CGLineJoin.Round
-        
-        // Arrows
-        
-        
-        let arrowHeadHeigth = cameraHeight * 0.5
-        let arrowHeadWidth  = ((width - cameraWidth) / 2) * 0.3
-        let arrowTailHeigth = arrowHeadHeigth * 0.6
-        let arrowTailWidth  = ((width - cameraWidth) / 2) * 0.7
-        
-        // Draw left arrow
-        
-        let arrowLeftX = center - cameraWidth * 0.2
-        let arrowLeftY = middle + cameraHeight * 0.45
-        
-        let leftArrowPath = UIBezierPath()
-        leftArrowPath.moveToPoint(CGPointMake(arrowLeftX, arrowLeftY))
-        leftArrowPath.addLineToPoint(CGPointMake(arrowLeftX - arrowHeadWidth, arrowLeftY - arrowHeadHeigth / 2))
-        leftArrowPath.addLineToPoint(CGPointMake(arrowLeftX - arrowHeadWidth, arrowLeftY - arrowTailHeigth / 2))
-        leftArrowPath.addLineToPoint(CGPointMake(arrowLeftX - arrowHeadWidth - arrowTailWidth, arrowLeftY - arrowTailHeigth / 2))
-        leftArrowPath.addLineToPoint(CGPointMake(arrowLeftX - arrowHeadWidth - arrowTailWidth, arrowLeftY + arrowTailHeigth / 2))
-        leftArrowPath.addLineToPoint(CGPointMake(arrowLeftX - arrowHeadWidth, arrowLeftY + arrowTailHeigth / 2))
-        leftArrowPath.addLineToPoint(CGPointMake(arrowLeftX - arrowHeadWidth, arrowLeftY + arrowHeadHeigth / 2))
-        
-        // Right arrow
-        
-        let arrowRightX = center + cameraWidth * 0.2
-        let arrowRightY = middle + cameraHeight * 0.60
-        
-        let rigthArrowPath = UIBezierPath()
-        rigthArrowPath.moveToPoint(CGPointMake(arrowRightX, arrowRightY))
-        rigthArrowPath.addLineToPoint(CGPointMake(arrowRightX + arrowHeadWidth, arrowRightY - arrowHeadHeigth / 2))
-        rigthArrowPath.addLineToPoint(CGPointMake(arrowRightX + arrowHeadWidth, arrowRightY - arrowTailHeigth / 2))
-        rigthArrowPath.addLineToPoint(CGPointMake(arrowRightX + arrowHeadWidth + arrowTailWidth, arrowRightY - arrowTailHeigth / 2))
-        rigthArrowPath.addLineToPoint(CGPointMake(arrowRightX + arrowHeadWidth + arrowTailWidth, arrowRightY + arrowTailHeigth / 2))
-        rigthArrowPath.addLineToPoint(CGPointMake(arrowRightX + arrowHeadWidth, arrowRightY + arrowTailHeigth / 2))
-        rigthArrowPath.addLineToPoint(CGPointMake(arrowRightX + arrowHeadWidth, arrowRightY + arrowHeadHeigth / 2))
-        rigthArrowPath.closePath()
-        
-        // Drawing
-        
-        paintColor.setFill()
-        rigthArrowPath.fill()
-        strokeColor.setStroke()
-        rigthArrowPath.lineWidth = strokeLineWidth
-        rigthArrowPath.stroke()
-        
-        paintColor.setFill()
-        boxPath.fill()
-        strokeColor.setStroke()
-        boxPath.lineWidth = strokeLineWidth
-        boxPath.stroke()
-        
-        strokeColor.setFill()
-        outerLensPath.fill()
-        
-        paintColor.setFill()
-        innerLensPath.fill()
-        
-        paintColor.setFill()
-        flashPath.fill()
-        strokeColor.setStroke()
-        flashPath.lineWidth = strokeLineWidth
-        flashPath.stroke()
-        
-        leftArrowPath.closePath()
-        paintColor.setFill()
-        leftArrowPath.fill()
-        strokeColor.setStroke()
-        leftArrowPath.lineWidth = strokeLineWidth
-        leftArrowPath.stroke()
+        circlePath.lineWidth = strokeLineWidth
+        circlePath.fill()
+        circlePath.stroke()
     }
     
     // MARK: - UIResponder Methods
