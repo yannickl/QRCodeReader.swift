@@ -28,7 +28,7 @@ import UIKit
 import AVFoundation
 
 class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
-  lazy var reader = QRCodeReaderViewController(metadataObjectTypes: [AVMetadataObjectTypeQRCode])
+    lazy var reader: QRCodeReaderViewController = QRCodeReaderViewController(cancelButtonTitle: "Cancel", coderReader: QRCodeReader(metadataObjectTypes: [AVMetadataObjectTypeQRCode]), startScanningAtLoad: true, showSwitchCameraButton: true, showTorchButton: true)
 
   @IBAction func scanAction(sender: AnyObject) {
     if QRCodeReader.supportsMetadataObjectTypes() {
