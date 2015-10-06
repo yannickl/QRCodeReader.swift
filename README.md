@@ -30,7 +30,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 
 use_frameworks!
-pod 'QRCodeReader.swift', '~> 5.0.0'
+pod 'QRCodeReader.swift', '~> 5.1.0'
 ```
 
 Install into your project:
@@ -61,7 +61,7 @@ $ brew install carthage
 To integrate `QRCodeReader` into your Xcode project using Carthage, specify it in your `Cartfile` file:
 
 ```ogdl
-github "yannickl/QRCodeReader.swift" >= 5.0.0
+github "yannickl/QRCodeReader.swift" >= 5.1.0
 ```
 
 #### Manually

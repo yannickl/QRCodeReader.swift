@@ -16,3 +16,4 @@ Please keep the list sorted.
  * [Daniel Tartaglia](https://github.com/dtartaglia)
  * [Mesashi Beheim](https://github.com/beheim)
  * [Søren Lind Kristiansen](https://github.com/sorenlind)
+ * [Yurii](https://github.com/kaphacius)
