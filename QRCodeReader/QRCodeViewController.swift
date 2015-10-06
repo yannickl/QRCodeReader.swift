@@ -1,28 +1,28 @@
 /*
-* QRCodeReader.swift
-*
-* Copyright 2014-present Yannick Loriot.
-* http://yannickloriot.com
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*/
+ * QRCodeReader.swift
+ *
+ * Copyright 2014-present Yannick Loriot.
+ * http://yannickloriot.com
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ */
 
 import UIKit
 import AVFoundation
@@ -87,7 +87,7 @@ public final class QRCodeReaderViewController: UIViewController {
   - parameter metadataObjectTypes: An array of strings identifying the types of metadata objects to process.
   - parameter startScanningAtLoad: Flag to know whether the view controller start scanning the codes when the view will appear.
 
-  :see: init(cancelButtonTitle:, coderReader:)
+  :see: init(cancelButtonTitle:, coderReader:, startScanningAtLoad:)
   */
   convenience public init(cancelButtonTitle: String, metadataObjectTypes: [String], startScanningAtLoad: Bool = true) {
     let reader = QRCodeReader(metadataObjectTypes: metadataObjectTypes)
@@ -101,8 +101,10 @@ public final class QRCodeReaderViewController: UIViewController {
   - parameter cancelButtonTitle:   The title to use for the cancel button.
   - parameter coderReader:         The code reader object used to scan the bar code.
   - parameter startScanningAtLoad: Flag to know whether the view controller start scanning the codes when the view will appear.
+  - parameter showSwitchCameraButton: Flag to display the switch camera button.
+  - parameter showTorchButton: Flag to display the toggle torch button. If the value is true and there is no torch the button will not be displayed.
   */
-    required public init(cancelButtonTitle: String, coderReader reader: QRCodeReader, startScanningAtLoad startScan: Bool = true, showSwitchCameraButton showSwitch: Bool = true, showTorchButton showTorch: Bool = false) {
+  required public init(cancelButtonTitle: String, coderReader reader: QRCodeReader, startScanningAtLoad startScan: Bool = true, showSwitchCameraButton showSwitch: Bool = true, showTorchButton showTorch: Bool = false) {
     super.init(nibName: nil, bundle: nil) // Workaround for init in iOS SDK 8.3
 
     startScanningAtLoad  = startScan
@@ -193,7 +195,7 @@ public final class QRCodeReaderViewController: UIViewController {
 
         switchCameraButton = newSwitchCameraButton
       }
-      
+
       if showTorchButton && _codeReader.isTorchAvailable() {
         let newToggleTorchButton = ToggleTorchButton()
         newToggleTorchButton.translatesAutoresizingMaskIntoConstraints = false
@@ -223,10 +225,10 @@ public final class QRCodeReaderViewController: UIViewController {
       view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[switchCameraButton(50)]", options: [], metrics: nil, views: switchViews))
       view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[switchCameraButton(70)]|", options: [], metrics: nil, views: switchViews))
     }
-    
+
     if let _toggleTorchButton = toggleTorchButton {
       let toggleViews: [String: AnyObject] = ["toggleTorchButton": _toggleTorchButton]
-      
+
       view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[toggleTorchButton(50)]", options: [], metrics: nil, views: toggleViews))
       view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[toggleTorchButton(70)]", options: [], metrics: nil, views: toggleViews))
     }
@@ -259,7 +261,7 @@ public final class QRCodeReaderViewController: UIViewController {
   func switchCameraAction(button: SwitchCameraButton) {
     codeReader?.switchDeviceInput()
   }
-  
+
   func toggleTorchAction(button: ToggleTorchButton) {
     codeReader?.toggleTorch()
   }
@@ -279,7 +281,7 @@ public protocol QRCodeReaderViewControllerDelegate: class {
 
   /**
   Tells the delegate that the user wants to stop scanning codes.
-
+  
   - parameter reader: A code reader object informing the delegate about the cancellation.
   */
   func readerDidCancel(reader: QRCodeReaderViewController)

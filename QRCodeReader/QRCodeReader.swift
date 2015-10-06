@@ -161,7 +161,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   public func hasFrontDevice() -> Bool {
     return frontDevice != nil
   }
-    
+
   /**
   Returns true whether a torch is available.
 
@@ -174,7 +174,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
       return false
     }
   }
-  
+
   /**
   Toggles torch on the default device
   */
@@ -226,7 +226,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
 
     let captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo) as AVCaptureDevice
 
-    
+
     do {
       let _ = try AVCaptureDeviceInput(device: captureDevice)
       return true
@@ -281,7 +281,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
           stopScanning()
 
           let scannedResult = _readableCodeObject.stringValue
-
+          
           if let _completionBlock = completionBlock {
             _completionBlock(scannedResult)
           }
