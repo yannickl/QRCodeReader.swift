@@ -29,42 +29,31 @@ import AVFoundation
 
 /// Reader object base on the `AVCaptureDevice` to read / scan 1D and 2D codes.
 public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegate {
-  private var defaultDevice: AVCaptureDevice? = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
-  private var frontDevice: AVCaptureDevice?   = {
+  var defaultDevice: AVCaptureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+  var frontDevice: AVCaptureDevice?  = {
     for device in AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo) {
-      if let _device = device as? AVCaptureDevice {
-        if _device.position == AVCaptureDevicePosition.Front {
-          return _device
-        }
+      if let _device = device as? AVCaptureDevice where _device.position == AVCaptureDevicePosition.Front {
+        return _device
       }
     }
 
     return nil
     }()
-  private lazy var defaultDeviceInput: AVCaptureDeviceInput? = {
-    if let _defaultDevice = self.defaultDevice {
-      do {
-        return try AVCaptureDeviceInput(device: _defaultDevice)
-      } catch _ {
-        return nil
-      }
-    }
 
-    return nil
+  lazy var defaultDeviceInput: AVCaptureDeviceInput? = {
+    return try? AVCaptureDeviceInput(device: self.defaultDevice)
     }()
-  private lazy var frontDeviceInput: AVCaptureDeviceInput?  = {
+
+  lazy var frontDeviceInput: AVCaptureDeviceInput?  = {
     if let _frontDevice = self.frontDevice {
-      do {
-        return try AVCaptureDeviceInput(device: _frontDevice)
-      } catch _ {
-        return nil
-      }
+      return try? AVCaptureDeviceInput(device: _frontDevice)
     }
 
     return nil
     }()
-  private var metadataOutput = AVCaptureMetadataOutput()
-  private var session        = AVCaptureSession()
+
+  var metadataOutput = AVCaptureMetadataOutput()
+  var session        = AVCaptureSession()
 
   // MARK: - Managing the Properties
 
@@ -168,26 +157,22 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   - returns: true if a torch is available.
   */
   public func isTorchAvailable() -> Bool {
-    if let _defaultDevice = defaultDevice {
-      return _defaultDevice.torchAvailable
-    } else {
-      return false
-    }
+    return defaultDevice.torchAvailable
   }
 
   /**
-  Toggles torch on the default device
+  Toggles torch on the default device.
   */
   public func toggleTorch() {
-    if let _defaultDevice = defaultDevice {
-      do {
-        try _defaultDevice.lockForConfiguration()
-        let current = _defaultDevice.torchMode
-        _defaultDevice.torchMode = AVCaptureTorchMode.On == current ? .Off : .On
-        _defaultDevice.unlockForConfiguration()
-      }
-      catch (_) { }
+    do {
+      try defaultDevice.lockForConfiguration()
+
+      let current              = defaultDevice.torchMode
+      defaultDevice.torchMode = AVCaptureTorchMode.On == current ? .Off : .On
+
+      defaultDevice.unlockForConfiguration()
     }
+    catch _ { }
   }
 
   // MARK: - Managing the Orientation
@@ -218,17 +203,14 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   - returns: A boolean value that indicates whether the reader is available.
   */
   public class func isAvailable() -> Bool {
-    let videoDevices = AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo)
-
-    if videoDevices.count == 0 {
+    if AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo).count == 0 {
       return false
     }
 
-    let captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo) as AVCaptureDevice
-
-
     do {
-      let _ = try AVCaptureDeviceInput(device: captureDevice)
+      let captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+      let _             = try AVCaptureDeviceInput(device: captureDevice)
+
       return true
     } catch _ {
       return false
@@ -248,8 +230,8 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
     }
 
     // Setup components
-    let captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo) as AVCaptureDevice
-    let deviceInput   = try! AVCaptureDeviceInput(device: captureDevice) as AVCaptureDeviceInput
+    let captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+    let deviceInput   = try! AVCaptureDeviceInput(device: captureDevice)
     let output        = AVCaptureMetadataOutput()
     let session       = AVCaptureSession()
 
@@ -282,9 +264,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
 
           let scannedResult = _readableCodeObject.stringValue
 
-          if let _completionBlock = completionBlock {
-            _completionBlock(scannedResult)
-          }
+          completionBlock?(scannedResult)
         }
       }
     }

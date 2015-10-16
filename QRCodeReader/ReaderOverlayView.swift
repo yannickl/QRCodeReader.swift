@@ -26,7 +26,7 @@
 
 import UIKit
 
-/// Overlay over the camera view to display the area (a square) where to scan the code
+/// Overlay over the camera view to display the area (a square) where to scan the code.
 final class ReaderOverlayView: UIView {
   private var overlay: CAShapeLayer = {
     var overlay = CAShapeLayer()
@@ -59,9 +59,9 @@ final class ReaderOverlayView: UIView {
   }
 
   override func drawRect(rect: CGRect) {
-    var innerRect  = CGRectInset(rect, 50, 50)
+    var innerRect = CGRectInset(rect, 50, 50)
+    let minSize   = min(innerRect.width, innerRect.height)
 
-    let minSize = min(innerRect.width, innerRect.height)
     if innerRect.width != minSize {
       innerRect.origin.x   += (innerRect.width - minSize) / 2
       innerRect.size.width = minSize
@@ -73,7 +73,6 @@ final class ReaderOverlayView: UIView {
 
     let offsetRect = CGRectOffset(innerRect, 0, 15)
 
-    overlay.path  = UIBezierPath(roundedRect: offsetRect
-      , cornerRadius: 5).CGPath
+    overlay.path  = UIBezierPath(roundedRect: offsetRect, cornerRadius: 5).CGPath
   }
 }

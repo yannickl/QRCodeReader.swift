@@ -26,7 +26,7 @@
 
 import UIKit
 
-///The toggle torch button
+/// The toggle torch button.
 @IBDesignable final class ToggleTorchButton: UIButton {
   @IBInspectable var edgeColor: UIColor = UIColor.whiteColor() {
     didSet {
@@ -50,8 +50,8 @@ import UIKit
     let strokeColor = (self.state != .Highlighted) ? edgeColor : edgeHighlightedColor
     strokeColor.setStroke()
 
-    let width  = rect.width
-    let height = rect.height
+    let width   = rect.width
+    let height  = rect.height
     let centerX = width / 2
     let centerY = height / 2
 
@@ -116,7 +116,6 @@ import UIKit
     endPoint = CGPoint(x: startPoint.x - sin45 * lineLength, y: startPoint.y + inclinedLength)
     let eightsBeamPath = linePathWithStartPoint(startPoint, endPoint: endPoint, thickness: strokeLineWidth)
     eightsBeamPath.stroke()
-
 
     circlePath.lineWidth = strokeLineWidth
     circlePath.fill()

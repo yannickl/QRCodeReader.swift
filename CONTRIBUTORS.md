@@ -14,6 +14,7 @@ Please keep the list sorted.
 
  * [Alex Kreutz](https://github.com/bbsan2k)
  * [Daniel Tartaglia](https://github.com/dtartaglia)
+ * [Jan Karlo Dela Cruz](https://github.com/jankdc)
  * [Mesashi Beheim](https://github.com/beheim)
  * [Søren Lind Kristiansen](https://github.com/sorenlind)
  * [Yurii](https://github.com/kaphacius)
