@@ -217,7 +217,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
 
   - returns: A boolean value that indicates whether the reader is available.
   */
-  class func isAvailable() -> Bool {
+  public class func isAvailable() -> Bool {
     let videoDevices = AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo)
 
     if videoDevices.count == 0 {
@@ -281,7 +281,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
           stopScanning()
 
           let scannedResult = _readableCodeObject.stringValue
-          
+
           if let _completionBlock = completionBlock {
             _completionBlock(scannedResult)
           }
