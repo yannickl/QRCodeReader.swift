@@ -1,5 +1,10 @@
 # Change log
 
+## [Version 5.2.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/5.2.0)
+Released on 2015-10-20.
+
+- [UPDATE] Remove the final attribute of the `QRCodeReaderViewController`
+
 ## [Version 5.1.1](https://github.com/yannickl/QRCodeReader.swift/releases/tag/5.1.1)
 Released on 2015-10-16.
 
