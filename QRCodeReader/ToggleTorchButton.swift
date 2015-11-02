@@ -46,9 +46,7 @@ import UIKit
   override func drawRect(rect: CGRect) {
     // Colors
     let paintColor  = (self.state != .Highlighted) ? fillColor : fillHighlightedColor
-    paintColor.setFill()
     let strokeColor = (self.state != .Highlighted) ? edgeColor : edgeHighlightedColor
-    strokeColor.setStroke()
 
     let width   = rect.width
     let height  = rect.height
@@ -56,66 +54,31 @@ import UIKit
     let centerY = height / 2
 
     let strokeLineWidth: CGFloat = 2
-    let circleRadius: CGFloat = width / 10
-    let lineLength: CGFloat = width / 10
-    let lineOffset: CGFloat = width / 10
-    let lineOriginFromCenter = circleRadius + lineOffset
-    let sin45 = sin(CGFloat(M_PI_4))
-    let inclinedLength = lineLength * sin45
-    let inclinedOrigin = lineOriginFromCenter * sin45
+    let circleRadius: CGFloat    = width / 10
+    let lineLength: CGFloat      = width / 10
+    let lineOffset: CGFloat      = width / 10
+    let lineOriginFromCenter     = circleRadius + lineOffset
 
     //Circle
     let circlePath = UIBezierPath()
     circlePath.addArcWithCenter(CGPoint(x: centerX, y: centerY), radius: circleRadius, startAngle: 0.0, endAngle: CGFloat(M_PI), clockwise: true)
     circlePath.addArcWithCenter(CGPoint(x: centerX, y: centerY), radius: circleRadius, startAngle: CGFloat(M_PI), endAngle: CGFloat(M_PI * 2), clockwise: true)
 
-    //First beam
-    var startPoint = CGPoint(x: centerX, y: centerY + lineOriginFromCenter)
-    var endPoint = CGPoint(x: startPoint.x, y: startPoint.y + lineLength)
-    let firstBeamPath = linePathWithStartPoint(startPoint, endPoint: endPoint, thickness: strokeLineWidth)
-    firstBeamPath.stroke()
+    // Draw beams
+    paintColor.setFill()
 
-    //Second beam
-    startPoint = CGPoint(x: centerX + sin45 * lineOriginFromCenter, y: centerY + inclinedOrigin)
-    endPoint = CGPoint(x: startPoint.x + inclinedLength, y: startPoint.y + inclinedLength)
-    let secondBeamPath = linePathWithStartPoint(startPoint, endPoint: endPoint, thickness: strokeLineWidth)
-    secondBeamPath.stroke()
+    for i in 0 ..< 8 {
+      let angle = ((2 * CGFloat(M_PI)) / 8) * CGFloat(i);
 
-    //Third beam
-    startPoint = CGPoint(x: centerX + lineOriginFromCenter, y: centerY)
-    endPoint = CGPoint(x: startPoint.x + lineLength, y: startPoint.y)
-    let thirdBeamPath = linePathWithStartPoint(startPoint, endPoint: endPoint, thickness: strokeLineWidth)
-    thirdBeamPath.stroke()
+      let startPoint = CGPointMake(centerX + cos(angle) * lineOriginFromCenter, centerY + sin(angle) * lineOriginFromCenter);
+      let endPoint   = CGPointMake(centerX + cos(angle) * (lineOriginFromCenter + lineLength), centerY + sin(angle) * (lineOriginFromCenter + lineLength));
 
-    //Fourth beam
-    startPoint = CGPoint(x: centerX + inclinedOrigin, y: centerY - inclinedOrigin)
-    endPoint = CGPoint(x: startPoint.x + inclinedLength, y: startPoint.y - inclinedLength)
-    let fourthBeamPath = linePathWithStartPoint(startPoint, endPoint: endPoint, thickness: strokeLineWidth)
-    fourthBeamPath.stroke()
+      let beam = linePathWithStartPoint(startPoint, endPoint: endPoint, thickness: strokeLineWidth)
+      beam.stroke()
+    }
 
-    //Fifth beam
-    startPoint = CGPoint(x: centerX, y: centerY - lineOriginFromCenter)
-    endPoint = CGPoint(x: startPoint.x, y: startPoint.y - lineLength)
-    let fifthBeamPath = linePathWithStartPoint(startPoint, endPoint: endPoint, thickness: strokeLineWidth)
-    fifthBeamPath.stroke()
-
-    //Sixth beam
-    startPoint = CGPoint(x: centerX - inclinedOrigin, y: centerY - inclinedOrigin)
-    endPoint = CGPoint(x: startPoint.x - inclinedLength, y: startPoint.y - inclinedLength)
-    let sixthBeamPath = linePathWithStartPoint(startPoint, endPoint: endPoint, thickness: strokeLineWidth)
-    sixthBeamPath.stroke()
-
-    //Seventh beam
-    startPoint = CGPoint(x: centerX - lineOriginFromCenter, y: centerY)
-    endPoint = CGPoint(x: startPoint.x - lineLength, y: startPoint.y)
-    let seventhBeamPath = linePathWithStartPoint(startPoint, endPoint: endPoint, thickness: strokeLineWidth)
-    seventhBeamPath.stroke()
-
-    //Eights beam
-    startPoint = CGPoint(x: centerX - inclinedOrigin, y: centerY + inclinedOrigin)
-    endPoint = CGPoint(x: startPoint.x - sin45 * lineLength, y: startPoint.y + inclinedLength)
-    let eightsBeamPath = linePathWithStartPoint(startPoint, endPoint: endPoint, thickness: strokeLineWidth)
-    eightsBeamPath.stroke()
+    // Draw circle
+    strokeColor.setStroke()
 
     circlePath.lineWidth = strokeLineWidth
     circlePath.fill()
