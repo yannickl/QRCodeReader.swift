@@ -1,5 +1,10 @@
 # Change log
 
+## [Version 5.2.1](https://github.com/yannickl/QRCodeReader.swift/releases/tag/5.2.1)
+Released on 2015-11-07.
+
+- [FIX] Switch camera and toggle button under status bar [#35](https://github.com/yannickl/QRCodeReader.swift/issues/35)
+
 ## [Version 5.2.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/5.2.0)
 Released on 2015-10-20.
 
