@@ -216,21 +216,25 @@ public class QRCodeReaderViewController: UIViewController {
   private func setupAutoLayoutConstraints() {
     let views = ["cameraView": cameraView, "cancelButton": cancelButton]
 
+    edgesForExtendedLayout = UIRectEdge.None
+    extendedLayoutIncludesOpaqueBars = false
+    automaticallyAdjustsScrollViewInsets = false
+
     view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[cameraView][cancelButton(40)]|", options: [], metrics: nil, views: views))
     view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[cameraView]|", options: [], metrics: nil, views: views))
     view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[cancelButton]-|", options: [], metrics: nil, views: views))
 
     if let _switchCameraButton = switchCameraButton {
-      let switchViews = ["switchCameraButton": _switchCameraButton]
+      let switchViews: [String: AnyObject] = ["switchCameraButton": _switchCameraButton, "topGuide": topLayoutGuide]
 
-      view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[switchCameraButton(50)]", options: [], metrics: nil, views: switchViews))
+      view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[topGuide]-[switchCameraButton(50)]", options: [], metrics: nil, views: switchViews))
       view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[switchCameraButton(70)]|", options: [], metrics: nil, views: switchViews))
     }
 
     if let _toggleTorchButton = toggleTorchButton {
-      let toggleViews = ["toggleTorchButton": _toggleTorchButton]
+      let toggleViews: [String: AnyObject] = ["toggleTorchButton": _toggleTorchButton, "topGuide": topLayoutGuide]
 
-      view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[toggleTorchButton(50)]", options: [], metrics: nil, views: toggleViews))
+      view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[topGuide]-[toggleTorchButton(50)]", options: [], metrics: nil, views: toggleViews))
       view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[toggleTorchButton(70)]", options: [], metrics: nil, views: toggleViews))
     }
   }
