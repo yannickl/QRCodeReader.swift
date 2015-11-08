@@ -264,7 +264,9 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
 
           let scannedResult = _readableCodeObject.stringValue
 
-          completionBlock?(scannedResult)
+          dispatch_async(dispatch_get_main_queue(), { [weak self] in
+            self?.completionBlock?(scannedResult)
+          })
         }
       }
     }

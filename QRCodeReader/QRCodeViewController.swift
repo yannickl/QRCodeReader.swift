@@ -216,10 +216,6 @@ public class QRCodeReaderViewController: UIViewController {
   private func setupAutoLayoutConstraints() {
     let views = ["cameraView": cameraView, "cancelButton": cancelButton]
 
-    edgesForExtendedLayout = UIRectEdge.None
-    extendedLayoutIncludesOpaqueBars = false
-    automaticallyAdjustsScrollViewInsets = false
-
     view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[cameraView][cancelButton(40)]|", options: [], metrics: nil, views: views))
     view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[cameraView]|", options: [], metrics: nil, views: views))
     view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[cancelButton]-|", options: [], metrics: nil, views: views))
