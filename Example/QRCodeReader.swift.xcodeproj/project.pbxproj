@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		82BD4A0A1BBC21F800172E4E /* ToggleTorchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BD4A091BBC21F800172E4E /* ToggleTorchButton.swift */; settings = {ASSET_TAGS = (); }; };
+		4A0723DC1C223D8100F2C410 /* QRCodeReaderResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0723DB1C223D8100F2C410 /* QRCodeReaderResult.swift */; };
+		4A0723DD1C22405100F2C410 /* QRCodeReaderResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0723DB1C223D8100F2C410 /* QRCodeReaderResult.swift */; };
+		82BD4A0A1BBC21F800172E4E /* ToggleTorchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BD4A091BBC21F800172E4E /* ToggleTorchButton.swift */; };
 		82D83BA71BBC2A3100C94C22 /* ToggleTorchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BD4A091BBC21F800172E4E /* ToggleTorchButton.swift */; };
 		CE412E8F19D9A1E4000F294E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE412E8E19D9A1E4000F294E /* AppDelegate.swift */; };
 		CE412E9119D9A1E4000F294E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE412E9019D9A1E4000F294E /* ViewController.swift */; };
@@ -60,6 +62,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4A0723DB1C223D8100F2C410 /* QRCodeReaderResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeReaderResult.swift; sourceTree = "<group>"; };
 		82BD4A091BBC21F800172E4E /* ToggleTorchButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToggleTorchButton.swift; sourceTree = "<group>"; };
 		CE412E8919D9A1E4000F294E /* QRCodeReader.swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QRCodeReader.swift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE412E8D19D9A1E4000F294E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -189,6 +192,7 @@
 		CED23DDA1A15079300BE7A72 /* QRCodeReader */ = {
 			isa = PBXGroup;
 			children = (
+				4A0723DB1C223D8100F2C410 /* QRCodeReaderResult.swift */,
 				CED23DDB1A15079300BE7A72 /* QRCodeReader.swift */,
 				CED23DDD1A1507CB00BE7A72 /* SwitchCameraButton.swift */,
 				CECCE4CC1A1527DE00071669 /* ReaderOverlayView.swift */,
@@ -345,6 +349,7 @@
 				CECD170B1AA3531C00A9ACDE /* QRCodeViewController.swift in Sources */,
 				CE412E9119D9A1E4000F294E /* ViewController.swift in Sources */,
 				82BD4A0A1BBC21F800172E4E /* ToggleTorchButton.swift in Sources */,
+				4A0723DC1C223D8100F2C410 /* QRCodeReaderResult.swift in Sources */,
 				CECCE4CD1A1527DE00071669 /* ReaderOverlayView.swift in Sources */,
 				CED23DDC1A15079300BE7A72 /* QRCodeReader.swift in Sources */,
 				CED23DDE1A1507CB00BE7A72 /* SwitchCameraButton.swift in Sources */,
@@ -364,6 +369,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A0723DD1C22405100F2C410 /* QRCodeReaderResult.swift in Sources */,
 				82D83BA71BBC2A3100C94C22 /* ToggleTorchButton.swift in Sources */,
 				CE8FFEF41BAB4F5400D43F38 /* QRCodeReader.swift in Sources */,
 				CE8FFEF51BAB4F5400D43F38 /* SwitchCameraButton.swift in Sources */,

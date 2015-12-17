@@ -66,7 +66,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   // MARK: - Managing the Completion Block
 
   /// Block is executing when a QRCode or when the user did stopped the scan.
-  public var completionBlock: ((String?) -> ())?
+  public var completionBlock: ((QRCodeReaderResult?) -> ())?
 
   // MARK: - Creating the Code Reader
 
@@ -262,7 +262,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
         if metadataObjectTypes.contains(_readableCodeObject.type) {
           stopScanning()
 
-          let scannedResult = _readableCodeObject.stringValue
+          let scannedResult = QRCodeReaderResult(value: _readableCodeObject.stringValue, type:_readableCodeObject.type)
 
           dispatch_async(dispatch_get_main_queue(), { [weak self] in
             self?.completionBlock?(scannedResult)
