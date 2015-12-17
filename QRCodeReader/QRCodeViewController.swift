@@ -45,7 +45,7 @@ public class QRCodeReaderViewController: UIViewController {
   public weak var delegate: QRCodeReaderViewControllerDelegate?
 
   /// The completion blocak that will be called when a result is found.
-  public var completionBlock: ((String?) -> ())?
+  public var completionBlock: ((QRCodeReaderResult?) -> ())?
 
   deinit {
     codeReader.stopScanning()
@@ -113,12 +113,12 @@ public class QRCodeReaderViewController: UIViewController {
 
     view.backgroundColor = UIColor.blackColor()
 
-    codeReader.completionBlock = { [weak self] (resultAsString) in
+    codeReader.completionBlock = { [weak self] (resultAsObject) in
       if let weakSelf = self {
-        weakSelf.completionBlock?(resultAsString)
+        weakSelf.completionBlock?(resultAsObject)
 
-        if let _resultAsString = resultAsString {
-          weakSelf.delegate?.reader(weakSelf, didScanResult: _resultAsString)
+        if let _resultAsObject = resultAsObject {
+          weakSelf.delegate?.reader(weakSelf, didScanResult: _resultAsObject)
         }
       }
     }
@@ -278,7 +278,7 @@ public protocol QRCodeReaderViewControllerDelegate: class {
   - parameter reader: A code reader object informing the delegate about the scan result.
   - parameter result: The result of the scan
   */
-  func reader(reader: QRCodeReaderViewController, didScanResult result: String)
+  func reader(reader: QRCodeReaderViewController, didScanResult result: QRCodeReaderResult)
 
   /**
   Tells the delegate that the user wants to stop scanning codes.
