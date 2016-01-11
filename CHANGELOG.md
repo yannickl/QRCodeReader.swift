@@ -1,5 +1,11 @@
 # Change log
 
+## [Version 5.3.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/5.3.0)
+Released on 2016-01-11.
+
+- [ADD] Return a `QRCodeReaderResult` instead of a string.
+- [ADD] Convenience init with QRCode metadata type.
+
 ## [Version 5.2.1](https://github.com/yannickl/QRCodeReader.swift/releases/tag/5.2.1)
 Released on 2015-11-07.
 
