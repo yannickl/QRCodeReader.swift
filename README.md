@@ -1,6 +1,6 @@
 ![QRCodeReader.swift](http://yannickloriot.com/resources/qrcodereader.swift-logo.png)
 
-[![Supported Plateforms](https://cocoapod-badges.herokuapp.com/p/QRCodeReader.swift/badge.svg)](http://cocoadocs.org/docsets/QRCodeReader.swift/) [![Version](https://cocoapod-badges.herokuapp.com/v/QRCodeReader.swift/badge.svg)](http://cocoadocs.org/docsets/QRCodeReader.swift/)
+[![License](https://cocoapod-badges.herokuapp.com/l/QRCodeReader.swift/badge.svg)](http://cocoadocs.org/docsets/QRCodeReader.swift/) [![Supported Plateforms](https://cocoapod-badges.herokuapp.com/p/QRCodeReader.swift/badge.svg)](http://cocoadocs.org/docsets/QRCodeReader.swift/) [![Version](https://cocoapod-badges.herokuapp.com/v/QRCodeReader.swift/badge.svg)](http://cocoadocs.org/docsets/QRCodeReader.swift/)
 
 The _QRCodeReader.swift_ was initially a simple QRCode reader but it now lets you the possibility to specify the [format type](https://developer.apple.com/library/ios/documentation/AVFoundation/Reference/AVMetadataMachineReadableCodeObject_Class/index.html#//apple_ref/doc/constant_group/Machine_Readable_Object_Types) you want to decode. It is based on the `AVFoundation` framework from Apple in order to replace ZXing or ZBar for iOS 8.0 and over.
 
@@ -32,7 +32,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 
 use_frameworks!
-pod 'QRCodeReader.swift', '~> 5.2.1'
+pod 'QRCodeReader.swift', '~> 5.3.0'
 ```
 
 Install into your project:
@@ -63,7 +63,7 @@ $ brew install carthage
 To integrate `QRCodeReader` into your Xcode project using Carthage, specify it in your `Cartfile` file:
 
 ```ogdl
-github "yannickl/QRCodeReader.swift" >= 5.2.0
+github "yannickl/QRCodeReader.swift" >= 5.3.0
 ```
 
 #### Manually
