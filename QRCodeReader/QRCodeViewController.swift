@@ -45,7 +45,7 @@ public class QRCodeReaderViewController: UIViewController {
   public weak var delegate: QRCodeReaderViewControllerDelegate?
 
   /// The completion blocak that will be called when a result is found.
-  public var completionBlock: ((QRCodeReaderResult?) -> ())?
+  public var completionBlock: (QRCodeReaderResult? -> Void)?
 
   deinit {
     codeReader.stopScanning()
@@ -91,39 +91,51 @@ public class QRCodeReaderViewController: UIViewController {
   convenience public init(cancelButtonTitle: String, metadataObjectTypes: [String], startScanningAtLoad: Bool = true) {
     let reader = QRCodeReader(metadataObjectTypes: metadataObjectTypes)
 
-    self.init(cancelButtonTitle: cancelButtonTitle, coderReader: reader, startScanningAtLoad: startScanningAtLoad)
+    self.init(cancelButtonTitle: cancelButtonTitle, codeReader: reader, startScanningAtLoad: startScanningAtLoad)
   }
 
   /**
   Initializes a view controller using a cancel button title and a code reader.
 
   - parameter cancelButtonTitle:   The title to use for the cancel button.
-  - parameter coderReader:         The code reader object used to scan the bar code.
+  - parameter codeReader:          The code reader object used to scan the bar code.
   - parameter startScanningAtLoad: Flag to know whether the view controller start scanning the codes when the view will appear.
   - parameter showSwitchCameraButton: Flag to display the switch camera button.
   - parameter showTorchButton: Flag to display the toggle torch button. If the value is true and there is no torch the button will not be displayed.
   */
-  required public init(cancelButtonTitle: String, coderReader reader: QRCodeReader, startScanningAtLoad startScan: Bool = true, showSwitchCameraButton showSwitch: Bool = true, showTorchButton showTorch: Bool = false) {
-    startScanningAtLoad    = startScan
-    codeReader             = reader
-    showSwitchCameraButton = showSwitch
-    showTorchButton        = showTorch
+  public convenience init(cancelButtonTitle: String, codeReader reader: QRCodeReader, startScanningAtLoad startScan: Bool = true, showSwitchCameraButton showSwitch: Bool = true, showTorchButton showTorch: Bool = false) {
+    self.init(builder: QRCodeViewControllerBuilder { builder in
+      builder.cancelButtonTitle      = cancelButtonTitle
+      builder.reader                 = reader
+      builder.startScanningAtLoad    = startScan
+      builder.showSwitchCameraButton = showSwitch
+      builder.showTorchButton        = showTorch
+      })
+  }
+
+  /**
+   Initializes a view controller using a builder.
+
+   - parameter builder: A QRCodeViewController builder object.
+   */
+  required public init(builder: QRCodeViewControllerBuilder) {
+    startScanningAtLoad    = builder.startScanningAtLoad
+    codeReader             = builder.reader
+    showSwitchCameraButton = builder.showSwitchCameraButton
+    showTorchButton        = builder.showTorchButton
 
     super.init(nibName: nil, bundle: nil)
 
-    view.backgroundColor = UIColor.blackColor()
+    view.backgroundColor = .blackColor()
 
-    codeReader.completionBlock = { [weak self] (resultAsObject) in
+    codeReader.completionBlock = { [weak self] resultAsObject in
       if let weakSelf = self {
         weakSelf.completionBlock?(resultAsObject)
-
-        if let _resultAsObject = resultAsObject {
-          weakSelf.delegate?.reader(weakSelf, didScanResult: _resultAsObject)
-        }
+        weakSelf.delegate?.reader(weakSelf, didScanResult: resultAsObject)
       }
     }
 
-    setupUIComponentsWithCancelButtonTitle(cancelButtonTitle)
+    setupUIComponentsWithCancelButtonTitle(builder.cancelButtonTitle)
     setupAutoLayoutConstraints()
 
     cameraView.layer.insertSublayer(codeReader.previewLayer, atIndex: 0)
@@ -208,7 +220,7 @@ public class QRCodeReaderViewController: UIViewController {
 
     cancelButton.translatesAutoresizingMaskIntoConstraints = false
     cancelButton.setTitle(cancelButtonTitle, forState: .Normal)
-    cancelButton.setTitleColor(UIColor.grayColor(), forState: .Highlighted)
+    cancelButton.setTitleColor(.grayColor(), forState: .Highlighted)
     cancelButton.addTarget(self, action: "cancelAction:", forControlEvents: .TouchUpInside)
     view.addSubview(cancelButton)
   }

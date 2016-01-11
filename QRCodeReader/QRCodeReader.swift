@@ -66,7 +66,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   // MARK: - Managing the Completion Block
 
   /// Block is executing when a QRCode or when the user did stopped the scan.
-  public var completionBlock: ((QRCodeReaderResult?) -> ())?
+  public var completionBlock: (QRCodeReaderResult -> Void)?
 
   // MARK: - Creating the Code Reader
 

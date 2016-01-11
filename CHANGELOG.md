@@ -5,6 +5,7 @@ Released on 2016-01-11.
 
 - [ADD] Return a `QRCodeReaderResult` instead of a string.
 - [ADD] Convenience init with QRCode metadata type.
+- [ADD] `QRCodeViewControllerBuilder` object with the corresponding init.
 
 ## [Version 5.2.1](https://github.com/yannickl/QRCodeReader.swift/releases/tag/5.2.1)
 Released on 2015-11-07.
