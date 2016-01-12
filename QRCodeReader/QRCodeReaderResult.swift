@@ -27,6 +27,10 @@
 import Foundation
 
 public struct QRCodeReaderResult {
-  public let value: String?
-  public let type: String?
+  public let value: String
+
+  /**
+   The type of the metadata.
+   */
+  public let metadataType: String
 }

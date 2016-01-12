@@ -269,7 +269,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
         if metadataObjectTypes.contains(_readableCodeObject.type) {
           stopScanning()
 
-          let scannedResult = QRCodeReaderResult(value: _readableCodeObject.stringValue, type:_readableCodeObject.type)
+          let scannedResult = QRCodeReaderResult(value: _readableCodeObject.stringValue, metadataType:_readableCodeObject.type)
 
           dispatch_async(dispatch_get_main_queue(), { [weak self] in
             self?.completionBlock?(scannedResult)
