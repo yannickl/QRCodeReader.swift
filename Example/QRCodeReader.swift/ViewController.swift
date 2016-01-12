@@ -28,9 +28,14 @@ import UIKit
 import AVFoundation
 
 class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
-  lazy var reader = QRCodeReaderViewController(builder: QRCodeViewControllerBuilder { builder in
-    builder.showTorchButton = true
-  })
+  lazy var reader: QRCodeReaderViewController = {
+    let builder = QRCodeViewControllerBuilder { builder in
+      builder.reader          = QRCodeReader(metadataObjectTypes: [AVMetadataObjectTypeQRCode])
+      builder.showTorchButton = true
+    }
+
+    return QRCodeReaderViewController(builder: builder)
+  }()
 
   @IBAction func scanAction(sender: AnyObject) {
     if QRCodeReader.supportsMetadataObjectTypes() {

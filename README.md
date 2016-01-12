@@ -10,6 +10,41 @@ It provides a default view controller to display the camera view with the scan a
 
 *Note: the v4.x or over are compatibles with swift 1.2, use the v3 with XCode 6.2 or lower.*
 
+## Usage
+
+```swift
+// Good practice: create the reader lazily to avoid cpu overload during the
+// initialization and each time we need to scan a QRCode
+lazy var reader = QRCodeReaderViewController(metadataObjectTypes: [AVMetadataObjectTypeQRCode])
+
+@IBAction func scanAction(sender: AnyObject) {
+  // Retrieve the QRCode content
+  // By using the delegate pattern
+  reader.delegate = self
+
+  // Or by using the closure pattern
+  reader.completionBlock = { (result: QRCodeReaderResult?) in
+    println(result)
+  }
+
+  // Presents the reader as modal form sheet
+  reader.modalPresentationStyle = .FormSheet
+  presentViewController(reader, animated: true, completion: nil)
+}
+
+// MARK: - QRCodeReader Delegate Methods
+
+func reader(reader: QRCodeReader, didScanResult result: QRCodeReaderResult) {
+  self.dismissViewControllerAnimated(true, completion: nil)
+}
+
+func readerDidCancel(reader: QRCodeReader) {
+  self.dismissViewControllerAnimated(true, completion: nil)
+}
+```
+
+*Note that you should check whether the device supports the reader library by using the `QRCodeReader.isAvailable()` or the `QRCodeReader.supportsMetadataObjectTypes()` methods.*
+
 ### Installation
 
 The recommended approach to use _QRCodeReaderViewController_ in your project is using the [CocoaPods](http://cocoapods.org/) package manager, as it provides flexible dependency management and dead simple installation.
@@ -69,41 +104,6 @@ github "yannickl/QRCodeReader.swift" >= 5.3.0
 #### Manually
 
 [Download](https://github.com/YannickL/QRCodeReader.swift/archive/master.zip) the project and copy the `QRCodeReader` folder into your project to use it in.
-
-## Usage
-
-```swift
-// Good practice: create the reader lazily to avoid cpu overload during the
-// initialization and each time we need to scan a QRCode
-lazy var reader = QRCodeReaderViewController(metadataObjectTypes: [AVMetadataObjectTypeQRCode])
-
-@IBAction func scanAction(sender: AnyObject) {
-  // Retrieve the QRCode content
-  // By using the delegate pattern
-  reader.delegate = self
-
-  // Or by using the closure pattern
-  reader.completionBlock = { (result: String?) in
-    println(result)
-  }
-
-  // Presents the reader as modal form sheet
-  reader.modalPresentationStyle = .FormSheet
-  presentViewController(reader, animated: true, completion: nil)
-}
-
-// MARK: - QRCodeReader Delegate Methods
-
-func reader(reader: QRCodeReader, didScanResult result: String) {
-  self.dismissViewControllerAnimated(true, completion: nil)
-}
-
-func readerDidCancel(reader: QRCodeReader) {
-  self.dismissViewControllerAnimated(true, completion: nil)
-}
-```
-
-*Note that you should check whether the device supports the reader library by using the `QRCodeReader.isAvailable()` or the `QRCodeReader.supportsMetadataObjectTypes()` methods.*
 
 ## Contact
 

@@ -30,7 +30,7 @@ import Foundation
  The QRCodeViewControllerBuilder aims to create a simple configuration object for
  the QRCode view controller.
  */
-final public class QRCodeViewControllerBuilder {
+public final class QRCodeViewControllerBuilder {
   // MARK: - Configuring the QRCodeViewController Objects
 
   /**
