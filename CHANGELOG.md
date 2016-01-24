@@ -4,6 +4,7 @@
 Released on 2016-01-24.
 
 - [REFACTORING] Rename `completionBlock` of `QRCodeReader` to `codeDidFoundBlock`.
+- [ADD] `stopScanningWhenCodeIsFound` flag to stop the scanner when a code is found.
 
 ## [Version 5.3.1](https://github.com/yannickl/QRCodeReader.swift/releases/tag/5.3.1)
 Released on 2016-01-12.
