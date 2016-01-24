@@ -1,10 +1,15 @@
 # Change log
 
+## [Version 5.4.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/5.4.0)
+Released on 2016-01-24.
+
+- [REFACTORING] Rename `completionBlock` of `QRCodeReader` to `codeDidFoundBlock`.
+
 ## [Version 5.3.1](https://github.com/yannickl/QRCodeReader.swift/releases/tag/5.3.1)
 Released on 2016-01-12.
 
 - [FIX] `value` and `type` of `QRCodeReaderResult` are not optional.
-- [REFACTORING] rename `type` to `metadataType` in `QRCodeReaderResult`.
+- [REFACTORING] Rename `type` to `metadataType` in `QRCodeReaderResult`.
 
 ## [Version 5.3.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/5.3.0)
 Released on 2016-01-11.

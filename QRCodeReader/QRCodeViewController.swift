@@ -128,7 +128,7 @@ public class QRCodeReaderViewController: UIViewController {
 
     view.backgroundColor = .blackColor()
 
-    codeReader.completionBlock = { [weak self] resultAsObject in
+    codeReader.codeDidFoundBlock = { [weak self] resultAsObject in
       if let weakSelf = self {
         weakSelf.completionBlock?(resultAsObject)
         weakSelf.delegate?.reader(weakSelf, didScanResult: resultAsObject)

@@ -29,7 +29,7 @@ import AVFoundation
 
 /// Reader object base on the `AVCaptureDevice` to read / scan 1D and 2D codes.
 public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegate {
-  var defaultDevice: AVCaptureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+  var defaultDevice: AVCaptureDevice = .defaultDeviceWithMediaType(AVMediaTypeVideo)
   var frontDevice: AVCaptureDevice?  = {
     for device in AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo) {
       if let _device = device as? AVCaptureDevice where _device.position == AVCaptureDevicePosition.Front {
@@ -58,15 +58,19 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   // MARK: - Managing the Properties
 
   /// CALayer that you use to display video as it is being captured by an input device.
-  public lazy var previewLayer: AVCaptureVideoPreviewLayer = { return AVCaptureVideoPreviewLayer(session: self.session) }()
+  public lazy var previewLayer: AVCaptureVideoPreviewLayer = {
+    return AVCaptureVideoPreviewLayer(session: self.session)
+  }()
 
   /// An array of strings identifying the types of metadata objects to process.
   public let metadataObjectTypes: [String]
 
-  // MARK: - Managing the Completion Block
+  // MARK: - Managing the Code Discovery
+
+  //public var stopScanningWhenCodeIsFound: Bool = true
 
   /// Block is executing when a QRCode or when the user did stopped the scan.
-  public var completionBlock: (QRCodeReaderResult -> Void)?
+  public var codeDidFoundBlock: (QRCodeReaderResult -> Void)?
 
   // MARK: - Creating the Code Reader
 
@@ -272,7 +276,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
           let scannedResult = QRCodeReaderResult(value: _readableCodeObject.stringValue, metadataType:_readableCodeObject.type)
 
           dispatch_async(dispatch_get_main_queue(), { [weak self] in
-            self?.completionBlock?(scannedResult)
+            self?.codeDidFoundBlock?(scannedResult)
           })
         }
       }
