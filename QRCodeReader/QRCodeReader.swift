@@ -70,8 +70,8 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   /// Flag to know whether the scanner should stop scanning when a code is found.
   public var stopScanningWhenCodeIsFound: Bool = true
 
-  /// Block is executing when a QRCode or when the user did stopped the scan.
-  public var codeDidFoundBlock: (QRCodeReaderResult -> Void)?
+  /// Block is executed when a metadata object is found.
+  public var didFindCodeBlock: (QRCodeReaderResult -> Void)?
 
   // MARK: - Creating the Code Reader
 
@@ -283,7 +283,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
           let scannedResult = QRCodeReaderResult(value: _readableCodeObject.stringValue, metadataType:_readableCodeObject.type)
 
           dispatch_async(dispatch_get_main_queue(), { [weak self] in
-            self?.codeDidFoundBlock?(scannedResult)
+            self?.didFindCodeBlock?(scannedResult)
           })
         }
       }
