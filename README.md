@@ -8,7 +8,7 @@ It provides a default view controller to display the camera view with the scan a
 
 ![screenshot](http://yannickloriot.com/resources/qrcodereader.swift-screenshot.jpg)
 
-*Note: the v4.x or over are compatibles with swift 1.2, use the v3 with XCode 6.2 or lower.*
+*Note: the v4.x or over are compatibles with swift 1.2, use the v3 with Xcode 6.2 or lower.*
 
 ## Usage
 
