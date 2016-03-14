@@ -15,21 +15,21 @@ It provides a default view controller to display the camera view with the scan a
 ```swift
 // Good practice: create the reader lazily to avoid cpu overload during the
 // initialization and each time we need to scan a QRCode
-lazy var reader = QRCodeReaderViewController(metadataObjectTypes: [AVMetadataObjectTypeQRCode])
+lazy var readerVC = QRCodeReaderViewController(metadataObjectTypes: [AVMetadataObjectTypeQRCode])
 
 @IBAction func scanAction(sender: AnyObject) {
   // Retrieve the QRCode content
   // By using the delegate pattern
-  reader.delegate = self
+  readerVC.delegate = self
 
   // Or by using the closure pattern
-  reader.completionBlock = { (result: QRCodeReaderResult?) in
+  readerVC.completionBlock = { (result: QRCodeReaderResult?) in
     println(result)
   }
 
-  // Presents the reader as modal form sheet
-  reader.modalPresentationStyle = .FormSheet
-  presentViewController(reader, animated: true, completion: nil)
+  // Presents the readerVC as modal form sheet
+  readerVC.modalPresentationStyle = .FormSheet
+  presentViewController(readerVC, animated: true, completion: nil)
 }
 
 // MARK: - QRCodeReader Delegate Methods
