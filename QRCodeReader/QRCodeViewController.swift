@@ -34,7 +34,9 @@ public class QRCodeReaderViewController: UIViewController {
   private var switchCameraButton: SwitchCameraButton?
   private var toggleTorchButton: ToggleTorchButton?
 
-  let codeReader: QRCodeReader
+  /// The code reader object used to scan the bar code.
+  public let codeReader: QRCodeReader
+
   let startScanningAtLoad: Bool
   let showSwitchCameraButton: Bool
   let showTorchButton: Bool

@@ -1,5 +1,10 @@
 # Change log
 
+## [Version 5.5.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/5.5.0)
+Released on 2016-03-14.
+
+- [REFACTORING] make the `codeReader` property public
+
 ## [Version 5.4.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/5.4.0)
 Released on 2016-01-24.
 
