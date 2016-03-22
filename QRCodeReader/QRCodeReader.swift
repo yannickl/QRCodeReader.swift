@@ -38,11 +38,11 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
     }
 
     return nil
-    }()
+  }()
 
   lazy var defaultDeviceInput: AVCaptureDeviceInput? = {
     return try? AVCaptureDeviceInput(device: self.defaultDevice)
-    }()
+  }()
 
   lazy var frontDeviceInput: AVCaptureDeviceInput?  = {
     if let _frontDevice = self.frontDevice {
@@ -50,7 +50,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
     }
 
     return nil
-    }()
+  }()
 
   var metadataOutput = AVCaptureMetadataOutput()
   var session        = AVCaptureSession()
@@ -76,17 +76,17 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   // MARK: - Creating the Code Reader
 
   /**
-  Initializes the code reader with the QRCode metadata type object.
-  */
+   Initializes the code reader with the QRCode metadata type object.
+   */
   public convenience override init() {
     self.init(metadataObjectTypes: [AVMetadataObjectTypeQRCode])
   }
 
   /**
-  Initializes the code reader with an array of metadata object types.
+   Initializes the code reader with an array of metadata object types.
 
-  - parameter metadataObjectTypes: An array of strings identifying the types of metadata objects to process.
-  */
+   - parameter metadataObjectTypes: An array of strings identifying the types of metadata objects to process.
+   */
   public init(metadataObjectTypes types: [String]) {
     metadataObjectTypes = types
 
@@ -128,10 +128,10 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   // MARK: - Controlling Reader
 
   /**
-  Starts scanning the codes.
-  
-  *Notes: if `stopScanningWhenCodeIsFound` is sets to true (default behaviour), each time the scanner found a code it calls the `stopScanning` method.*
-  */
+   Starts scanning the codes.
+
+   *Notes: if `stopScanningWhenCodeIsFound` is sets to true (default behaviour), each time the scanner found a code it calls the `stopScanning` method.*
+   */
   public func startScanning() {
     if !session.running {
       session.startRunning()
@@ -146,12 +146,12 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   }
 
   /**
-  Indicates whether the session is currently running.
+   Indicates whether the session is currently running.
 
-  The value of this property is a Bool indicating whether the receiver is running.
-  Clients can key value observe the value of this property to be notified when
-  the session automatically starts or stops running.
-  */
+   The value of this property is a Bool indicating whether the receiver is running.
+   Clients can key value observe the value of this property to be notified when
+   the session automatically starts or stops running.
+   */
   public var running: Bool {
     get {
       return session.running
@@ -159,26 +159,26 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   }
 
   /**
-  Returns true whether a front device is available.
+   Returns true whether a front device is available.
 
-  - returns: true whether the device has a front device.
-  */
+   - returns: true whether the device has a front device.
+   */
   public func hasFrontDevice() -> Bool {
     return frontDevice != nil
   }
 
   /**
-  Returns true whether a torch is available.
+   Returns true whether a torch is available.
 
-  - returns: true if a torch is available.
-  */
+   - returns: true if a torch is available.
+   */
   public func isTorchAvailable() -> Bool {
     return defaultDevice.torchAvailable
   }
 
   /**
-  Toggles torch on the default device.
-  */
+   Toggles torch on the default device.
+   */
   public func toggleTorch() {
     do {
       try defaultDevice.lockForConfiguration()
@@ -194,19 +194,59 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   // MARK: - Managing the Orientation
 
   /**
-  Returns the video orientation correspongind to the given interface orientation.
+   Returns the video orientation corresponding to the given device orientation.
 
-  - parameter orientation: The orientation of the app's user interface.
-  */
-  public class func videoOrientationFromInterfaceOrientation(orientation: UIInterfaceOrientation) -> AVCaptureVideoOrientation {
-    switch (orientation) {
+   - parameter orientation: The orientation of the app's user interface.
+   - parameter supportedOrientations: The supported orientations of the application.
+   - parameter fallbackOrientation: The video orientation if the device orientation is FaceUp or FaceDown.
+   */
+  public class func videoOrientationFromDeviceOrientation(orientation: UIDeviceOrientation, withSupportedOrientations supportedOrientations: UIInterfaceOrientationMask, fallbackOrientation: AVCaptureVideoOrientation? = nil) -> AVCaptureVideoOrientation {
+    let result: AVCaptureVideoOrientation
+
+    switch (orientation, fallbackOrientation) {
+    case (.LandscapeLeft, _):
+      result = .LandscapeRight
+    case (.LandscapeRight, _):
+      result = .LandscapeLeft
+    case (.Portrait, _):
+      result = .Portrait
+    case (.PortraitUpsideDown, _):
+      result = .PortraitUpsideDown
+    case (_, .Some(let orientation)):
+      result = orientation
+    default:
+      result = .Portrait
+    }
+
+    if supportedOrientations.contains(orientationMaskWithVideoOrientation(result)) {
+      return result
+    }
+    else if let orientation = fallbackOrientation where supportedOrientations.contains(orientationMaskWithVideoOrientation(orientation)) {
+      return orientation
+    }
+    else if supportedOrientations.contains(.Portrait) {
+      return .Portrait
+    }
+    else if supportedOrientations.contains(.LandscapeLeft) {
+      return .LandscapeLeft
+    }
+    else if supportedOrientations.contains(.LandscapeRight) {
+      return .LandscapeRight
+    }
+    else {
+      return .PortraitUpsideDown
+    }
+  }
+
+  class func orientationMaskWithVideoOrientation(orientation: AVCaptureVideoOrientation) -> UIInterfaceOrientationMask {
+    switch orientation {
     case .LandscapeLeft:
       return .LandscapeLeft
     case .LandscapeRight:
       return .LandscapeRight
     case .Portrait:
       return .Portrait
-    default:
+    case .PortraitUpsideDown:
       return .PortraitUpsideDown
     }
   }
@@ -214,10 +254,10 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   // MARK: - Checking the Reader Availabilities
 
   /**
-  Checks whether the reader is available.
+   Checks whether the reader is available.
 
-  - returns: A boolean value that indicates whether the reader is available.
-  */
+   - returns: A boolean value that indicates whether the reader is available.
+   */
   public class func isAvailable() -> Bool {
     if AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo).count == 0 {
       return false
@@ -234,12 +274,12 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   }
 
   /**
-  Checks and return whether the given metadata object types are supported by the current device.
+   Checks and return whether the given metadata object types are supported by the current device.
 
-  - parameter metadataTypes: An array of strings identifying the types of metadata objects to check.
+   - parameter metadataTypes: An array of strings identifying the types of metadata objects to check.
 
-  - returns: A boolean value that indicates whether the device supports the given metadata object types.
-  */
+   - returns: A boolean value that indicates whether the device supports the given metadata object types.
+   */
   public class func supportsMetadataObjectTypes(metadataTypes: [String]? = nil) -> Bool {
     if !isAvailable() {
       return false
@@ -281,10 +321,10 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
           }
 
           let scannedResult = QRCodeReaderResult(value: _readableCodeObject.stringValue, metadataType:_readableCodeObject.type)
-
+          
           dispatch_async(dispatch_get_main_queue(), { [weak self] in
             self?.didFindCodeBlock?(scannedResult)
-          })
+            })
         }
       }
     }
