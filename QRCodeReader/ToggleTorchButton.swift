@@ -28,20 +28,20 @@ import UIKit
 
 /// The toggle torch button.
 @IBDesignable final class ToggleTorchButton: UIButton {
-  @IBInspectable var edgeColor: UIColor = UIColor.whiteColor() {
+  @IBInspectable var edgeColor: UIColor = .whiteColor() {
     didSet {
       setNeedsDisplay()
     }
   }
 
-  @IBInspectable var fillColor: UIColor  = UIColor.lightGrayColor() {
+  @IBInspectable var fillColor: UIColor = .lightGrayColor() {
     didSet {
       setNeedsDisplay()
     }
   }
 
-  @IBInspectable var edgeHighlightedColor: UIColor = UIColor.whiteColor()
-  @IBInspectable var fillHighlightedColor: UIColor = UIColor.darkGrayColor()
+  @IBInspectable var edgeHighlightedColor: UIColor = .whiteColor()
+  @IBInspectable var fillHighlightedColor: UIColor = .darkGrayColor()
 
   override func drawRect(rect: CGRect) {
     // Colors
@@ -61,8 +61,9 @@ import UIKit
 
     //Circle
     let circlePath = UIBezierPath()
-    circlePath.addArcWithCenter(CGPoint(x: centerX, y: centerY), radius: circleRadius, startAngle: 0.0, endAngle: CGFloat(M_PI), clockwise: true)
-    circlePath.addArcWithCenter(CGPoint(x: centerX, y: centerY), radius: circleRadius, startAngle: CGFloat(M_PI), endAngle: CGFloat(M_PI * 2), clockwise: true)
+    let center     = CGPoint(x: centerX, y: centerY)
+    circlePath.addArcWithCenter(center, radius: circleRadius, startAngle: 0.0, endAngle: CGFloat(M_PI), clockwise: true)
+    circlePath.addArcWithCenter(center, radius: circleRadius, startAngle: CGFloat(M_PI), endAngle: CGFloat(M_PI * 2), clockwise: true)
 
     // Draw beams
     paintColor.setFill()
@@ -70,8 +71,8 @@ import UIKit
     for i in 0 ..< 8 {
       let angle = ((2 * CGFloat(M_PI)) / 8) * CGFloat(i);
 
-      let startPoint = CGPointMake(centerX + cos(angle) * lineOriginFromCenter, centerY + sin(angle) * lineOriginFromCenter);
-      let endPoint   = CGPointMake(centerX + cos(angle) * (lineOriginFromCenter + lineLength), centerY + sin(angle) * (lineOriginFromCenter + lineLength));
+      let startPoint = CGPoint(x: centerX + cos(angle) * lineOriginFromCenter, y: centerY + sin(angle) * lineOriginFromCenter);
+      let endPoint   = CGPoint(x: centerX + cos(angle) * (lineOriginFromCenter + lineLength), y: centerY + sin(angle) * (lineOriginFromCenter + lineLength));
 
       let beam = linePathWithStartPoint(startPoint, endPoint: endPoint, thickness: strokeLineWidth)
       beam.stroke()

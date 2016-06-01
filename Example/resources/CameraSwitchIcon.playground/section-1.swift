@@ -4,13 +4,13 @@ import UIKit
 import XCPlayground
 
 class SwitchCameraButton: UIButton {
-  var strokeColor: UIColor = UIColor.whiteColor() {
+  var strokeColor: UIColor = .whiteColor() {
     didSet {
       setNeedsDisplay()
     }
   }
   
-  var paintColor: UIColor  = UIColor.darkGrayColor() {
+  var paintColor: UIColor  = .darkGrayColor() {
     didSet {
       setNeedsDisplay()
     }
@@ -55,13 +55,13 @@ class SwitchCameraButton: UIButton {
     let flashBottomMostY   = cameraY
     
     let flashPath = UIBezierPath()
-    flashPath.moveToPoint(CGPointMake(flashLeftMostX, flashBottomMostY))
-    flashPath.addLineToPoint(CGPointMake(flashLeftMostX + flashBoxWidth, flashBottomMostY))
-    flashPath.addLineToPoint(CGPointMake(flashLeftMostX + flashBoxWidth - flashBoxDeltaWidth, flashBottomMostY - flashBoxHeight))
-    flashPath.addLineToPoint(CGPointMake(flashLeftMostX + flashBoxDeltaWidth, flashBottomMostY - flashBoxHeight))
+    flashPath.moveToPoint(CGPoint(x: flashLeftMostX, y: flashBottomMostY))
+    flashPath.addLineToPoint(CGPoint(x: flashLeftMostX + flashBoxWidth, y: flashBottomMostY))
+    flashPath.addLineToPoint(CGPoint(x: flashLeftMostX + flashBoxWidth - flashBoxDeltaWidth, y: flashBottomMostY - flashBoxHeight))
+    flashPath.addLineToPoint(CGPoint(x: flashLeftMostX + flashBoxDeltaWidth, y: flashBottomMostY - flashBoxHeight))
     flashPath.closePath()
-    flashPath.lineCapStyle = kCGLineCapRound
-    flashPath.lineJoinStyle = kCGLineJoinRound
+    flashPath.lineCapStyle  = .Round
+    flashPath.lineJoinStyle = .Round
     
     // Arrows
     
@@ -77,13 +77,13 @@ class SwitchCameraButton: UIButton {
     let arrowLeftY = middle + cameraHeight * 0.45
     
     let leftArrowPath = UIBezierPath()
-    leftArrowPath.moveToPoint(CGPointMake(arrowLeftX, arrowLeftY))
-    leftArrowPath.addLineToPoint(CGPointMake(arrowLeftX - arrowHeadWidth, arrowLeftY - arrowHeadHeigth / 2))
-    leftArrowPath.addLineToPoint(CGPointMake(arrowLeftX - arrowHeadWidth, arrowLeftY - arrowTailHeigth / 2))
-    leftArrowPath.addLineToPoint(CGPointMake(arrowLeftX - arrowHeadWidth - arrowTailWidth, arrowLeftY - arrowTailHeigth / 2))
-    leftArrowPath.addLineToPoint(CGPointMake(arrowLeftX - arrowHeadWidth - arrowTailWidth, arrowLeftY + arrowTailHeigth / 2))
-    leftArrowPath.addLineToPoint(CGPointMake(arrowLeftX - arrowHeadWidth, arrowLeftY + arrowTailHeigth / 2))
-    leftArrowPath.addLineToPoint(CGPointMake(arrowLeftX - arrowHeadWidth, arrowLeftY + arrowHeadHeigth / 2))
+    leftArrowPath.moveToPoint(CGPoint(x: arrowLeftX, y: arrowLeftY))
+    leftArrowPath.addLineToPoint(CGPoint(x: arrowLeftX - arrowHeadWidth, y: arrowLeftY - arrowHeadHeigth / 2))
+    leftArrowPath.addLineToPoint(CGPoint(x: arrowLeftX - arrowHeadWidth, y: arrowLeftY - arrowTailHeigth / 2))
+    leftArrowPath.addLineToPoint(CGPoint(x: arrowLeftX - arrowHeadWidth - arrowTailWidth, y: arrowLeftY - arrowTailHeigth / 2))
+    leftArrowPath.addLineToPoint(CGPoint(x: arrowLeftX - arrowHeadWidth - arrowTailWidth, y: arrowLeftY + arrowTailHeigth / 2))
+    leftArrowPath.addLineToPoint(CGPoint(x: arrowLeftX - arrowHeadWidth, y: arrowLeftY + arrowTailHeigth / 2))
+    leftArrowPath.addLineToPoint(CGPoint(x: arrowLeftX - arrowHeadWidth, y: arrowLeftY + arrowHeadHeigth / 2))
     
     // Right arrow
     
@@ -91,13 +91,13 @@ class SwitchCameraButton: UIButton {
     let arrowRightY = middle + cameraHeight * 0.60
     
     let rigthArrowPath = UIBezierPath()
-    rigthArrowPath.moveToPoint(CGPointMake(arrowRightX, arrowRightY))
-    rigthArrowPath.addLineToPoint(CGPointMake(arrowRightX + arrowHeadWidth, arrowRightY - arrowHeadHeigth / 2))
-    rigthArrowPath.addLineToPoint(CGPointMake(arrowRightX + arrowHeadWidth, arrowRightY - arrowTailHeigth / 2))
-    rigthArrowPath.addLineToPoint(CGPointMake(arrowRightX + arrowHeadWidth + arrowTailWidth, arrowRightY - arrowTailHeigth / 2))
-    rigthArrowPath.addLineToPoint(CGPointMake(arrowRightX + arrowHeadWidth + arrowTailWidth, arrowRightY + arrowTailHeigth / 2))
-    rigthArrowPath.addLineToPoint(CGPointMake(arrowRightX + arrowHeadWidth, arrowRightY + arrowTailHeigth / 2))
-    rigthArrowPath.addLineToPoint(CGPointMake(arrowRightX + arrowHeadWidth, arrowRightY + arrowHeadHeigth / 2))
+    rigthArrowPath.moveToPoint(CGPoint(x: arrowRightX, y: arrowRightY))
+    rigthArrowPath.addLineToPoint(CGPoint(x: arrowRightX + arrowHeadWidth, y: arrowRightY - arrowHeadHeigth / 2))
+    rigthArrowPath.addLineToPoint(CGPoint(x: arrowRightX + arrowHeadWidth, y: arrowRightY - arrowTailHeigth / 2))
+    rigthArrowPath.addLineToPoint(CGPoint(x: arrowRightX + arrowHeadWidth + arrowTailWidth, y: arrowRightY - arrowTailHeigth / 2))
+    rigthArrowPath.addLineToPoint(CGPoint(x: arrowRightX + arrowHeadWidth + arrowTailWidth, y: arrowRightY + arrowTailHeigth / 2))
+    rigthArrowPath.addLineToPoint(CGPoint(x: arrowRightX + arrowHeadWidth, y: arrowRightY + arrowTailHeigth / 2))
+    rigthArrowPath.addLineToPoint(CGPoint(x: arrowRightX + arrowHeadWidth, y: arrowRightY + arrowHeadHeigth / 2))
     rigthArrowPath.closePath()
     
     // Drawing
@@ -136,6 +136,6 @@ class SwitchCameraButton: UIButton {
 }
 
 var view             = SwitchCameraButton(frame: CGRect(x: 0, y: 0, width: 200, height: 100))
-view.backgroundColor = UIColor.whiteColor()
+view.backgroundColor = .whiteColor()
 
-XCPShowView("Camera Switch Icon", view)
+XCPlaygroundPage.currentPage.liveView = view

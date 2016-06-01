@@ -61,7 +61,7 @@ class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
   // MARK: - QRCodeReader Delegate Methods
 
   func reader(reader: QRCodeReaderViewController, didScanResult result: QRCodeReaderResult) {
-    self.dismissViewControllerAnimated(true, completion: { [weak self] in
+    self.dismissViewControllerAnimated(true) { [weak self] in
       let alert = UIAlertController(
         title: "QRCodeReader",
         message: String (format:"%@ (of type %@)", result.value, result.metadataType),
@@ -70,7 +70,7 @@ class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
       alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
 
       self?.presentViewController(alert, animated: true, completion: nil)
-      })
+    }
   }
 
   func readerDidCancel(reader: QRCodeReaderViewController) {

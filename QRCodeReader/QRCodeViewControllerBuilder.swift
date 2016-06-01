@@ -42,27 +42,27 @@ public final class QRCodeViewControllerBuilder {
   /**
    The title to use for the cancel button.
    */
-  public var cancelButtonTitle: String = "Cancel"
+  public var cancelButtonTitle = "Cancel"
 
   /**
    The code reader object used to scan the bar code.
    */
-  public var reader: QRCodeReader = QRCodeReader()
+  public var reader = QRCodeReader()
 
   /**
    Flag to know whether the view controller start scanning the codes when the view will appear.
    */
-  public var startScanningAtLoad: Bool = true
+  public var startScanningAtLoad = true
 
   /**
    Flag to display the switch camera button.
    */
-  public var showSwitchCameraButton: Bool = true
+  public var showSwitchCameraButton = true
 
   /**
    Flag to display the toggle torch button. If the value is true and there is no torch the button will not be displayed.
    */
-  public var showTorchButton: Bool = false
+  public var showTorchButton = false
 
   // MARK: - Initializing a Flap View
 

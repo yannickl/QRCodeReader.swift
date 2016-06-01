@@ -44,7 +44,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
     return try? AVCaptureDeviceInput(device: self.defaultDevice)
   }()
 
-  lazy var frontDeviceInput: AVCaptureDeviceInput?  = {
+  lazy var frontDeviceInput: AVCaptureDeviceInput? = {
     if let _frontDevice = self.frontDevice {
       return try? AVCaptureDeviceInput(device: _frontDevice)
     }
