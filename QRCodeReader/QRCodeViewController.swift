@@ -156,6 +156,10 @@ public class QRCodeReaderViewController: UIViewController {
 
   // MARK: - Responding to View Events
 
+  public override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+    return parentViewController?.supportedInterfaceOrientations() ?? .All
+  }
+
   override public func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
 
@@ -193,7 +197,7 @@ public class QRCodeReaderViewController: UIViewController {
     cameraView.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(cameraView)
 
-    codeReader.previewLayer.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height)
+    codeReader.previewLayer.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height)
 
     if codeReader.previewLayer.connection.supportsVideoOrientation {
       let orientation = UIDevice.currentDevice().orientation
