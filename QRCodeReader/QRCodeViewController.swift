@@ -130,7 +130,7 @@ public class QRCodeReaderViewController: UIViewController {
 
     view.backgroundColor = .black()
 
-    codeReader.didFindCodeBlock = { [weak self] resultAsObject in
+    codeReader.didFindCode = { [weak self] resultAsObject in
       if let weakSelf = self {
         weakSelf.completionBlock?(resultAsObject)
         weakSelf.delegate?.reader(weakSelf, didScanResult: resultAsObject)
@@ -186,7 +186,7 @@ public class QRCodeReaderViewController: UIViewController {
     cameraView.setNeedsDisplay()
 
     if let device = notification.object as? UIDevice where codeReader.previewLayer.connection.isVideoOrientationSupported {
-      codeReader.previewLayer.connection.videoOrientation = QRCodeReader.videoOrientationFromDeviceOrientation(device.orientation, withSupportedOrientations: supportedInterfaceOrientations(), fallbackOrientation: codeReader.previewLayer.connection.videoOrientation)
+      codeReader.previewLayer.connection.videoOrientation = QRCodeReader.videoOrientation(deviceOrientation: device.orientation, withSupportedOrientations: supportedInterfaceOrientations(), fallbackOrientation: codeReader.previewLayer.connection.videoOrientation)
     }
   }
 
@@ -202,10 +202,10 @@ public class QRCodeReaderViewController: UIViewController {
     if codeReader.previewLayer.connection.isVideoOrientationSupported {
       let orientation = UIDevice.current().orientation
 
-      codeReader.previewLayer.connection.videoOrientation = QRCodeReader.videoOrientationFromDeviceOrientation(orientation, withSupportedOrientations: supportedInterfaceOrientations())
+      codeReader.previewLayer.connection.videoOrientation = QRCodeReader.videoOrientation(deviceOrientation: orientation, withSupportedOrientations: supportedInterfaceOrientations())
     }
 
-    if showSwitchCameraButton && codeReader.hasFrontDevice() {
+    if showSwitchCameraButton && codeReader.hasFrontDevice {
       let newSwitchCameraButton = SwitchCameraButton()
       newSwitchCameraButton.translatesAutoresizingMaskIntoConstraints = false
       newSwitchCameraButton.addTarget(self, action: #selector(switchCameraAction), for: .touchUpInside)
@@ -214,7 +214,7 @@ public class QRCodeReaderViewController: UIViewController {
       switchCameraButton = newSwitchCameraButton
     }
 
-    if showTorchButton && codeReader.isTorchAvailable() {
+    if showTorchButton && codeReader.isTorchAvailable {
       let newToggleTorchButton = ToggleTorchButton()
       newToggleTorchButton.translatesAutoresizingMaskIntoConstraints = false
       newToggleTorchButton.addTarget(self, action: #selector(toggleTorchAction), for: .touchUpInside)

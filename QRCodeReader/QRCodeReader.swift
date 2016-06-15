@@ -71,7 +71,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   public var stopScanningWhenCodeIsFound: Bool = true
 
   /// Block is executed when a metadata object is found.
-  public var didFindCodeBlock: ((QRCodeReaderResult) -> Void)?
+  public var didFindCode: ((QRCodeReaderResult) -> Void)?
 
   // MARK: - Creating the Code Reader
 
@@ -152,27 +152,25 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
    Clients can key value observe the value of this property to be notified when
    the session automatically starts or stops running.
    */
-  public var running: Bool {
-    get {
-      return session.isRunning
-    }
+  public var isRunning: Bool {
+    return session.isRunning
   }
 
   /**
-   Returns true whether a front device is available.
+   Indicates whether a front device is available.
 
    - returns: true whether the device has a front device.
    */
-  public func hasFrontDevice() -> Bool {
+  public var hasFrontDevice: Bool {
     return frontDevice != nil
   }
 
   /**
-   Returns true whether a torch is available.
+   Indicates whether the torch is available.
 
    - returns: true if a torch is available.
    */
-  public func isTorchAvailable() -> Bool {
+  public var isTorchAvailable: Bool {
     return defaultDevice.isTorchAvailable
   }
 
@@ -183,7 +181,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
     do {
       try defaultDevice.lockForConfiguration()
 
-      let current              = defaultDevice.torchMode
+      let current             = defaultDevice.torchMode
       defaultDevice.torchMode = AVCaptureTorchMode.on == current ? .off : .on
 
       defaultDevice.unlockForConfiguration()
@@ -200,7 +198,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
    - parameter supportedOrientations: The supported orientations of the application.
    - parameter fallbackOrientation: The video orientation if the device orientation is FaceUp or FaceDown.
    */
-  public class func videoOrientationFromDeviceOrientation(_ orientation: UIDeviceOrientation, withSupportedOrientations supportedOrientations: UIInterfaceOrientationMask, fallbackOrientation: AVCaptureVideoOrientation? = nil) -> AVCaptureVideoOrientation {
+  public class func videoOrientation(deviceOrientation orientation: UIDeviceOrientation, withSupportedOrientations supportedOrientations: UIInterfaceOrientationMask, fallbackOrientation: AVCaptureVideoOrientation? = nil) -> AVCaptureVideoOrientation {
     let result: AVCaptureVideoOrientation
 
     switch (orientation, fallbackOrientation) {
@@ -218,10 +216,10 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
       result = .portrait
     }
 
-    if supportedOrientations.contains(orientationMaskWithVideoOrientation(result)) {
+    if supportedOrientations.contains(orientationMask(videoOrientation: result)) {
       return result
     }
-    else if let orientation = fallbackOrientation where supportedOrientations.contains(orientationMaskWithVideoOrientation(orientation)) {
+    else if let orientation = fallbackOrientation where supportedOrientations.contains(orientationMask(videoOrientation: orientation)) {
       return orientation
     }
     else if supportedOrientations.contains(.portrait) {
@@ -238,7 +236,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
     }
   }
 
-  class func orientationMaskWithVideoOrientation(_ orientation: AVCaptureVideoOrientation) -> UIInterfaceOrientationMask {
+  class func orientationMask(videoOrientation orientation: AVCaptureVideoOrientation) -> UIInterfaceOrientationMask {
     switch orientation {
     case .landscapeLeft:
       return .landscapeLeft
@@ -259,7 +257,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
    - returns: A boolean value that indicates whether the reader is available.
    */
   public class func isAvailable() -> Bool {
-    if AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo).count == 0 {
+    guard AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo).count != 0 else {
       return false
     }
 
@@ -323,7 +321,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
           let scannedResult = QRCodeReaderResult(value: _readableCodeObject.stringValue, metadataType:_readableCodeObject.type)
           
           DispatchQueue.main.async(execute: { [weak self] in
-            self?.didFindCodeBlock?(scannedResult)
+            self?.didFindCode?(scannedResult)
             })
         }
       }
