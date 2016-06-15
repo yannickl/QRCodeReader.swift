@@ -11,6 +11,12 @@
 		4A0723DD1C22405100F2C410 /* QRCodeReaderResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0723DB1C223D8100F2C410 /* QRCodeReaderResult.swift */; };
 		82BD4A0A1BBC21F800172E4E /* ToggleTorchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BD4A091BBC21F800172E4E /* ToggleTorchButton.swift */; };
 		82D83BA71BBC2A3100C94C22 /* ToggleTorchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BD4A091BBC21F800172E4E /* ToggleTorchButton.swift */; };
+		CE3230341D114B980077DF14 /* QRCodeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED23DDB1A15079300BE7A72 /* QRCodeReader.swift */; };
+		CE3230351D114BAA0077DF14 /* QRCodeReaderResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0723DB1C223D8100F2C410 /* QRCodeReaderResult.swift */; };
+		CE3230361D114BAA0077DF14 /* SwitchCameraButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED23DDD1A1507CB00BE7A72 /* SwitchCameraButton.swift */; };
+		CE3230371D114BAA0077DF14 /* ReaderOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECCE4CC1A1527DE00071669 /* ReaderOverlayView.swift */; };
+		CE3230381D114BAA0077DF14 /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD170A1AA3531C00A9ACDE /* QRCodeViewController.swift */; };
+		CE3230391D114BAA0077DF14 /* ToggleTorchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BD4A091BBC21F800172E4E /* ToggleTorchButton.swift */; };
 		CE345B231C444D6400FCC482 /* QRCodeViewControllerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE345B221C444D6400FCC482 /* QRCodeViewControllerBuilder.swift */; };
 		CE345B241C444D6400FCC482 /* QRCodeViewControllerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE345B221C444D6400FCC482 /* QRCodeViewControllerBuilder.swift */; };
 		CE345B251C444D6400FCC482 /* QRCodeViewControllerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE345B221C444D6400FCC482 /* QRCodeViewControllerBuilder.swift */; };
@@ -284,18 +290,21 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Yannick Loriot";
 				TargetAttributes = {
 					CE412E8819D9A1E4000F294E = {
 						CreatedOnToolsVersion = 6.0.1;
+						LastSwiftMigration = 0800;
 					};
 					CE412E9D19D9A1E4000F294E = {
 						CreatedOnToolsVersion = 6.0.1;
+						LastSwiftMigration = 0800;
 						TestTargetID = CE412E8819D9A1E4000F294E;
 					};
 					CE8FFED51BAB4E7F00D43F38 = {
 						CreatedOnToolsVersion = 7.0;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -367,8 +376,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE3230391D114BAA0077DF14 /* ToggleTorchButton.swift in Sources */,
+				CE3230371D114BAA0077DF14 /* ReaderOverlayView.swift in Sources */,
 				CE345B241C444D6400FCC482 /* QRCodeViewControllerBuilder.swift in Sources */,
+				CE3230361D114BAA0077DF14 /* SwitchCameraButton.swift in Sources */,
+				CE3230341D114B980077DF14 /* QRCodeReader.swift in Sources */,
 				CE412EA519D9A1E4000F294E /* QRCodeReader_swiftTests.swift in Sources */,
+				CE3230381D114BAA0077DF14 /* QRCodeViewController.swift in Sources */,
+				CE3230351D114BAA0077DF14 /* QRCodeReaderResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -444,6 +459,7 @@
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -487,6 +503,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -504,24 +521,27 @@
 		CE412EA919D9A1E4000F294E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = QRCodeReader.swift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yannickloriot.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		CE412EAA19D9A1E4000F294E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = QRCodeReader.swift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yannickloriot.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -541,6 +561,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yannickloriot.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/QRCodeReader.swift.app/QRCodeReader.swift";
 			};
 			name = Debug;
@@ -557,6 +578,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yannickloriot.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/QRCodeReader.swift.app/QRCodeReader.swift";
 			};
 			name = Release;
@@ -578,6 +601,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yannickloriot.QRCodeReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -601,6 +625,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yannickloriot.QRCodeReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};

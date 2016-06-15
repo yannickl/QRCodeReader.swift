@@ -29,10 +29,10 @@ import AVFoundation
 
 /// Reader object base on the `AVCaptureDevice` to read / scan 1D and 2D codes.
 public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegate {
-  var defaultDevice: AVCaptureDevice = .defaultDeviceWithMediaType(AVMediaTypeVideo)
+  var defaultDevice: AVCaptureDevice = .defaultDevice(withMediaType: AVMediaTypeVideo)
   var frontDevice: AVCaptureDevice?  = {
-    for device in AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo) {
-      if let _device = device as? AVCaptureDevice where _device.position == AVCaptureDevicePosition.Front {
+    for device in AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo) {
+      if let _device = device as? AVCaptureDevice where _device.position == AVCaptureDevicePosition.front {
         return _device
       }
     }
@@ -71,7 +71,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   public var stopScanningWhenCodeIsFound: Bool = true
 
   /// Block is executed when a metadata object is found.
-  public var didFindCodeBlock: (QRCodeReaderResult -> Void)?
+  public var didFindCodeBlock: ((QRCodeReaderResult) -> Void)?
 
   // MARK: - Creating the Code Reader
 
@@ -104,7 +104,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
       session.addInput(_defaultDeviceInput)
     }
 
-    metadataOutput.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())
+    metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
     metadataOutput.metadataObjectTypes = metadataObjectTypes
     previewLayer.videoGravity          = AVLayerVideoGravityResizeAspectFill
   }
@@ -117,7 +117,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
       if let _currentInput = session.inputs.first as? AVCaptureDeviceInput {
         session.removeInput(_currentInput)
 
-        let newDeviceInput = (_currentInput.device.position == .Front) ? defaultDeviceInput : _frontDeviceInput
+        let newDeviceInput = (_currentInput.device.position == .front) ? defaultDeviceInput : _frontDeviceInput
         session.addInput(newDeviceInput)
       }
 
@@ -133,14 +133,14 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
    *Notes: if `stopScanningWhenCodeIsFound` is sets to true (default behaviour), each time the scanner found a code it calls the `stopScanning` method.*
    */
   public func startScanning() {
-    if !session.running {
+    if !session.isRunning {
       session.startRunning()
     }
   }
 
   /// Stops scanning the codes.
   public func stopScanning() {
-    if session.running {
+    if session.isRunning {
       session.stopRunning()
     }
   }
@@ -154,7 +154,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
    */
   public var running: Bool {
     get {
-      return session.running
+      return session.isRunning
     }
   }
 
@@ -173,7 +173,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
    - returns: true if a torch is available.
    */
   public func isTorchAvailable() -> Bool {
-    return defaultDevice.torchAvailable
+    return defaultDevice.isTorchAvailable
   }
 
   /**
@@ -184,7 +184,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
       try defaultDevice.lockForConfiguration()
 
       let current              = defaultDevice.torchMode
-      defaultDevice.torchMode = AVCaptureTorchMode.On == current ? .Off : .On
+      defaultDevice.torchMode = AVCaptureTorchMode.on == current ? .off : .on
 
       defaultDevice.unlockForConfiguration()
     }
@@ -200,22 +200,22 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
    - parameter supportedOrientations: The supported orientations of the application.
    - parameter fallbackOrientation: The video orientation if the device orientation is FaceUp or FaceDown.
    */
-  public class func videoOrientationFromDeviceOrientation(orientation: UIDeviceOrientation, withSupportedOrientations supportedOrientations: UIInterfaceOrientationMask, fallbackOrientation: AVCaptureVideoOrientation? = nil) -> AVCaptureVideoOrientation {
+  public class func videoOrientationFromDeviceOrientation(_ orientation: UIDeviceOrientation, withSupportedOrientations supportedOrientations: UIInterfaceOrientationMask, fallbackOrientation: AVCaptureVideoOrientation? = nil) -> AVCaptureVideoOrientation {
     let result: AVCaptureVideoOrientation
 
     switch (orientation, fallbackOrientation) {
-    case (.LandscapeLeft, _):
-      result = .LandscapeRight
-    case (.LandscapeRight, _):
-      result = .LandscapeLeft
-    case (.Portrait, _):
-      result = .Portrait
-    case (.PortraitUpsideDown, _):
-      result = .PortraitUpsideDown
-    case (_, .Some(let orientation)):
+    case (.landscapeLeft, _):
+      result = .landscapeRight
+    case (.landscapeRight, _):
+      result = .landscapeLeft
+    case (.portrait, _):
+      result = .portrait
+    case (.portraitUpsideDown, _):
+      result = .portraitUpsideDown
+    case (_, .some(let orientation)):
       result = orientation
     default:
-      result = .Portrait
+      result = .portrait
     }
 
     if supportedOrientations.contains(orientationMaskWithVideoOrientation(result)) {
@@ -224,30 +224,30 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
     else if let orientation = fallbackOrientation where supportedOrientations.contains(orientationMaskWithVideoOrientation(orientation)) {
       return orientation
     }
-    else if supportedOrientations.contains(.Portrait) {
-      return .Portrait
+    else if supportedOrientations.contains(.portrait) {
+      return .portrait
     }
-    else if supportedOrientations.contains(.LandscapeLeft) {
-      return .LandscapeLeft
+    else if supportedOrientations.contains(.landscapeLeft) {
+      return .landscapeLeft
     }
-    else if supportedOrientations.contains(.LandscapeRight) {
-      return .LandscapeRight
+    else if supportedOrientations.contains(.landscapeRight) {
+      return .landscapeRight
     }
     else {
-      return .PortraitUpsideDown
+      return .portraitUpsideDown
     }
   }
 
-  class func orientationMaskWithVideoOrientation(orientation: AVCaptureVideoOrientation) -> UIInterfaceOrientationMask {
+  class func orientationMaskWithVideoOrientation(_ orientation: AVCaptureVideoOrientation) -> UIInterfaceOrientationMask {
     switch orientation {
-    case .LandscapeLeft:
-      return .LandscapeLeft
-    case .LandscapeRight:
-      return .LandscapeRight
-    case .Portrait:
-      return .Portrait
-    case .PortraitUpsideDown:
-      return .PortraitUpsideDown
+    case .landscapeLeft:
+      return .landscapeLeft
+    case .landscapeRight:
+      return .landscapeRight
+    case .portrait:
+      return .portrait
+    case .portraitUpsideDown:
+      return .portraitUpsideDown
     }
   }
 
@@ -259,12 +259,12 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
    - returns: A boolean value that indicates whether the reader is available.
    */
   public class func isAvailable() -> Bool {
-    if AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo).count == 0 {
+    if AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo).count == 0 {
       return false
     }
 
     do {
-      let captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+      let captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
       let _             = try AVCaptureDeviceInput(device: captureDevice)
 
       return true
@@ -280,13 +280,13 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
 
    - returns: A boolean value that indicates whether the device supports the given metadata object types.
    */
-  public class func supportsMetadataObjectTypes(metadataTypes: [String]? = nil) -> Bool {
+  public class func supportsMetadataObjectTypes(_ metadataTypes: [String]? = nil) -> Bool {
     if !isAvailable() {
       return false
     }
 
     // Setup components
-    let captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+    let captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
     let deviceInput   = try! AVCaptureDeviceInput(device: captureDevice)
     let output        = AVCaptureMetadataOutput()
     let session       = AVCaptureSession()
@@ -312,7 +312,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
 
   // MARK: - AVCaptureMetadataOutputObjects Delegate Methods
 
-  public func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
+  public func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, from connection: AVCaptureConnection!) {
     for current in metadataObjects {
       if let _readableCodeObject = current as? AVMetadataMachineReadableCodeObject {
         if metadataObjectTypes.contains(_readableCodeObject.type) {
@@ -322,7 +322,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
 
           let scannedResult = QRCodeReaderResult(value: _readableCodeObject.stringValue, metadataType:_readableCodeObject.type)
           
-          dispatch_async(dispatch_get_main_queue(), { [weak self] in
+          DispatchQueue.main.async(execute: { [weak self] in
             self?.didFindCodeBlock?(scannedResult)
             })
         }

@@ -28,25 +28,25 @@ import UIKit
 
 /// The toggle torch button.
 @IBDesignable final class ToggleTorchButton: UIButton {
-  @IBInspectable var edgeColor: UIColor = .whiteColor() {
+  @IBInspectable var edgeColor: UIColor = .white() {
     didSet {
       setNeedsDisplay()
     }
   }
 
-  @IBInspectable var fillColor: UIColor = .lightGrayColor() {
+  @IBInspectable var fillColor: UIColor = .lightGray() {
     didSet {
       setNeedsDisplay()
     }
   }
 
-  @IBInspectable var edgeHighlightedColor: UIColor = .whiteColor()
-  @IBInspectable var fillHighlightedColor: UIColor = .darkGrayColor()
+  @IBInspectable var edgeHighlightedColor: UIColor = .white()
+  @IBInspectable var fillHighlightedColor: UIColor = .darkGray()
 
-  override func drawRect(rect: CGRect) {
+  override func draw(_ rect: CGRect) {
     // Colors
-    let paintColor  = (self.state != .Highlighted) ? fillColor : fillHighlightedColor
-    let strokeColor = (self.state != .Highlighted) ? edgeColor : edgeHighlightedColor
+    let paintColor  = (self.state != .highlighted) ? fillColor : fillHighlightedColor
+    let strokeColor = (self.state != .highlighted) ? edgeColor : edgeHighlightedColor
 
     let width   = rect.width
     let height  = rect.height
@@ -62,8 +62,8 @@ import UIKit
     //Circle
     let circlePath = UIBezierPath()
     let center     = CGPoint(x: centerX, y: centerY)
-    circlePath.addArcWithCenter(center, radius: circleRadius, startAngle: 0.0, endAngle: CGFloat(M_PI), clockwise: true)
-    circlePath.addArcWithCenter(center, radius: circleRadius, startAngle: CGFloat(M_PI), endAngle: CGFloat(M_PI * 2), clockwise: true)
+    circlePath.addArc(withCenter: center, radius: circleRadius, startAngle: 0.0, endAngle: CGFloat(M_PI), clockwise: true)
+    circlePath.addArc(withCenter: center, radius: circleRadius, startAngle: CGFloat(M_PI), endAngle: CGFloat(M_PI * 2), clockwise: true)
 
     // Draw beams
     paintColor.setFill()
@@ -86,12 +86,12 @@ import UIKit
     circlePath.stroke()
   }
 
-  private func linePathWithStartPoint(startPoint: CGPoint, endPoint: CGPoint, thickness: CGFloat) -> UIBezierPath {
+  private func linePathWithStartPoint(_ startPoint: CGPoint, endPoint: CGPoint, thickness: CGFloat) -> UIBezierPath {
     let linePath = UIBezierPath()
 
-    linePath.moveToPoint(startPoint)
-    linePath.addLineToPoint(endPoint)
-    linePath.lineCapStyle = .Round
+    linePath.move(to: startPoint)
+    linePath.addLine(to: endPoint)
+    linePath.lineCapStyle = .round
     linePath.lineWidth = thickness
 
     return linePath
@@ -99,25 +99,25 @@ import UIKit
 
   // MARK: - UIResponder Methods
 
-  override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-    super.touchesBegan(touches, withEvent: event)
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    super.touchesBegan(touches, with: event)
 
     setNeedsDisplay()
   }
 
-  override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-    super.touchesMoved(touches, withEvent: event)
+  override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    super.touchesMoved(touches, with: event)
 
     setNeedsDisplay()
   }
 
-  override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-    super.touchesEnded(touches, withEvent: event)
+  override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    super.touchesEnded(touches, with: event)
     setNeedsDisplay()
   }
 
-  override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
-    super.touchesCancelled(touches, withEvent: event)
+  override func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?) {
+    super.touchesCancelled(touches!, with: event)
 
     setNeedsDisplay()
   }

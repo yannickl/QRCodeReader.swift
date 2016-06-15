@@ -37,9 +37,9 @@ class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
     return QRCodeReaderViewController(builder: builder)
   }()
 
-  @IBAction func scanAction(sender: AnyObject) {
+  @IBAction func scanAction(_ sender: AnyObject) {
     if QRCodeReader.supportsMetadataObjectTypes() {
-      reader.modalPresentationStyle = .FormSheet
+      reader.modalPresentationStyle = .formSheet
       reader.delegate               = self
 
       reader.completionBlock = { (result: QRCodeReaderResult?) in
@@ -48,32 +48,32 @@ class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
         }
       }
 
-      presentViewController(reader, animated: true, completion: nil)
+      present(reader, animated: true, completion: nil)
     }
     else {
-      let alert = UIAlertController(title: "Error", message: "Reader not supported by the current device", preferredStyle: .Alert)
-      alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
+      let alert = UIAlertController(title: "Error", message: "Reader not supported by the current device", preferredStyle: .alert)
+      alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
 
-      presentViewController(alert, animated: true, completion: nil)
+      present(alert, animated: true, completion: nil)
     }
   }
 
   // MARK: - QRCodeReader Delegate Methods
 
-  func reader(reader: QRCodeReaderViewController, didScanResult result: QRCodeReaderResult) {
-    self.dismissViewControllerAnimated(true) { [weak self] in
+  func reader(_ reader: QRCodeReaderViewController, didScanResult result: QRCodeReaderResult) {
+    self.dismiss(animated: true) { [weak self] in
       let alert = UIAlertController(
         title: "QRCodeReader",
         message: String (format:"%@ (of type %@)", result.value, result.metadataType),
-        preferredStyle: .Alert
+        preferredStyle: .alert
       )
-      alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
+      alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
 
-      self?.presentViewController(alert, animated: true, completion: nil)
+      self?.present(alert, animated: true, completion: nil)
     }
   }
 
-  func readerDidCancel(reader: QRCodeReaderViewController) {
-    self.dismissViewControllerAnimated(true, completion: nil)
+  func readerDidCancel(_ reader: QRCodeReaderViewController) {
+    self.dismiss(animated: true, completion: nil)
   }
 }
