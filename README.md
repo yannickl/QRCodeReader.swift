@@ -8,10 +8,12 @@ It provides a default view controller to display the camera view with the scan a
 
 ![screenshot](http://yannickloriot.com/resources/qrcodereader.swift-screenshot.jpg)
 
-*Note: the v4.x or over are compatibles with swift 1.2, use the v3 with Xcode 6.2 or lower.*
-
 ## Usage
 
+-  Add delegate `QRCodeReaderViewControllerDelegate`
+-  Add `import AVFoundation`
+-  The `QRCodeReaderViewControllerDelegate` implementations is:
+-  
 ```swift
 // Good practice: create the reader lazily to avoid cpu overload during the
 // initialization and each time we need to scan a QRCode
@@ -32,14 +34,14 @@ lazy var readerVC = QRCodeReaderViewController(metadataObjectTypes: [AVMetadataO
   presentViewController(readerVC, animated: true, completion: nil)
 }
 
-// MARK: - QRCodeReader Delegate Methods
+// MARK: - QRCodeReaderViewController Delegate Methods
 
-func reader(reader: QRCodeReader, didScanResult result: QRCodeReaderResult) {
-  self.dismissViewControllerAnimated(true, completion: nil)
+func reader(reader: QRCodeReaderViewController, didScanResult result: QRCodeReaderResult) {
+   self.dismissViewControllerAnimated(true, completion: nil)
 }
-
-func readerDidCancel(reader: QRCodeReader) {
-  self.dismissViewControllerAnimated(true, completion: nil)
+    
+func readerDidCancel(reader: QRCodeReaderViewController) {
+   self.dismissViewControllerAnimated(true, completion: nil)
 }
 ```
 
@@ -57,7 +59,7 @@ Install CocoaPods if not already available:
 $ [sudo] gem install cocoapods
 $ pod setup
 ```
-Go to the directory of your Xcode project, and Create and Edit your Podfile and add _QRCodeReader.swift_:
+Go to the directory of your Xcode project, and Create and Edit your Podfile and add _QRCodeReader.swift_ to your corresponding `TargetName`:
 
 ``` bash
 $ cd /path/to/MyProject
@@ -65,9 +67,11 @@ $ touch Podfile
 $ edit Podfile
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
-
 use_frameworks!
-pod 'QRCodeReader.swift', '~> 6.0.0'
+
+target 'TargetName' do
+    pod 'QRCodeReader.swift', '~> 6.0.0'
+end
 ```
 
 Install into your project:
