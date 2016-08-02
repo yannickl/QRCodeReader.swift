@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -19,7 +19,6 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P5n-CT-PTt">
                                 <rect key="frame" x="222" y="225" width="155" height="150"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="155" id="O9u-YB-D6M"/>
                                     <constraint firstAttribute="height" constant="150" id="h6v-qf-cpj"/>
@@ -31,17 +30,47 @@
                                     <action selector="scanAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Tum-8Y-xC0"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B2g-a5-1sz">
+                                <rect key="frame" x="175" y="371" width="250" height="40"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show cancel button" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="w6u-hN-xNC">
+                                        <rect key="frame" x="8" y="10" width="173" height="20"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="36U-fa-dOo">
+                                        <rect key="frame" x="193" y="5" width="51" height="31"/>
+                                    </switch>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="36U-fa-dOo" secondAttribute="bottom" constant="4" id="3ec-HK-qUv"/>
+                                    <constraint firstAttribute="width" constant="250" id="VMR-rE-WTj"/>
+                                    <constraint firstItem="36U-fa-dOo" firstAttribute="leading" secondItem="w6u-hN-xNC" secondAttribute="trailing" constant="12" id="Ycn-aJ-2iH"/>
+                                    <constraint firstAttribute="height" constant="40" id="px8-Qg-UCc"/>
+                                    <constraint firstAttribute="trailing" secondItem="36U-fa-dOo" secondAttribute="trailing" constant="8" id="uY0-vw-9nv"/>
+                                    <constraint firstItem="36U-fa-dOo" firstAttribute="top" secondItem="B2g-a5-1sz" secondAttribute="top" constant="5" id="utM-3H-nLu"/>
+                                    <constraint firstItem="w6u-hN-xNC" firstAttribute="leading" secondItem="B2g-a5-1sz" secondAttribute="leading" constant="8" id="wnD-gD-Nj9"/>
+                                    <constraint firstItem="w6u-hN-xNC" firstAttribute="centerY" secondItem="B2g-a5-1sz" secondAttribute="centerY" id="xJt-DH-XHA"/>
+                                </constraints>
+                            </view>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="B2g-a5-1sz" firstAttribute="top" secondItem="P5n-CT-PTt" secondAttribute="bottom" constant="-4" id="17H-xA-CBR"/>
                             <constraint firstAttribute="centerX" secondItem="P5n-CT-PTt" secondAttribute="centerX" constant="0.5" id="CeZ-ED-sHl"/>
+                            <constraint firstItem="B2g-a5-1sz" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Uaw-ng-H0t"/>
                             <constraint firstAttribute="centerY" secondItem="P5n-CT-PTt" secondAttribute="centerY" id="fM5-Fa-KlF"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="showCancelButtonSwitch" destination="36U-fa-dOo" id="m8y-cn-Psi"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="305" y="429"/>
         </scene>
     </scenes>
 </document>
