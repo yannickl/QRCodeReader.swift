@@ -1,5 +1,10 @@
 # Change log
 
+## [Version 6.1.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/6.1.0)
+Released on 2016-08-03.
+
+- Hide/Display cancel button
+
 ## [Version 6.0.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/6.0.0)
 Released on 2016-03-22.
 
