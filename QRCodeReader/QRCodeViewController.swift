@@ -52,7 +52,7 @@ public class QRCodeReaderViewController: UIViewController {
   deinit {
     codeReader.stopScanning()
 
-    NotificationCenter.default().removeObserver(self)
+    NotificationCenter.default.removeObserver(self)
   }
 
   // MARK: - Creating the View Controller
@@ -128,7 +128,7 @@ public class QRCodeReaderViewController: UIViewController {
 
     super.init(nibName: nil, bundle: nil)
 
-    view.backgroundColor = .black()
+    view.backgroundColor = UIColor.black
 
     codeReader.didFindCode = { [weak self] resultAsObject in
       if let weakSelf = self {
@@ -142,7 +142,7 @@ public class QRCodeReaderViewController: UIViewController {
 
     cameraView.layer.insertSublayer(codeReader.previewLayer, at: 0)
 
-    NotificationCenter.default().addObserver(self, selector: #selector(orientationDidChanged), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(orientationDidChanged), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
   }
 
   required public init?(coder aDecoder: NSCoder) {
@@ -156,9 +156,9 @@ public class QRCodeReaderViewController: UIViewController {
 
   // MARK: - Responding to View Events
 
-  public override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-    return parent?.supportedInterfaceOrientations() ?? .all
-  }
+//  public override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+//    return parent?.supportedInterfaceOrientations ?? .all
+//  }
 
   override public func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
@@ -185,8 +185,8 @@ public class QRCodeReaderViewController: UIViewController {
   func orientationDidChanged(_ notification: Notification) {
     cameraView.setNeedsDisplay()
 
-    if let device = notification.object as? UIDevice where codeReader.previewLayer.connection.isVideoOrientationSupported {
-      codeReader.previewLayer.connection.videoOrientation = QRCodeReader.videoOrientation(deviceOrientation: device.orientation, withSupportedOrientations: supportedInterfaceOrientations(), fallbackOrientation: codeReader.previewLayer.connection.videoOrientation)
+    if let device = notification.object as? UIDevice , codeReader.previewLayer.connection.isVideoOrientationSupported {
+      codeReader.previewLayer.connection.videoOrientation = QRCodeReader.videoOrientation(deviceOrientation: device.orientation, withSupportedOrientations: supportedInterfaceOrientations, fallbackOrientation: codeReader.previewLayer.connection.videoOrientation)
     }
   }
 
@@ -200,9 +200,9 @@ public class QRCodeReaderViewController: UIViewController {
     codeReader.previewLayer.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height)
 
     if codeReader.previewLayer.connection.isVideoOrientationSupported {
-      let orientation = UIDevice.current().orientation
+      let orientation = UIDevice.current.orientation
 
-      codeReader.previewLayer.connection.videoOrientation = QRCodeReader.videoOrientation(deviceOrientation: orientation, withSupportedOrientations: supportedInterfaceOrientations())
+      codeReader.previewLayer.connection.videoOrientation = QRCodeReader.videoOrientation(deviceOrientation: orientation, withSupportedOrientations: supportedInterfaceOrientations)
     }
 
     if showSwitchCameraButton && codeReader.hasFrontDevice {
@@ -224,13 +224,13 @@ public class QRCodeReaderViewController: UIViewController {
 
     cancelButton.translatesAutoresizingMaskIntoConstraints = false
     cancelButton.setTitle(cancelButtonTitle, for: UIControlState())
-    cancelButton.setTitleColor(.gray(), for: .highlighted)
+    cancelButton.setTitleColor(UIColor.gray, for: .highlighted)
     cancelButton.addTarget(self, action: #selector(cancelAction), for: .touchUpInside)
     view.addSubview(cancelButton)
   }
 
   private func setupAutoLayoutConstraints() {
-    let views = ["cameraView": cameraView, "cancelButton": cancelButton]
+    let views = ["cameraView": cameraView, "cancelButton": cancelButton] as [String : Any]
 
     view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[cameraView][cancelButton(40)]|", options: [], metrics: nil, views: views))
     view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[cameraView]|", options: [], metrics: nil, views: views))
