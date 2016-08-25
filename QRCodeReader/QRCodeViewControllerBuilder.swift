@@ -37,7 +37,7 @@ public final class QRCodeViewControllerBuilder {
   The builder block.
   The block gives a reference of builder you can configure.
   */
-  public typealias QRCodeViewControllerBuilderBlock = @noescape (builder: QRCodeViewControllerBuilder) -> Void
+  public typealias QRCodeViewControllerBuilderBlock = (_ builder: QRCodeViewControllerBuilder) -> Void
 
   /**
    The title to use for the cancel button.
@@ -77,6 +77,6 @@ public final class QRCodeViewControllerBuilder {
    - parameter buildBlock: A QRCodeViewController builder block to configure itself.
    */
   public init(buildBlock: QRCodeViewControllerBuilderBlock) {
-    buildBlock(builder: self)
+    buildBlock(self)
   }
 }

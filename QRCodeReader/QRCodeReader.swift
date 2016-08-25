@@ -32,7 +32,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   var defaultDevice: AVCaptureDevice = .defaultDevice(withMediaType: AVMediaTypeVideo)
   var frontDevice: AVCaptureDevice?  = {
     for device in AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo) {
-      if let _device = device as? AVCaptureDevice where _device.position == AVCaptureDevicePosition.front {
+      if let _device = device as? AVCaptureDevice , _device.position == AVCaptureDevicePosition.front {
         return _device
       }
     }
@@ -219,7 +219,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
     if supportedOrientations.contains(orientationMask(videoOrientation: result)) {
       return result
     }
-    else if let orientation = fallbackOrientation where supportedOrientations.contains(orientationMask(videoOrientation: orientation)) {
+    else if let orientation = fallbackOrientation , supportedOrientations.contains(orientationMask(videoOrientation: orientation)) {
       return orientation
     }
     else if supportedOrientations.contains(.portrait) {
@@ -300,7 +300,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
     }
 
     for metadataObjectType in metadataObjectTypes! {
-      if !output.availableMetadataObjectTypes.contains({ $0 as! String == metadataObjectType }) {
+      if !output.availableMetadataObjectTypes.contains(where: { $0 as! String == metadataObjectType }) {
         return false
       }
     }
@@ -310,7 +310,8 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
 
   // MARK: - AVCaptureMetadataOutputObjects Delegate Methods
 
-  public func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, from connection: AVCaptureConnection!) {
+
+  public func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!) {
     for current in metadataObjects {
       if let _readableCodeObject = current as? AVMetadataMachineReadableCodeObject {
         if metadataObjectTypes.contains(_readableCodeObject.type) {

@@ -28,20 +28,20 @@ import UIKit
 
 /// The camera switch button.
 @IBDesignable final class SwitchCameraButton: UIButton {
-  @IBInspectable var edgeColor: UIColor = .white() {
+  @IBInspectable var edgeColor: UIColor = UIColor.white {
     didSet {
       setNeedsDisplay()
     }
   }
 
-  @IBInspectable var fillColor: UIColor = .darkGray() {
+  @IBInspectable var fillColor: UIColor = UIColor.darkGray {
     didSet {
       setNeedsDisplay()
     }
   }
 
-  @IBInspectable var edgeHighlightedColor: UIColor = .white()
-  @IBInspectable var fillHighlightedColor: UIColor = .black()
+  @IBInspectable var edgeHighlightedColor: UIColor = UIColor.white
+  @IBInspectable var fillHighlightedColor: UIColor = UIColor.black
 
   override func draw(_ rect: CGRect) {
     let width  = rect.width
