@@ -13,6 +13,6 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '8.0'
 
   s.framework    = 'AVFoundation'
-  s.source_files = 'QRCodeReader/*.swift'
+  s.source_files = 'Sources/*.swift'
   s.requires_arc = true
 end

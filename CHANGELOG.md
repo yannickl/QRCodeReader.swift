@@ -5,8 +5,9 @@ Released on 2016-06-15.
 
 **Swift 3 supports**
 
-- Use `QRCodeReaderViewControllerBuilder` instead of `QRCodeViewControllerBuilder`
-- Remove all deprecated apis
+- [REFACTORING] Use `QRCodeReaderViewControllerBuilder` instead of `QRCodeViewControllerBuilder`
+- [REFACTORING] Remove all deprecated apis
+- [ADD] Swift Package Manager supports
 
 `QRCodeReader`:
 - Use `didFindCode` instead of `didFindCodeBlock`
@@ -18,12 +19,12 @@ Released on 2016-06-15.
 ## [Version 6.2.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/6.2.0)
 Released on 2016-09-08.
 
-- Deprecating all initializers expect `initWithBuilder` in order to remove them in the next version
+- [REFACTORING] Deprecating all initializers expect `initWithBuilder` in order to remove them in the next version
 
 ## [Version 6.1.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/6.1.0)
 Released on 2016-08-03.
 
-- Hide/Display cancel button
+- [ADD] Hide/Display cancel button
 
 ## [Version 6.0.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/6.0.0)
 Released on 2016-03-22.
