@@ -30,14 +30,14 @@ import Foundation
  The QRCodeViewControllerBuilder aims to create a simple configuration object for
  the QRCode view controller.
  */
-public final class QRCodeViewControllerBuilder {
+public final class QRCodeReaderViewControllerBuilder {
   // MARK: - Configuring the QRCodeViewController Objects
 
   /**
   The builder block.
   The block gives a reference of builder you can configure.
   */
-  public typealias QRCodeViewControllerBuilderBlock = (QRCodeViewControllerBuilder) -> Void
+  public typealias QRCodeReaderViewControllerBuilderBlock = (QRCodeReaderViewControllerBuilder) -> Void
 
   /**
    The title to use for the cancel button.
@@ -72,11 +72,11 @@ public final class QRCodeViewControllerBuilder {
   public init() {}
 
   /**
-   Initialize a QRCodeViewController builder with default values.
+   Initialize a QRCodeReaderViewController builder with default values.
 
-   - parameter buildBlock: A QRCodeViewController builder block to configure itself.
+   - parameter buildBlock: A QRCodeReaderViewController builder block to configure itself.
    */
-  public init(buildBlock: QRCodeViewControllerBuilderBlock) {
+  public init(buildBlock: QRCodeReaderViewControllerBuilderBlock) {
     buildBlock(self)
   }
 }

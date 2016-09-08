@@ -5,12 +5,19 @@ Released on 2016-06-15.
 
 - Swift 3 supports
 
+- Use `QRCodeReaderViewControllerBuilder` instead of `QRCodeViewControllerBuilder`
+
 `QRCodeReader`:
 - Use `didFindCode` instead of `didFindCodeBlock`
 - Use `isRunning` instead of `running`
 - Use `videoOrientation` instead of `videoOrientationFromDeviceOrientation`
 - `hasFrontDevice` is a property
 - `isTorchAvailable` is a property
+
+## [Version 6.1.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/6.1.0)
+Released on 2016-08-03.
+
+- Hide/Display cancel button
 
 ## [Version 6.0.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/6.0.0)
 Released on 2016-03-22.

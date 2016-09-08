@@ -106,7 +106,7 @@ public class QRCodeReaderViewController: UIViewController {
    - parameter showTorchButton: Flag to display the toggle torch button. If the value is true and there is no torch the button will not be displayed.
    */
   public convenience init(cancelButtonTitle: String, codeReader reader: QRCodeReader, startScanningAtLoad startScan: Bool = true, showSwitchCameraButton showSwitch: Bool = true, showTorchButton showTorch: Bool = false) {
-    self.init(builder: QRCodeViewControllerBuilder { builder in
+    self.init(builder: QRCodeReaderViewControllerBuilder { builder in
       builder.cancelButtonTitle      = cancelButtonTitle
       builder.reader                 = reader
       builder.startScanningAtLoad    = startScan
@@ -120,7 +120,7 @@ public class QRCodeReaderViewController: UIViewController {
 
    - parameter builder: A QRCodeViewController builder object.
    */
-  required public init(builder: QRCodeViewControllerBuilder) {
+  required public init(builder: QRCodeReaderViewControllerBuilder) {
     startScanningAtLoad    = builder.startScanningAtLoad
     codeReader             = builder.reader
     showSwitchCameraButton = builder.showSwitchCameraButton
