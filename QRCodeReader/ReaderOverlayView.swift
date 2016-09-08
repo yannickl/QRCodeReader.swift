@@ -38,7 +38,7 @@ final class ReaderOverlayView: UIView {
     overlay.lineDashPhase   = 0
 
     return overlay
-    }()
+  }()
 
   init() {
     super.init(frame: CGRectZero)  // Workaround for init in iOS SDK 8.3

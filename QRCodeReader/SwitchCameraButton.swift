@@ -179,7 +179,7 @@ import UIKit
 
   override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
     super.touchesCancelled(touches, withEvent: event)
-
+    
     setNeedsDisplay()
   }
 }

@@ -34,9 +34,9 @@ public final class QRCodeViewControllerBuilder {
   // MARK: - Configuring the QRCodeViewController Objects
 
   /**
-  The builder block.
-  The block gives a reference of builder you can configure.
-  */
+   The builder block.
+   The block gives a reference of builder you can configure.
+   */
   public typealias QRCodeViewControllerBuilderBlock = (builder: QRCodeViewControllerBuilder) -> Void
 
   /**
@@ -68,12 +68,12 @@ public final class QRCodeViewControllerBuilder {
    Flag to display the cancel button.
    */
   public var showCancelButton = true
-    
+
   // MARK: - Initializing a Flap View
 
   /**
-  Initialize a QRCodeViewController builder with default values.
-  */
+   Initialize a QRCodeViewController builder with default values.
+   */
   public init() {}
 
   /**
