@@ -28,14 +28,10 @@ import UIKit
 import AVFoundation
 
 class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
-  lazy var reader: QRCodeReaderViewController = {
-    let builder = QRCodeReaderViewControllerBuilder { builder in
-      builder.reader          = QRCodeReader(metadataObjectTypes: [AVMetadataObjectTypeQRCode])
-      builder.showTorchButton = true
-    }
-
-    return QRCodeReaderViewController(builder: builder)
-  }()
+  lazy var reader = QRCodeReaderViewController(builder: QRCodeReaderViewControllerBuilder {
+    $0.reader          = QRCodeReader(metadataObjectTypes: [AVMetadataObjectTypeQRCode])
+    $0.showTorchButton = true
+  })
 
   @IBAction func scanAction(_ sender: AnyObject) {
     if QRCodeReader.supportsMetadataObjectTypes() {
@@ -61,7 +57,7 @@ class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
   // MARK: - QRCodeReader Delegate Methods
 
   func reader(_ reader: QRCodeReaderViewController, didScanResult result: QRCodeReaderResult) {
-    self.dismiss(animated: true) { [weak self] in
+    dismiss(animated: true) { [weak self] in
       let alert = UIAlertController(
         title: "QRCodeReader",
         message: String (format:"%@ (of type %@)", result.value, result.metadataType),
@@ -74,6 +70,6 @@ class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
   }
 
   func readerDidCancel(_ reader: QRCodeReaderViewController) {
-    self.dismiss(animated: true, completion: nil)
+    dismiss(animated: true, completion: nil)
   }
 }

@@ -202,13 +202,13 @@
 		CED23DDA1A15079300BE7A72 /* QRCodeReader */ = {
 			isa = PBXGroup;
 			children = (
-				4A0723DB1C223D8100F2C410 /* QRCodeReaderResult.swift */,
 				CED23DDB1A15079300BE7A72 /* QRCodeReader.swift */,
-				CED23DDD1A1507CB00BE7A72 /* SwitchCameraButton.swift */,
-				CECCE4CC1A1527DE00071669 /* ReaderOverlayView.swift */,
+				4A0723DB1C223D8100F2C410 /* QRCodeReaderResult.swift */,
 				CECD170A1AA3531C00A9ACDE /* QRCodeReaderViewController.swift */,
-				82BD4A091BBC21F800172E4E /* ToggleTorchButton.swift */,
 				CE345B221C444D6400FCC482 /* QRCodeReaderViewControllerBuilder.swift */,
+				CECCE4CC1A1527DE00071669 /* ReaderOverlayView.swift */,
+				CED23DDD1A1507CB00BE7A72 /* SwitchCameraButton.swift */,
+				82BD4A091BBC21F800172E4E /* ToggleTorchButton.swift */,
 			);
 			name = QRCodeReader;
 			path = ../QRCodeReader;

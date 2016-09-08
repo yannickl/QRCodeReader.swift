@@ -6,7 +6,7 @@ Released on 2016-06-15.
 **Swift 3 supports**
 
 - Use `QRCodeReaderViewControllerBuilder` instead of `QRCodeViewControllerBuilder`
-- deprecated all initializers expect `initWithBuilder`
+- Remove all deprecated apis
 
 `QRCodeReader`:
 - Use `didFindCode` instead of `didFindCodeBlock`
@@ -14,6 +14,11 @@ Released on 2016-06-15.
 - Use `videoOrientation` instead of `videoOrientationFromDeviceOrientation`
 - `hasFrontDevice` is a property
 - `isTorchAvailable` is a property
+
+## [Version 6.2.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/6.2.0)
+Released on 2016-09-08.
+
+- Deprecating all initializers expect `initWithBuilder` in order to remove them in the next version
 
 ## [Version 6.1.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/6.1.0)
 Released on 2016-08-03.

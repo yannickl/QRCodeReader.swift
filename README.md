@@ -15,9 +15,11 @@ It provides a default view controller to display the camera view with the scan a
 ```swift
 // Good practice: create the reader lazily to avoid cpu overload during the
 // initialization and each time we need to scan a QRCode
-lazy var readerVC = QRCodeReaderViewController(metadataObjectTypes: [AVMetadataObjectTypeQRCode])
+lazy var readerVC = QRCodeReaderViewController(builder: QRCodeReaderViewControllerBuilder {
+  $0.reader = QRCodeReader(metadataObjectTypes: [AVMetadataObjectTypeQRCode])
+})
 
-@IBAction func scanAction(sender: AnyObject) {
+@IBAction func scanAction(_ sender: AnyObject) {
   // Retrieve the QRCode content
   // By using the delegate pattern
   readerVC.delegate = self
@@ -28,18 +30,18 @@ lazy var readerVC = QRCodeReaderViewController(metadataObjectTypes: [AVMetadataO
   }
 
   // Presents the readerVC as modal form sheet
-  readerVC.modalPresentationStyle = .FormSheet
-  presentViewController(readerVC, animated: true, completion: nil)
+  readerVC.modalPresentationStyle = .formSheet
+  present(reader, animated: true, completion: nil)
 }
 
 // MARK: - QRCodeReader Delegate Methods
 
-func reader(reader: QRCodeReader, didScanResult result: QRCodeReaderResult) {
-  self.dismissViewControllerAnimated(true, completion: nil)
+func reader(_ reader: QRCodeReader, didScanResult result: QRCodeReaderResult) {
+  dismiss(animated: true, completion: nil)
 }
 
-func readerDidCancel(reader: QRCodeReader) {
-  self.dismissViewControllerAnimated(true, completion: nil)
+func readerDidCancel(_ reader: QRCodeReader) {
+  dismiss(animated: true, completion: nil)
 }
 ```
 
@@ -67,7 +69,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 
 use_frameworks!
-pod 'QRCodeReader.swift', '~> 6.0.0'
+pod 'QRCodeReader.swift', '~> 7.0.0'
 ```
 
 Install into your project:
@@ -98,7 +100,7 @@ $ brew install carthage
 To integrate `QRCodeReader` into your Xcode project using Carthage, specify it in your `Cartfile` file:
 
 ```ogdl
-github "yannickl/QRCodeReader.swift" >= 6.0.0
+github "yannickl/QRCodeReader.swift" >= 7.0.0
 ```
 
 #### Manually
