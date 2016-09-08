@@ -34,9 +34,9 @@ public final class QRCodeReaderViewControllerBuilder {
   // MARK: - Configuring the QRCodeViewController Objects
 
   /**
-  The builder block.
-  The block gives a reference of builder you can configure.
-  */
+   The builder block.
+   The block gives a reference of builder you can configure.
+   */
   public typealias QRCodeReaderViewControllerBuilderBlock = (QRCodeReaderViewControllerBuilder) -> Void
 
   /**
@@ -55,6 +55,11 @@ public final class QRCodeReaderViewControllerBuilder {
   public var startScanningAtLoad = true
 
   /**
+   Flag to display the cancel button.
+   */
+  public var showCancelButton = true
+
+  /**
    Flag to display the switch camera button.
    */
   public var showSwitchCameraButton = true
@@ -67,8 +72,8 @@ public final class QRCodeReaderViewControllerBuilder {
   // MARK: - Initializing a Flap View
 
   /**
-  Initialize a QRCodeViewController builder with default values.
-  */
+   Initialize a QRCodeViewController builder with default values.
+   */
   public init() {}
 
   /**

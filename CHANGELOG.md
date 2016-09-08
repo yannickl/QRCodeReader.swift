@@ -3,9 +3,10 @@
 ## [Version 7.0.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/7.0.0)
 Released on 2016-06-15.
 
-- Swift 3 supports
+**Swift 3 supports**
 
 - Use `QRCodeReaderViewControllerBuilder` instead of `QRCodeViewControllerBuilder`
+- deprecated all initializers expect `initWithBuilder`
 
 `QRCodeReader`:
 - Use `didFindCode` instead of `didFindCodeBlock`
@@ -22,7 +23,7 @@ Released on 2016-08-03.
 ## [Version 6.0.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/6.0.0)
 Released on 2016-03-22.
 
-- Swift 2.2 supports
+**Swift 2.2 supports**
 
 ## [Version 5.4.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/5.4.0)
 Released on 2016-03-14.
@@ -67,7 +68,8 @@ Released on 2015-10-06.
 ## [Version 5.0.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/5.0.0)
 Released on 2015-09-17.
 
-- [REFACTORING] Switch to Swift 2
+**Swift 2 supports**
+
 - [ADD] Carthage supports
 
 ## [Version 4.3.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/4.3.0)
@@ -90,7 +92,7 @@ Released on 2015-04-15.
 ## [Version 4.0.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/4.0.0)
 Released on 2015-04-11.
 
-- [REFACTORING] Swift 1.2 support
+**Swift 1.2 supports**
 
 ## [Version 3.1.8](https://github.com/yannickl/QRCodeReader.swift/releases/tag/3.1.8)
 Released on 2015-03-28.
