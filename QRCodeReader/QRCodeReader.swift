@@ -31,9 +31,14 @@ import AVFoundation
 public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegate {
   var defaultDevice: AVCaptureDevice = .defaultDevice(withMediaType: AVMediaTypeVideo)
   var frontDevice: AVCaptureDevice?  = {
-    for device in AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo) {
-      if let _device = device as? AVCaptureDevice , _device.position == AVCaptureDevicePosition.front {
-        return _device
+    if #available(iOS 10, *) {
+      return .defaultDevice(withDeviceType: .builtInWideAngleCamera, mediaType: AVMediaTypeVideo, position: .front)
+    }
+    else {
+      for device in AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo) {
+        if let _device = device as? AVCaptureDevice , _device.position == AVCaptureDevicePosition.front {
+          return _device
+        }
       }
     }
 
@@ -257,10 +262,6 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
    - returns: A boolean value that indicates whether the reader is available.
    */
   public class func isAvailable() -> Bool {
-    guard AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo).count != 0 else {
-      return false
-    }
-
     do {
       let captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
       let _             = try AVCaptureDeviceInput(device: captureDevice)

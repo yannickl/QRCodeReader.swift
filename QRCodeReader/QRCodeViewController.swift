@@ -156,9 +156,7 @@ public class QRCodeReaderViewController: UIViewController {
 
   // MARK: - Responding to View Events
   override public var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-    get {
-      return parent?.supportedInterfaceOrientations ?? .all
-    }
+    return parent?.supportedInterfaceOrientations ?? .all
   }
 
   override public func viewWillAppear(_ animated: Bool) {
