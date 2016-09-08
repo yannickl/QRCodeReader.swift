@@ -28,9 +28,9 @@ import UIKit
 import AVFoundation
 
 class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
-    
+
   @IBOutlet weak var showCancelButtonSwitch: UISwitch!
-    
+
   @IBAction func scanAction(sender: AnyObject) {
     if QRCodeReader.supportsMetadataObjectTypes() {
       let reader = createReader()
@@ -71,14 +71,14 @@ class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
   func readerDidCancel(reader: QRCodeReaderViewController) {
     self.dismissViewControllerAnimated(true, completion: nil)
   }
-    
-    private func createReader() -> QRCodeReaderViewController {
-        let builder = QRCodeViewControllerBuilder { builder in
-            builder.reader          = QRCodeReader(metadataObjectTypes: [AVMetadataObjectTypeQRCode])
-            builder.showTorchButton = true
-            builder.showCancelButton = self.showCancelButtonSwitch.on
-        }
-        
-        return QRCodeReaderViewController(builder: builder)
+
+  private func createReader() -> QRCodeReaderViewController {
+    let builder = QRCodeViewControllerBuilder { builder in
+      builder.reader          = QRCodeReader(metadataObjectTypes: [AVMetadataObjectTypeQRCode])
+      builder.showTorchButton = true
+      builder.showCancelButton = self.showCancelButtonSwitch.on
     }
+
+    return QRCodeReaderViewController(builder: builder)
+  }
 }

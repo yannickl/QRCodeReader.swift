@@ -13,11 +13,13 @@ It provides a default view controller to display the camera view with the scan a
 -  Add delegate `QRCodeReaderViewControllerDelegate`
 -  Add `import AVFoundation`
 -  The `QRCodeReaderViewControllerDelegate` implementations is:
--  
+
 ```swift
 // Good practice: create the reader lazily to avoid cpu overload during the
 // initialization and each time we need to scan a QRCode
-lazy var readerVC = QRCodeReaderViewController(metadataObjectTypes: [AVMetadataObjectTypeQRCode])
+lazy var readerVC = QRCodeReaderViewController(builder: QRCodeViewControllerBuilder {
+  $0.reader = QRCodeReader(metadataObjectTypes: [AVMetadataObjectTypeQRCode])
+})
 
 @IBAction func scanAction(sender: AnyObject) {
   // Retrieve the QRCode content
@@ -70,7 +72,7 @@ platform :ios, '8.0'
 use_frameworks!
 
 target 'TargetName' do
-    pod 'QRCodeReader.swift', '~> 6.1.0'
+    pod 'QRCodeReader.swift', '~> 6.2.0'
 end
 ```
 
@@ -102,7 +104,7 @@ $ brew install carthage
 To integrate `QRCodeReader` into your Xcode project using Carthage, specify it in your `Cartfile` file:
 
 ```ogdl
-github "yannickl/QRCodeReader.swift" >= 6.1.0
+github "yannickl/QRCodeReader.swift" >= 6.2.0
 ```
 
 #### Manually
