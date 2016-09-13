@@ -74,10 +74,9 @@ class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
   }
 
   private func createReader() -> QRCodeReaderViewController {
-    let builder = QRCodeViewControllerBuilder { builder in
+    let builder = QRCodeReaderViewControllerBuilder { builder in
       builder.reader          = QRCodeReader(metadataObjectTypes: [AVMetadataObjectTypeQRCode])
       builder.showTorchButton = true
-      builder.showCancelButton = self.showCancelButtonSwitch.on
     }
 
     return QRCodeReaderViewController(builder: builder)

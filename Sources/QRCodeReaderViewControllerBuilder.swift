@@ -69,11 +69,6 @@ public final class QRCodeReaderViewControllerBuilder {
    */
   public var showTorchButton = false
 
-  /**
-   Flag to display the cancel button.
-   */
-  public var showCancelButton = true
-
   // MARK: - Initializing a Flap View
 
   /**
