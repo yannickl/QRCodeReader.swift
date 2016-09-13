@@ -30,9 +30,9 @@ import UIKit
 final class ReaderOverlayView: UIView {
   private var overlay: CAShapeLayer = {
     var overlay = CAShapeLayer()
-    overlay.backgroundColor = UIColor.clearColor().CGColor
-    overlay.fillColor       = UIColor.clearColor().CGColor
-    overlay.strokeColor     = UIColor.whiteColor().CGColor
+    overlay.backgroundColor = UIColor.clear.cgColor
+    overlay.fillColor       = UIColor.clear.cgColor
+    overlay.strokeColor     = UIColor.white.cgColor
     overlay.lineWidth       = 3
     overlay.lineDashPattern = [7.0, 7.0]
     overlay.lineDashPhase   = 0
@@ -41,7 +41,7 @@ final class ReaderOverlayView: UIView {
   }()
 
   init() {
-    super.init(frame: CGRectZero)  // Workaround for init in iOS SDK 8.3
+    super.init(frame: CGRect.zero)  // Workaround for init in iOS SDK 8.3
 
     layer.addSublayer(overlay)
   }
@@ -58,8 +58,8 @@ final class ReaderOverlayView: UIView {
     layer.addSublayer(overlay)
   }
 
-  override func drawRect(rect: CGRect) {
-    var innerRect = CGRectInset(rect, 50, 50)
+  override func draw(_ rect: CGRect) {
+    var innerRect = rect.insetBy(dx: 50, dy: 50)
     let minSize   = min(innerRect.width, innerRect.height)
 
     if innerRect.width != minSize {
@@ -71,8 +71,8 @@ final class ReaderOverlayView: UIView {
       innerRect.size.height = minSize
     }
 
-    let offsetRect = CGRectOffset(innerRect, 0, 15)
+    let offsetRect = innerRect.offsetBy(dx: 0, dy: 15)
 
-    overlay.path  = UIBezierPath(roundedRect: offsetRect, cornerRadius: 5).CGPath
+    overlay.path  = UIBezierPath(roundedRect: offsetRect, cornerRadius: 5).cgPath
   }
 }

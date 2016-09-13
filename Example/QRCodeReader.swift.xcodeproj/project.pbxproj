@@ -7,30 +7,36 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4A0723DC1C223D8100F2C410 /* QRCodeReaderResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0723DB1C223D8100F2C410 /* QRCodeReaderResult.swift */; };
-		4A0723DD1C22405100F2C410 /* QRCodeReaderResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0723DB1C223D8100F2C410 /* QRCodeReaderResult.swift */; };
-		82BD4A0A1BBC21F800172E4E /* ToggleTorchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BD4A091BBC21F800172E4E /* ToggleTorchButton.swift */; };
-		82D83BA71BBC2A3100C94C22 /* ToggleTorchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BD4A091BBC21F800172E4E /* ToggleTorchButton.swift */; };
-		CE345B231C444D6400FCC482 /* QRCodeViewControllerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE345B221C444D6400FCC482 /* QRCodeViewControllerBuilder.swift */; };
-		CE345B241C444D6400FCC482 /* QRCodeViewControllerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE345B221C444D6400FCC482 /* QRCodeViewControllerBuilder.swift */; };
-		CE345B251C444D6400FCC482 /* QRCodeViewControllerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE345B221C444D6400FCC482 /* QRCodeViewControllerBuilder.swift */; };
 		CE412E8F19D9A1E4000F294E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE412E8E19D9A1E4000F294E /* AppDelegate.swift */; };
 		CE412E9119D9A1E4000F294E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE412E9019D9A1E4000F294E /* ViewController.swift */; };
 		CE412E9419D9A1E4000F294E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE412E9219D9A1E4000F294E /* Main.storyboard */; };
 		CE412E9619D9A1E4000F294E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE412E9519D9A1E4000F294E /* Images.xcassets */; };
 		CE412E9919D9A1E4000F294E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE412E9719D9A1E4000F294E /* LaunchScreen.xib */; };
 		CE412EA519D9A1E4000F294E /* QRCodeReader_swiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE412EA419D9A1E4000F294E /* QRCodeReader_swiftTests.swift */; };
+		CE4E1EDA1D81838F00D2AC35 /* QRCodeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E1ED31D81838F00D2AC35 /* QRCodeReader.swift */; };
+		CE4E1EDB1D81838F00D2AC35 /* QRCodeReaderResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E1ED41D81838F00D2AC35 /* QRCodeReaderResult.swift */; };
+		CE4E1EDC1D81838F00D2AC35 /* QRCodeReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E1ED51D81838F00D2AC35 /* QRCodeReaderViewController.swift */; };
+		CE4E1EDD1D81838F00D2AC35 /* QRCodeReaderViewControllerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E1ED61D81838F00D2AC35 /* QRCodeReaderViewControllerBuilder.swift */; };
+		CE4E1EDE1D81838F00D2AC35 /* ReaderOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E1ED71D81838F00D2AC35 /* ReaderOverlayView.swift */; };
+		CE4E1EDF1D81838F00D2AC35 /* SwitchCameraButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E1ED81D81838F00D2AC35 /* SwitchCameraButton.swift */; };
+		CE4E1EE01D81838F00D2AC35 /* ToggleTorchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E1ED91D81838F00D2AC35 /* ToggleTorchButton.swift */; };
+		CE4E1EE11D81839D00D2AC35 /* QRCodeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E1ED31D81838F00D2AC35 /* QRCodeReader.swift */; };
+		CE4E1EE21D81839D00D2AC35 /* QRCodeReaderResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E1ED41D81838F00D2AC35 /* QRCodeReaderResult.swift */; };
+		CE4E1EE31D81839D00D2AC35 /* QRCodeReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E1ED51D81838F00D2AC35 /* QRCodeReaderViewController.swift */; };
+		CE4E1EE41D81839D00D2AC35 /* QRCodeReaderViewControllerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E1ED61D81838F00D2AC35 /* QRCodeReaderViewControllerBuilder.swift */; };
+		CE4E1EE51D81839D00D2AC35 /* ReaderOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E1ED71D81838F00D2AC35 /* ReaderOverlayView.swift */; };
+		CE4E1EE61D81839D00D2AC35 /* SwitchCameraButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E1ED81D81838F00D2AC35 /* SwitchCameraButton.swift */; };
+		CE4E1EE71D81839D00D2AC35 /* ToggleTorchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E1ED91D81838F00D2AC35 /* ToggleTorchButton.swift */; };
+		CE4E1EE81D81839D00D2AC35 /* QRCodeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E1ED31D81838F00D2AC35 /* QRCodeReader.swift */; };
+		CE4E1EE91D81839D00D2AC35 /* QRCodeReaderResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E1ED41D81838F00D2AC35 /* QRCodeReaderResult.swift */; };
+		CE4E1EEA1D81839D00D2AC35 /* QRCodeReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E1ED51D81838F00D2AC35 /* QRCodeReaderViewController.swift */; };
+		CE4E1EEB1D81839D00D2AC35 /* QRCodeReaderViewControllerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E1ED61D81838F00D2AC35 /* QRCodeReaderViewControllerBuilder.swift */; };
+		CE4E1EEC1D81839D00D2AC35 /* ReaderOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E1ED71D81838F00D2AC35 /* ReaderOverlayView.swift */; };
+		CE4E1EED1D81839D00D2AC35 /* SwitchCameraButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E1ED81D81838F00D2AC35 /* SwitchCameraButton.swift */; };
+		CE4E1EEE1D81839D00D2AC35 /* ToggleTorchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E1ED91D81838F00D2AC35 /* ToggleTorchButton.swift */; };
 		CE8FFED91BAB4E7F00D43F38 /* QRCodeReader.h in Headers */ = {isa = PBXBuildFile; fileRef = CE8FFED81BAB4E7F00D43F38 /* QRCodeReader.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CE8FFEEB1BAB4E7F00D43F38 /* QRCodeReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8FFED61BAB4E7F00D43F38 /* QRCodeReader.framework */; };
 		CE8FFEEC1BAB4E7F00D43F38 /* QRCodeReader.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CE8FFED61BAB4E7F00D43F38 /* QRCodeReader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		CE8FFEF41BAB4F5400D43F38 /* QRCodeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED23DDB1A15079300BE7A72 /* QRCodeReader.swift */; };
-		CE8FFEF51BAB4F5400D43F38 /* SwitchCameraButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED23DDD1A1507CB00BE7A72 /* SwitchCameraButton.swift */; };
-		CE8FFEF61BAB4F5400D43F38 /* ReaderOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECCE4CC1A1527DE00071669 /* ReaderOverlayView.swift */; };
-		CE8FFEF71BAB4F5400D43F38 /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD170A1AA3531C00A9ACDE /* QRCodeViewController.swift */; };
-		CECCE4CD1A1527DE00071669 /* ReaderOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECCE4CC1A1527DE00071669 /* ReaderOverlayView.swift */; };
-		CECD170B1AA3531C00A9ACDE /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD170A1AA3531C00A9ACDE /* QRCodeViewController.swift */; };
-		CED23DDC1A15079300BE7A72 /* QRCodeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED23DDB1A15079300BE7A72 /* QRCodeReader.swift */; };
-		CED23DDE1A1507CB00BE7A72 /* SwitchCameraButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED23DDD1A1507CB00BE7A72 /* SwitchCameraButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,9 +71,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		4A0723DB1C223D8100F2C410 /* QRCodeReaderResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeReaderResult.swift; sourceTree = "<group>"; };
-		82BD4A091BBC21F800172E4E /* ToggleTorchButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToggleTorchButton.swift; sourceTree = "<group>"; };
-		CE345B221C444D6400FCC482 /* QRCodeViewControllerBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeViewControllerBuilder.swift; sourceTree = "<group>"; };
 		CE412E8919D9A1E4000F294E /* QRCodeReader.swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QRCodeReader.swift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE412E8D19D9A1E4000F294E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE412E8E19D9A1E4000F294E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -78,14 +81,17 @@
 		CE412E9E19D9A1E4000F294E /* QRCodeReader.swiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QRCodeReader.swiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE412EA319D9A1E4000F294E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE412EA419D9A1E4000F294E /* QRCodeReader_swiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeReader_swiftTests.swift; sourceTree = "<group>"; };
+		CE4E1ED31D81838F00D2AC35 /* QRCodeReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeReader.swift; sourceTree = "<group>"; };
+		CE4E1ED41D81838F00D2AC35 /* QRCodeReaderResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeReaderResult.swift; sourceTree = "<group>"; };
+		CE4E1ED51D81838F00D2AC35 /* QRCodeReaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeReaderViewController.swift; sourceTree = "<group>"; };
+		CE4E1ED61D81838F00D2AC35 /* QRCodeReaderViewControllerBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeReaderViewControllerBuilder.swift; sourceTree = "<group>"; };
+		CE4E1ED71D81838F00D2AC35 /* ReaderOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReaderOverlayView.swift; sourceTree = "<group>"; };
+		CE4E1ED81D81838F00D2AC35 /* SwitchCameraButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchCameraButton.swift; sourceTree = "<group>"; };
+		CE4E1ED91D81838F00D2AC35 /* ToggleTorchButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToggleTorchButton.swift; sourceTree = "<group>"; };
 		CE8FFED61BAB4E7F00D43F38 /* QRCodeReader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = QRCodeReader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE8FFED81BAB4E7F00D43F38 /* QRCodeReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QRCodeReader.h; sourceTree = "<group>"; };
 		CE8FFEDA1BAB4E7F00D43F38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEC20A861A14EF0D00E7D0AD /* CameraSwitchIcon.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = CameraSwitchIcon.playground; path = resources/CameraSwitchIcon.playground; sourceTree = "<group>"; };
-		CECCE4CC1A1527DE00071669 /* ReaderOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReaderOverlayView.swift; sourceTree = "<group>"; };
-		CECD170A1AA3531C00A9ACDE /* QRCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeViewController.swift; sourceTree = "<group>"; };
-		CED23DDB1A15079300BE7A72 /* QRCodeReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeReader.swift; sourceTree = "<group>"; };
-		CED23DDD1A1507CB00BE7A72 /* SwitchCameraButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchCameraButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,7 +123,7 @@
 		CE412E8019D9A1E4000F294E = {
 			isa = PBXGroup;
 			children = (
-				CED23DDA1A15079300BE7A72 /* QRCodeReader */,
+				CE4E1ED21D81838F00D2AC35 /* QRCodeReader */,
 				CE412E8B19D9A1E4000F294E /* Example */,
 				CE412EA119D9A1E4000F294E /* ExampleTests */,
 				CEC20A871A14EF1400E7D0AD /* Resources */,
@@ -176,6 +182,21 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		CE4E1ED21D81838F00D2AC35 /* QRCodeReader */ = {
+			isa = PBXGroup;
+			children = (
+				CE4E1ED31D81838F00D2AC35 /* QRCodeReader.swift */,
+				CE4E1ED41D81838F00D2AC35 /* QRCodeReaderResult.swift */,
+				CE4E1ED51D81838F00D2AC35 /* QRCodeReaderViewController.swift */,
+				CE4E1ED61D81838F00D2AC35 /* QRCodeReaderViewControllerBuilder.swift */,
+				CE4E1ED71D81838F00D2AC35 /* ReaderOverlayView.swift */,
+				CE4E1ED81D81838F00D2AC35 /* SwitchCameraButton.swift */,
+				CE4E1ED91D81838F00D2AC35 /* ToggleTorchButton.swift */,
+			);
+			name = QRCodeReader;
+			path = ../Sources;
+			sourceTree = "<group>";
+		};
 		CE8FFED71BAB4E7F00D43F38 /* QRCodeReader */ = {
 			isa = PBXGroup;
 			children = (
@@ -191,21 +212,6 @@
 				CEC20A861A14EF0D00E7D0AD /* CameraSwitchIcon.playground */,
 			);
 			name = Resources;
-			sourceTree = "<group>";
-		};
-		CED23DDA1A15079300BE7A72 /* QRCodeReader */ = {
-			isa = PBXGroup;
-			children = (
-				4A0723DB1C223D8100F2C410 /* QRCodeReaderResult.swift */,
-				CED23DDB1A15079300BE7A72 /* QRCodeReader.swift */,
-				CED23DDD1A1507CB00BE7A72 /* SwitchCameraButton.swift */,
-				CECCE4CC1A1527DE00071669 /* ReaderOverlayView.swift */,
-				CECD170A1AA3531C00A9ACDE /* QRCodeViewController.swift */,
-				82BD4A091BBC21F800172E4E /* ToggleTorchButton.swift */,
-				CE345B221C444D6400FCC482 /* QRCodeViewControllerBuilder.swift */,
-			);
-			name = QRCodeReader;
-			path = ../QRCodeReader;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -284,18 +290,21 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Yannick Loriot";
 				TargetAttributes = {
 					CE412E8819D9A1E4000F294E = {
 						CreatedOnToolsVersion = 6.0.1;
+						LastSwiftMigration = 0800;
 					};
 					CE412E9D19D9A1E4000F294E = {
 						CreatedOnToolsVersion = 6.0.1;
+						LastSwiftMigration = 0800;
 						TestTargetID = CE412E8819D9A1E4000F294E;
 					};
 					CE8FFED51BAB4E7F00D43F38 = {
 						CreatedOnToolsVersion = 7.0;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -351,14 +360,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CECD170B1AA3531C00A9ACDE /* QRCodeViewController.swift in Sources */,
+				CE4E1EE01D81838F00D2AC35 /* ToggleTorchButton.swift in Sources */,
+				CE4E1EDF1D81838F00D2AC35 /* SwitchCameraButton.swift in Sources */,
 				CE412E9119D9A1E4000F294E /* ViewController.swift in Sources */,
-				82BD4A0A1BBC21F800172E4E /* ToggleTorchButton.swift in Sources */,
-				4A0723DC1C223D8100F2C410 /* QRCodeReaderResult.swift in Sources */,
-				CECCE4CD1A1527DE00071669 /* ReaderOverlayView.swift in Sources */,
-				CE345B231C444D6400FCC482 /* QRCodeViewControllerBuilder.swift in Sources */,
-				CED23DDC1A15079300BE7A72 /* QRCodeReader.swift in Sources */,
-				CED23DDE1A1507CB00BE7A72 /* SwitchCameraButton.swift in Sources */,
+				CE4E1EDA1D81838F00D2AC35 /* QRCodeReader.swift in Sources */,
+				CE4E1EDE1D81838F00D2AC35 /* ReaderOverlayView.swift in Sources */,
+				CE4E1EDC1D81838F00D2AC35 /* QRCodeReaderViewController.swift in Sources */,
+				CE4E1EDB1D81838F00D2AC35 /* QRCodeReaderResult.swift in Sources */,
+				CE4E1EDD1D81838F00D2AC35 /* QRCodeReaderViewControllerBuilder.swift in Sources */,
 				CE412E8F19D9A1E4000F294E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -367,7 +376,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE345B241C444D6400FCC482 /* QRCodeViewControllerBuilder.swift in Sources */,
+				CE4E1EE71D81839D00D2AC35 /* ToggleTorchButton.swift in Sources */,
+				CE4E1EE51D81839D00D2AC35 /* ReaderOverlayView.swift in Sources */,
+				CE4E1EE61D81839D00D2AC35 /* SwitchCameraButton.swift in Sources */,
+				CE4E1EE21D81839D00D2AC35 /* QRCodeReaderResult.swift in Sources */,
+				CE4E1EE41D81839D00D2AC35 /* QRCodeReaderViewControllerBuilder.swift in Sources */,
+				CE4E1EE11D81839D00D2AC35 /* QRCodeReader.swift in Sources */,
+				CE4E1EE31D81839D00D2AC35 /* QRCodeReaderViewController.swift in Sources */,
 				CE412EA519D9A1E4000F294E /* QRCodeReader_swiftTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -376,13 +391,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE345B251C444D6400FCC482 /* QRCodeViewControllerBuilder.swift in Sources */,
-				4A0723DD1C22405100F2C410 /* QRCodeReaderResult.swift in Sources */,
-				82D83BA71BBC2A3100C94C22 /* ToggleTorchButton.swift in Sources */,
-				CE8FFEF41BAB4F5400D43F38 /* QRCodeReader.swift in Sources */,
-				CE8FFEF51BAB4F5400D43F38 /* SwitchCameraButton.swift in Sources */,
-				CE8FFEF61BAB4F5400D43F38 /* ReaderOverlayView.swift in Sources */,
-				CE8FFEF71BAB4F5400D43F38 /* QRCodeViewController.swift in Sources */,
+				CE4E1EEC1D81839D00D2AC35 /* ReaderOverlayView.swift in Sources */,
+				CE4E1EEA1D81839D00D2AC35 /* QRCodeReaderViewController.swift in Sources */,
+				CE4E1EEB1D81839D00D2AC35 /* QRCodeReaderViewControllerBuilder.swift in Sources */,
+				CE4E1EE81D81839D00D2AC35 /* QRCodeReader.swift in Sources */,
+				CE4E1EED1D81839D00D2AC35 /* SwitchCameraButton.swift in Sources */,
+				CE4E1EEE1D81839D00D2AC35 /* ToggleTorchButton.swift in Sources */,
+				CE4E1EE91D81839D00D2AC35 /* QRCodeReaderResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -444,6 +459,7 @@
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -487,6 +503,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -504,24 +521,29 @@
 		CE412EA919D9A1E4000F294E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = QRCodeReader.swift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yannickloriot.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		CE412EAA19D9A1E4000F294E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = QRCodeReader.swift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yannickloriot.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -541,6 +563,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yannickloriot.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/QRCodeReader.swift.app/QRCodeReader.swift";
 			};
 			name = Debug;
@@ -557,6 +580,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yannickloriot.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/QRCodeReader.swift.app/QRCodeReader.swift";
 			};
 			name = Release;
@@ -578,6 +603,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yannickloriot.QRCodeReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -601,6 +627,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yannickloriot.QRCodeReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};

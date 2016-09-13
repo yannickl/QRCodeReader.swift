@@ -28,22 +28,22 @@ import UIKit
 
 /// The camera switch button.
 @IBDesignable final class SwitchCameraButton: UIButton {
-  @IBInspectable var edgeColor: UIColor = .whiteColor() {
+  @IBInspectable var edgeColor: UIColor = UIColor.white {
     didSet {
       setNeedsDisplay()
     }
   }
 
-  @IBInspectable var fillColor: UIColor = .darkGrayColor() {
+  @IBInspectable var fillColor: UIColor = UIColor.darkGray {
     didSet {
       setNeedsDisplay()
     }
   }
 
-  @IBInspectable var edgeHighlightedColor: UIColor = .whiteColor()
-  @IBInspectable var fillHighlightedColor: UIColor = .blackColor()
+  @IBInspectable var edgeHighlightedColor: UIColor = UIColor.white
+  @IBInspectable var fillHighlightedColor: UIColor = UIColor.black
 
-  override func drawRect(rect: CGRect) {
+  override func draw(_ rect: CGRect) {
     let width  = rect.width
     let height = rect.height
     let center = width / 2
@@ -52,8 +52,8 @@ import UIKit
     let strokeLineWidth = CGFloat(2)
 
     // Colors
-    let paintColor  = (self.state != .Highlighted) ? fillColor : fillHighlightedColor
-    let strokeColor = (self.state != .Highlighted) ? edgeColor : edgeHighlightedColor
+    let paintColor  = (self.state != .highlighted) ? fillColor : fillHighlightedColor
+    let strokeColor = (self.state != .highlighted) ? edgeColor : edgeHighlightedColor
 
     // Camera box
     let cameraWidth  = width * 0.4
@@ -73,8 +73,8 @@ import UIKit
     let innerLensX    = center - innerLensSize / 2
     let innerLensY    = middle - innerLensSize / 2
 
-    let outerLensPath = UIBezierPath(ovalInRect: CGRect(x: outerLensX, y: outerLensY, width: outerLensSize, height: outerLensSize))
-    let innerLensPath = UIBezierPath(ovalInRect: CGRect(x: innerLensX, y: innerLensY, width: innerLensSize, height: innerLensSize))
+    let outerLensPath = UIBezierPath(ovalIn: CGRect(x: outerLensX, y: outerLensY, width: outerLensSize, height: outerLensSize))
+    let innerLensPath = UIBezierPath(ovalIn: CGRect(x: innerLensX, y: innerLensY, width: innerLensSize, height: innerLensSize))
 
     // Draw flash box
     let flashBoxWidth      = cameraWidth * 0.8
@@ -84,13 +84,13 @@ import UIKit
     let flashBottomMostY   = cameraY
 
     let flashPath = UIBezierPath()
-    flashPath.moveToPoint(CGPoint(x: flashLeftMostX, y: flashBottomMostY))
-    flashPath.addLineToPoint(CGPoint(x: flashLeftMostX + flashBoxWidth, y: flashBottomMostY))
-    flashPath.addLineToPoint(CGPoint(x: flashLeftMostX + flashBoxWidth - flashBoxDeltaWidth, y: flashBottomMostY - flashBoxHeight))
-    flashPath.addLineToPoint(CGPoint(x: flashLeftMostX + flashBoxDeltaWidth, y: flashBottomMostY - flashBoxHeight))
-    flashPath.closePath()
-    flashPath.lineCapStyle  = .Round
-    flashPath.lineJoinStyle = .Round
+    flashPath.move(to: CGPoint(x: flashLeftMostX, y: flashBottomMostY))
+    flashPath.addLine(to: CGPoint(x: flashLeftMostX + flashBoxWidth, y: flashBottomMostY))
+    flashPath.addLine(to: CGPoint(x: flashLeftMostX + flashBoxWidth - flashBoxDeltaWidth, y: flashBottomMostY - flashBoxHeight))
+    flashPath.addLine(to: CGPoint(x: flashLeftMostX + flashBoxDeltaWidth, y: flashBottomMostY - flashBoxHeight))
+    flashPath.close()
+    flashPath.lineCapStyle  = .round
+    flashPath.lineJoinStyle = .round
 
     // Arrows
     let arrowHeadHeigth = cameraHeight * 0.5
@@ -103,27 +103,27 @@ import UIKit
     let arrowLeftY = middle + cameraHeight * 0.45
 
     let leftArrowPath = UIBezierPath()
-    leftArrowPath.moveToPoint(CGPoint(x: arrowLeftX, y: arrowLeftY))
-    leftArrowPath.addLineToPoint(CGPoint(x: arrowLeftX - arrowHeadWidth, y: arrowLeftY - arrowHeadHeigth / 2))
-    leftArrowPath.addLineToPoint(CGPoint(x: arrowLeftX - arrowHeadWidth, y: arrowLeftY - arrowTailHeigth / 2))
-    leftArrowPath.addLineToPoint(CGPoint(x: arrowLeftX - arrowHeadWidth - arrowTailWidth, y: arrowLeftY - arrowTailHeigth / 2))
-    leftArrowPath.addLineToPoint(CGPoint(x: arrowLeftX - arrowHeadWidth - arrowTailWidth, y: arrowLeftY + arrowTailHeigth / 2))
-    leftArrowPath.addLineToPoint(CGPoint(x: arrowLeftX - arrowHeadWidth, y: arrowLeftY + arrowTailHeigth / 2))
-    leftArrowPath.addLineToPoint(CGPoint(x: arrowLeftX - arrowHeadWidth, y: arrowLeftY + arrowHeadHeigth / 2))
+    leftArrowPath.move(to: CGPoint(x: arrowLeftX, y: arrowLeftY))
+    leftArrowPath.addLine(to: CGPoint(x: arrowLeftX - arrowHeadWidth, y: arrowLeftY - arrowHeadHeigth / 2))
+    leftArrowPath.addLine(to: CGPoint(x: arrowLeftX - arrowHeadWidth, y: arrowLeftY - arrowTailHeigth / 2))
+    leftArrowPath.addLine(to: CGPoint(x: arrowLeftX - arrowHeadWidth - arrowTailWidth, y: arrowLeftY - arrowTailHeigth / 2))
+    leftArrowPath.addLine(to: CGPoint(x: arrowLeftX - arrowHeadWidth - arrowTailWidth, y: arrowLeftY + arrowTailHeigth / 2))
+    leftArrowPath.addLine(to: CGPoint(x: arrowLeftX - arrowHeadWidth, y: arrowLeftY + arrowTailHeigth / 2))
+    leftArrowPath.addLine(to: CGPoint(x: arrowLeftX - arrowHeadWidth, y: arrowLeftY + arrowHeadHeigth / 2))
 
     // Right arrow
     let arrowRightX = center + cameraWidth * 0.2
     let arrowRightY = middle + cameraHeight * 0.60
 
     let rigthArrowPath = UIBezierPath()
-    rigthArrowPath.moveToPoint(CGPoint(x: arrowRightX, y: arrowRightY))
-    rigthArrowPath.addLineToPoint(CGPoint(x: arrowRightX + arrowHeadWidth, y: arrowRightY - arrowHeadHeigth / 2))
-    rigthArrowPath.addLineToPoint(CGPoint(x: arrowRightX + arrowHeadWidth, y: arrowRightY - arrowTailHeigth / 2))
-    rigthArrowPath.addLineToPoint(CGPoint(x: arrowRightX + arrowHeadWidth + arrowTailWidth, y: arrowRightY - arrowTailHeigth / 2))
-    rigthArrowPath.addLineToPoint(CGPoint(x: arrowRightX + arrowHeadWidth + arrowTailWidth, y: arrowRightY + arrowTailHeigth / 2))
-    rigthArrowPath.addLineToPoint(CGPoint(x: arrowRightX + arrowHeadWidth, y: arrowRightY + arrowTailHeigth / 2))
-    rigthArrowPath.addLineToPoint(CGPoint(x: arrowRightX + arrowHeadWidth, y: arrowRightY + arrowHeadHeigth / 2))
-    rigthArrowPath.closePath()
+    rigthArrowPath.move(to: CGPoint(x: arrowRightX, y: arrowRightY))
+    rigthArrowPath.addLine(to: CGPoint(x: arrowRightX + arrowHeadWidth, y: arrowRightY - arrowHeadHeigth / 2))
+    rigthArrowPath.addLine(to: CGPoint(x: arrowRightX + arrowHeadWidth, y: arrowRightY - arrowTailHeigth / 2))
+    rigthArrowPath.addLine(to: CGPoint(x: arrowRightX + arrowHeadWidth + arrowTailWidth, y: arrowRightY - arrowTailHeigth / 2))
+    rigthArrowPath.addLine(to: CGPoint(x: arrowRightX + arrowHeadWidth + arrowTailWidth, y: arrowRightY + arrowTailHeigth / 2))
+    rigthArrowPath.addLine(to: CGPoint(x: arrowRightX + arrowHeadWidth, y: arrowRightY + arrowTailHeigth / 2))
+    rigthArrowPath.addLine(to: CGPoint(x: arrowRightX + arrowHeadWidth, y: arrowRightY + arrowHeadHeigth / 2))
+    rigthArrowPath.close()
 
     // Drawing
     paintColor.setFill()
@@ -150,7 +150,7 @@ import UIKit
     flashPath.lineWidth = strokeLineWidth
     flashPath.stroke()
 
-    leftArrowPath.closePath()
+    leftArrowPath.close()
     paintColor.setFill()
     leftArrowPath.fill()
     strokeColor.setStroke()
@@ -160,26 +160,26 @@ import UIKit
 
   // MARK: - UIResponder Methods
 
-  override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-    super.touchesBegan(touches, withEvent: event)
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    super.touchesBegan(touches, with: event)
 
     setNeedsDisplay()
   }
 
-  override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-    super.touchesMoved(touches, withEvent: event)
+  override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    super.touchesMoved(touches, with: event)
 
     setNeedsDisplay()
   }
 
-  override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-    super.touchesEnded(touches, withEvent: event)
+  override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    super.touchesEnded(touches, with: event)
     setNeedsDisplay()
   }
 
-  override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
-    super.touchesCancelled(touches, withEvent: event)
-    
+  override func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?) {
+    super.touchesCancelled(touches!, with: event)
+
     setNeedsDisplay()
   }
 }
