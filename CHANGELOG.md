@@ -1,5 +1,10 @@
 # Change log
 
+## [Version 7.0.1](https://github.com/yannickl/QRCodeReader.swift/releases/tag/7.0.1)
+Released on 2016-09-13.
+
+- [FIX] Make type less ambiguous [#58](https://github.com/yannickl/QRCodeReader.swift/issues/58)
+
 ## [Version 7.0.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/7.0.0)
 Released on 2016-09-13.
 
