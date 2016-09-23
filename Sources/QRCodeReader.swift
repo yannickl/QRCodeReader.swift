@@ -262,14 +262,9 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
    - returns: A boolean value that indicates whether the reader is available.
    */
   public class func isAvailable() -> Bool {
-    do {
-      let captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
-      let _             = try AVCaptureDeviceInput(device: captureDevice)
+    let captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
 
-      return true
-    } catch _ {
-      return false
-    }
+    return (try? AVCaptureDeviceInput(device: captureDevice)) != nil
   }
 
   /**
@@ -280,15 +275,12 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
    - returns: A boolean value that indicates whether the device supports the given metadata object types.
    */
   public class func supportsMetadataObjectTypes(_ metadataTypes: [String]? = nil) -> Bool {
-    if !isAvailable() {
-      return false
-    }
-
-    // Setup components
     let captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
-    let deviceInput   = try! AVCaptureDeviceInput(device: captureDevice)
-    let output        = AVCaptureMetadataOutput()
-    let session       = AVCaptureSession()
+
+    guard let deviceInput = try? AVCaptureDeviceInput(device: captureDevice) else { return false }
+
+    let output  = AVCaptureMetadataOutput()
+    let session = AVCaptureSession()
 
     session.addInput(deviceInput)
     session.addOutput(output)
