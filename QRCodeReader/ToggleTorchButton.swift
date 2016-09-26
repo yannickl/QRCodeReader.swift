@@ -116,7 +116,7 @@ import UIKit
     setNeedsDisplay()
   }
 
-  override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
+  override func touchesCancelled(touches: Set<UITouch>, withEvent event: UIEvent?) {
     super.touchesCancelled(touches, withEvent: event)
     
     setNeedsDisplay()
