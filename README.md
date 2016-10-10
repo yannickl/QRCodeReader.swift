@@ -35,7 +35,7 @@ lazy var readerVC = QRCodeReaderViewController(builder: QRCodeReaderViewControll
 
   // Or by using the closure pattern
   readerVC.completionBlock = { (result: QRCodeReaderResult?) in
-    println(result)
+    print(result)
   }
 
   // Presents the readerVC as modal form sheet
