@@ -86,7 +86,7 @@ public class QRCodeReaderViewController: UIViewController {
 
     cameraView.layer.insertSublayer(codeReader.previewLayer, at: 0)
 
-    NotificationCenter.default.addObserver(self, selector: #selector(orientationDidChanged), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(orientationDidChange), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
   }
 
   required public init?(coder aDecoder: NSCoder) {
@@ -126,7 +126,7 @@ public class QRCodeReaderViewController: UIViewController {
 
   // MARK: - Managing the Orientation
 
-  func orientationDidChanged(_ notification: Notification) {
+  func orientationDidChange(_ notification: Notification) {
     cameraView.setNeedsDisplay()
 
     if let device = notification.object as? UIDevice , codeReader.previewLayer.connection.isVideoOrientationSupported {
