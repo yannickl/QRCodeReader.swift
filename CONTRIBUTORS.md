@@ -13,9 +13,13 @@ Please keep the list sorted.
 ### People and companies, who have contributed
 
  * [Alex Kreutz](https://github.com/bbsan2k)
+ * [Bas Broek](https://github.com/BasThomas)
+ * [David Crook](https://github.com/dpcrook)
+ * [Daniel Larsson](https://github.com/larssondaniel)
  * [Daniel Tartaglia](https://github.com/dtartaglia)
  * [Jan Karlo Dela Cruz](https://github.com/jankdc)
- * [Mesashi Beheim](https://github.com/beheim)
+ * [Mesashi Beheim](https://github.com/masa-beheim)
  * [Pablo Lerma](https://github.com/PabloLerma)
+ * [Samuel Duursma](https://github.com/sdduursma)
  * [Søren Lind Kristiansen](https://github.com/sorenlind)
  * [Yurii](https://github.com/kaphacius)

@@ -30,7 +30,7 @@ It provides a default view controller to display the camera view with the scan a
 In iOS10+, you will need first to reasoning about the camera use. For that you'll need to add the **Privacy - Camera Usage Description** *(NSCameraUsageDescription)* field in your Info.plist:
 
 <p align="center">
-  <img alt="privacy - camera usage description" src="https://cloud.githubusercontent.com/assets/798235/19264760/5fe6d4ac-8fa2-11e6-8760-63734789fcc8.png">
+  <img alt="privacy - camera usage description" src="https://cloud.githubusercontent.com/assets/798235/19264826/bc25b8dc-8fa2-11e6-9c13-17926384ebd1.png" height="28">
 </p>
 
 Then just follow these steps:
