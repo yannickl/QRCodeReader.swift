@@ -40,7 +40,7 @@ lazy var readerVC = QRCodeReaderViewController(builder: QRCodeReaderViewControll
 
   // Presents the readerVC as modal form sheet
   readerVC.modalPresentationStyle = .formSheet
-  present(reader, animated: true, completion: nil)
+  present(readerVC, animated: true, completion: nil)
 }
 
 // MARK: - QRCodeReaderViewController Delegate Methods
