@@ -11,11 +11,29 @@
 
 It provides a default view controller to display the camera view with the scan area overlay and it also provides a button to switch between the front and the back cameras.
 
-![screenshot](http://yannickloriot.com/resources/qrcodereader.swift-screenshot.jpg)
+<p align="center">
+  <img src="http://yannickloriot.com/resources/qrcodereader.swift-screenshot.jpg" alt="QRCodeReader.swift screenshot">
+</p>
 
-*N.B.: This branch is Swift 3 compatible, use the [v6.2.0 version](https://github.com/yannickl/QRCodeReader.swift/tree/6.2.0) for Swift 2.x.*
+<p align="center">
+  <a href="#requirements">Requirements</a> • <a href="#usage">Usage</a> • <a href="#installation">Installation</a> • <a href="#contact">Contact</a> • <a href="#license-mit">License</a>
+</p>
+
+## Requirements
+
+- iOS 8.0+
+- Xcode 8.0+
+- Swift 3.0+
 
 ## Usage
+
+In iOS10+, you will need first to reasoning about the camera use. For that you'll need to add the **Privacy - Camera Usage Description** *(NSCameraUsageDescription)* field in your Info.plist:
+
+<p align="center">
+  <img alt="privacy - camera usage description" src="https://cloud.githubusercontent.com/assets/798235/19264760/5fe6d4ac-8fa2-11e6-8760-63734789fcc8.png">
+</p>
+
+Then just follow these steps:
 
 -  Add delegate `QRCodeReaderViewControllerDelegate`
 -  Add `import AVFoundation`
