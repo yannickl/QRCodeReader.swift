@@ -88,10 +88,28 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   }
 
   /**
-   Initializes the code reader with an array of metadata object types.
-   
-   - parameter startingCaptureDevicePosition: The Camera to use on start of scanning
+   Initializes the code reader with an array of metadata object types, and the default initial capture position
+
    - parameter metadataObjectTypes: An array of strings identifying the types of metadata objects to process.
+   */
+  public convenience init(metadataObjectTypes types: [String]) {
+    self.init(metadataObjectTypes: types, captureDevicePosition: .back)
+  }
+
+  /**
+   Initializes the code reader with the starting capture device position, and the default array of metadata object types
+
+   - parameter captureDevicePosition: The capture position to use on start of scanning
+   */
+  public convenience init(captureDevicePosition position: AVCaptureDevicePosition) {
+    self.init(metadataObjectTypes: [AVMetadataObjectTypeQRCode], captureDevicePosition: position)
+  }
+
+  /**
+   Initializes the code reader with an array of metadata object types.
+
+   - parameter metadataObjectTypes: An array of strings identifying the types of metadata objects to process.
+   - parameter captureDevicePosition: The Camera to use on start of scanning.
    */
   public init(metadataObjectTypes types: [String], captureDevicePosition: AVCaptureDevicePosition) {
     metadataObjectTypes = types
