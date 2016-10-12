@@ -90,7 +90,7 @@ public class QRCodeReaderViewController: UIViewController {
   }
 
   required public init?(coder aDecoder: NSCoder) {
-    codeReader             = QRCodeReader(metadataObjectTypes: [])
+    codeReader             = QRCodeReader(startingCaptureDevicePosition: .back, metadataObjectTypes: [])
     startScanningAtLoad    = false
     showCancelButton       = false
     showTorchButton        = false
@@ -233,7 +233,9 @@ public class QRCodeReaderViewController: UIViewController {
   }
 
   func switchCameraAction(_ button: SwitchCameraButton) {
-    codeReader.switchDeviceInput()
+    if let newDevice = codeReader.switchDeviceInput() {
+      delegate?.reader(self, didSwitchCamera: newDevice)
+    }
   }
 
   func toggleTorchAction(_ button: ToggleTorchButton) {
@@ -254,9 +256,31 @@ public protocol QRCodeReaderViewControllerDelegate: class {
   func reader(_ reader: QRCodeReaderViewController, didScanResult result: QRCodeReaderResult)
 
   /**
+   Tells the delegate that the camera was switched by the user
+   
+   - parameter reader: A code reader object informing the delegate about the scan result.
+   - parameter newCaptureDevice: The capture device that was switched to
+   */
+  func reader(_ reader: QRCodeReaderViewController, didSwitchCamera newCaptureDevice: AVCaptureDeviceInput)
+  
+  /**
    Tells the delegate that the user wants to stop scanning codes.
 
    - parameter reader: A code reader object informing the delegate about the cancellation.
    */
   func readerDidCancel(_ reader: QRCodeReaderViewController)
+
+}
+
+extension QRCodeReaderViewControllerDelegate {
+  
+  /**
+   Default implementation that No-Ops this callBack
+   
+   - parameter reader: A code reader object informing the delegate about the scan result.
+   - parameter newCaptureDevice: The capture device that was switched to
+   */
+  func reader(_ reader: QRCodeReaderViewController, didSwitchCamera newCaptureDevice: AVCaptureDeviceInput) {
+    
+  }
 }
