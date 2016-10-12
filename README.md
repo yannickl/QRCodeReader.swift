@@ -43,7 +43,7 @@ Then just follow these steps:
 // Good practice: create the reader lazily to avoid cpu overload during the
 // initialization and each time we need to scan a QRCode
 lazy var readerVC = QRCodeReaderViewController(builder: QRCodeReaderViewControllerBuilder {
-  $0.reader = QRCodeReader(metadataObjectTypes: [AVMetadataObjectTypeQRCode])
+  $0.reader = QRCodeReader(metadataObjectTypes: [AVMetadataObjectTypeQRCode], captureDevicePosition: .back)
 })
 
 @IBAction func scanAction(_ sender: AnyObject) {
@@ -65,6 +65,14 @@ lazy var readerVC = QRCodeReaderViewController(builder: QRCodeReaderViewControll
 
 func reader(_ reader: QRCodeReader, didScanResult result: QRCodeReaderResult) {
   dismiss(animated: true, completion: nil)
+}
+
+//This is an optional delegate method, that allows you to be notified when the user switches the cameraName
+//By pressing on the switch camera button
+func reader(_ reader: QRCodeReaderViewController, didSwitchCamera newCaptureDevice: AVCaptureDeviceInput) {
+    if let cameraName = newCaptureDevice.device.localizedName {
+      print("Switching capturing to: \(cameraName)")
+    }
 }
 
 func readerDidCancel(_ reader: QRCodeReader) {
