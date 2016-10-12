@@ -90,7 +90,7 @@ public class QRCodeReaderViewController: UIViewController {
   }
 
   required public init?(coder aDecoder: NSCoder) {
-    codeReader             = QRCodeReader(startingCaptureDevicePosition: .back, metadataObjectTypes: [])
+    codeReader             = QRCodeReader()
     startScanningAtLoad    = false
     showCancelButton       = false
     showTorchButton        = false

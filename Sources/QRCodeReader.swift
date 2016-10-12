@@ -79,31 +79,6 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   public var didFindCode: ((QRCodeReaderResult) -> Void)?
 
   // MARK: - Creating the Code Reade
-  
-  /**
-   Initializes the code reader with the QRCode metadata type object.
-   */
-  public convenience override init() {
-    self.init(startingCaptureDevicePosition: .back)
-  }
-  
-  /**
-   Initializes the code reader with the starting capture device position, and the default array of metadata object types
-   
-   - parameter startingCaptureDevicePosition: The capture position to use on start of scanning
-   */
-  public convenience init(startingCaptureDevicePosition position: AVCaptureDevicePosition) {
-    self.init(startingCaptureDevicePosition: position, metadataObjectTypes: [AVMetadataObjectTypeQRCode])
-  }
-  
-  /**
-   Initializes the code reader with an array of metadata object types, and the default initial capture position
-   
-   - parameter metadataObjectTypes: An array of strings identifying the types of metadata objects to process.
-   */
-  public convenience init(metadataObjectTypes types: [String]) {
-    self.init(startingCaptureDevicePosition: .back, metadataObjectTypes: types)
-  }
 
   /**
    Initializes the code reader with an array of metadata object types.
@@ -111,12 +86,12 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
    - parameter startingCaptureDevicePosition: The Camera to use on start of scanning
    - parameter metadataObjectTypes: An array of strings identifying the types of metadata objects to process.
    */
-  public init(startingCaptureDevicePosition: AVCaptureDevicePosition, metadataObjectTypes types: [String]) {
+  public init(metadataObjectTypes types: [String] = [AVMetadataObjectTypeQRCode], captureDevicePosition: AVCaptureDevicePosition = .back) {
     metadataObjectTypes = types
 
     super.init()
 
-    configureDefaultComponents(withCaptureDevicePosition: startingCaptureDevicePosition)
+    configureDefaultComponents(withCaptureDevicePosition: captureDevicePosition)
   }
 
   // MARK: - Initializing the AV Components
