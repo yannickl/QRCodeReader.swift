@@ -78,36 +78,63 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   /// Block is executed when a metadata object is found.
   public var didFindCode: ((QRCodeReaderResult) -> Void)?
 
-  // MARK: - Creating the Code Reader
-
+  // MARK: - Creating the Code Reade
+  
   /**
    Initializes the code reader with the QRCode metadata type object.
    */
   public convenience override init() {
-    self.init(metadataObjectTypes: [AVMetadataObjectTypeQRCode])
+    self.init(startingCaptureDevicePosition: .back)
+  }
+  
+  /**
+   Initializes the code reader with the starting capture device position, and the default array of metadata object types
+   
+   - parameter startingCaptureDevicePosition: The capture position to use on start of scanning
+   */
+  public convenience init(startingCaptureDevicePosition position: AVCaptureDevicePosition) {
+    self.init(startingCaptureDevicePosition: position, metadataObjectTypes: [AVMetadataObjectTypeQRCode])
+  }
+  
+  /**
+   Initializes the code reader with an array of metadata object types, and the default initial capture position
+   
+   - parameter metadataObjectTypes: An array of strings identifying the types of metadata objects to process.
+   */
+  public convenience init(metadataObjectTypes types: [String]) {
+    self.init(startingCaptureDevicePosition: .back, metadataObjectTypes: types)
   }
 
   /**
    Initializes the code reader with an array of metadata object types.
-
+   
+   - parameter startingCaptureDevicePosition: The Camera to use on start of scanning
    - parameter metadataObjectTypes: An array of strings identifying the types of metadata objects to process.
    */
-  public init(metadataObjectTypes types: [String]) {
+  public init(startingCaptureDevicePosition: AVCaptureDevicePosition, metadataObjectTypes types: [String]) {
     metadataObjectTypes = types
 
     super.init()
 
-    configureDefaultComponents()
+    configureDefaultComponents(withCaptureDevicePosition: startingCaptureDevicePosition)
   }
 
   // MARK: - Initializing the AV Components
 
-  private func configureDefaultComponents() {
+  private func configureDefaultComponents(withCaptureDevicePosition: AVCaptureDevicePosition) {
     session.addOutput(metadataOutput)
 
-    if let _defaultDeviceInput = defaultDeviceInput {
-      session.addInput(_defaultDeviceInput)
+    switch withCaptureDevicePosition {
+    case .front:
+      if let _frontDeviceInput = frontDeviceInput {
+        session.addInput(_frontDeviceInput)
+      }
+    case .back, .unspecified:
+      if let _defaultDeviceInput = defaultDeviceInput {
+        session.addInput(_defaultDeviceInput)
+      }
     }
+
 
     metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
     metadataOutput.metadataObjectTypes = metadataObjectTypes
@@ -115,7 +142,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   }
 
   /// Switch between the back and the front camera.
-  public func switchDeviceInput() {
+  public func switchDeviceInput() -> AVCaptureDeviceInput? {
     if let _frontDeviceInput = frontDeviceInput {
       session.beginConfiguration()
 
@@ -128,6 +155,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
 
       session.commitConfiguration()
     }
+    return session.inputs.first as? AVCaptureDeviceInput
   }
 
   // MARK: - Controlling Reader
