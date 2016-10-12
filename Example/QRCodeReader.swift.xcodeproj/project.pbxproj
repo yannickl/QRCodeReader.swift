@@ -363,12 +363,12 @@
 			files = (
 				CE4E1EE01D81838F00D2AC35 /* ToggleTorchButton.swift in Sources */,
 				CE4E1EDF1D81838F00D2AC35 /* SwitchCameraButton.swift in Sources */,
-				CE412E9119D9A1E4000F294E /* ViewController.swift in Sources */,
 				CE4E1EDA1D81838F00D2AC35 /* QRCodeReader.swift in Sources */,
 				CE4E1EDE1D81838F00D2AC35 /* ReaderOverlayView.swift in Sources */,
 				CE4E1EDC1D81838F00D2AC35 /* QRCodeReaderViewController.swift in Sources */,
 				CE4E1EDB1D81838F00D2AC35 /* QRCodeReaderResult.swift in Sources */,
 				CE4E1EDD1D81838F00D2AC35 /* QRCodeReaderViewControllerBuilder.swift in Sources */,
+				CE412E9119D9A1E4000F294E /* ViewController.swift in Sources */,
 				CE412E8F19D9A1E4000F294E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

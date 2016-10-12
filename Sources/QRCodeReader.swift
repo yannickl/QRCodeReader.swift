@@ -81,12 +81,19 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   // MARK: - Creating the Code Reade
 
   /**
+   Initializes the code reader with the QRCode metadata type object.
+   */
+  public convenience override init() {
+    self.init(metadataObjectTypes: [AVMetadataObjectTypeQRCode], captureDevicePosition: .back)
+  }
+
+  /**
    Initializes the code reader with an array of metadata object types.
    
    - parameter startingCaptureDevicePosition: The Camera to use on start of scanning
    - parameter metadataObjectTypes: An array of strings identifying the types of metadata objects to process.
    */
-  public init(metadataObjectTypes types: [String] = [AVMetadataObjectTypeQRCode], captureDevicePosition: AVCaptureDevicePosition = .back) {
+  public init(metadataObjectTypes types: [String], captureDevicePosition: AVCaptureDevicePosition) {
     metadataObjectTypes = types
 
     super.init()

@@ -1,5 +1,11 @@
 # Change log
 
+## [Version 7.1.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/7.1.0)
+Released on 2016-10-12.
+
+- [ADD] Specify starting camera position in the init of `QRCodeReader` object
+- [ADD] `reader:didSwitchCamera` delegate method
+
 ## [Version 7.0.1](https://github.com/yannickl/QRCodeReader.swift/releases/tag/7.0.1)
 Released on 2016-09-13.
 
