@@ -142,6 +142,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   }
 
   /// Switch between the back and the front camera.
+  @discardableResult
   public func switchDeviceInput() -> AVCaptureDeviceInput? {
     if let _frontDeviceInput = frontDeviceInput {
       session.beginConfiguration()

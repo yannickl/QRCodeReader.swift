@@ -57,6 +57,8 @@ class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
   // MARK: - QRCodeReader Delegate Methods
 
   func reader(_ reader: QRCodeReaderViewController, didScanResult result: QRCodeReaderResult) {
+    reader.stopScanning()
+
     dismiss(animated: true) { [weak self] in
       let alert = UIAlertController(
         title: "QRCodeReader",
@@ -76,6 +78,8 @@ class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
   }
   
   func readerDidCancel(_ reader: QRCodeReaderViewController) {
+    reader.stopScanning()
+
     dismiss(animated: true, completion: nil)
   }
 }
