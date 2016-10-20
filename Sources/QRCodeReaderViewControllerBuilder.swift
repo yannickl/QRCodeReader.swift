@@ -50,6 +50,11 @@ public final class QRCodeReaderViewControllerBuilder {
   public var reader = QRCodeReader()
 
   /**
+   The reader container view used to display the video capture and the UI components.
+   */
+  public var readerView = QRCodeReaderContainer(displayable: QRCodeReaderView())
+
+  /**
    Flag to know whether the view controller start scanning the codes when the view will appear.
    */
   public var startScanningAtLoad = true

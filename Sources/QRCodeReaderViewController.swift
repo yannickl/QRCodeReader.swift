@@ -32,7 +32,7 @@ public class QRCodeReaderViewController: UIViewController {
   /// The code reader object used to scan the bar code.
   public let codeReader: QRCodeReader
 
-  let readerView: QRCodeReaderContainer = QRCodeReaderContainer(displayable: QRCodeReaderView())
+  let readerView: QRCodeReaderContainer
   let startScanningAtLoad: Bool
   let showCancelButton: Bool
   let showSwitchCameraButton: Bool
@@ -60,6 +60,7 @@ public class QRCodeReaderViewController: UIViewController {
    - parameter builder: A QRCodeViewController builder object.
    */
   required public init(builder: QRCodeReaderViewControllerBuilder) {
+    readerView             = builder.readerView
     startScanningAtLoad    = builder.startScanningAtLoad
     codeReader             = builder.reader
     showCancelButton       = builder.showCancelButton
@@ -84,6 +85,7 @@ public class QRCodeReaderViewController: UIViewController {
 
   required public init?(coder aDecoder: NSCoder) {
     codeReader             = QRCodeReader()
+    readerView             = QRCodeReaderContainer(displayable: QRCodeReaderView())
     startScanningAtLoad    = false
     showCancelButton       = false
     showTorchButton        = false
