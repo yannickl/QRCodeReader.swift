@@ -27,7 +27,7 @@
 import UIKit
 
 /// Overlay over the camera view to display the area (a square) where to scan the code.
-final class ReaderOverlayView: UIView {
+public final class ReaderOverlayView: UIView {
   private var overlay: CAShapeLayer = {
     var overlay             = CAShapeLayer()
     overlay.backgroundColor = UIColor.clear.cgColor
@@ -46,7 +46,7 @@ final class ReaderOverlayView: UIView {
     setupOverlay()
   }
 
-  required init?(coder aDecoder: NSCoder) {
+  required public init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
 
     setupOverlay()
@@ -56,7 +56,7 @@ final class ReaderOverlayView: UIView {
     layer.addSublayer(overlay)
   }
 
-  override func draw(_ rect: CGRect) {
+  public override func draw(_ rect: CGRect) {
     var innerRect = rect.insetBy(dx: 50, dy: 50)
     let minSize   = min(innerRect.width, innerRect.height)
 

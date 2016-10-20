@@ -1,5 +1,12 @@
 # Change log
 
+## [Version 7.2.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/7.2.0)
+Released on 2016-10-20.
+
+- [REFACTORING] The `QRCodeReaderViewController`'s view is now build via the `QRCodeReaderContainer`
+- [REFACTORING] The `ReaderOverlayView`, `SwitchCameraButton` and `ToggleTorchButton` are now public
+- [ADD] The `readerView` property in the `QRCodeViewControllerBuilder` to allow view customization
+
 ## [Version 7.1.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/7.1.0)
 Released on 2016-10-12.
 

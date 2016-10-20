@@ -27,7 +27,8 @@
 import UIKit
 
 /// The toggle torch button.
-@IBDesignable final class ToggleTorchButton: UIButton {
+@IBDesignable
+public final class ToggleTorchButton: UIButton {
   @IBInspectable var edgeColor: UIColor = UIColor.white {
     didSet {
       setNeedsDisplay()
@@ -43,7 +44,7 @@ import UIKit
   @IBInspectable var edgeHighlightedColor: UIColor = UIColor.white
   @IBInspectable var fillHighlightedColor: UIColor = UIColor.darkGray
 
-  override func draw(_ rect: CGRect) {
+  public override func draw(_ rect: CGRect) {
     // Colors
     let paintColor  = (self.state != .highlighted) ? fillColor : fillHighlightedColor
     let strokeColor = (self.state != .highlighted) ? edgeColor : edgeHighlightedColor
@@ -99,24 +100,24 @@ import UIKit
 
   // MARK: - UIResponder Methods
 
-  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+  public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     super.touchesBegan(touches, with: event)
 
     setNeedsDisplay()
   }
 
-  override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+  public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
     super.touchesMoved(touches, with: event)
 
     setNeedsDisplay()
   }
 
-  override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+  public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
     super.touchesEnded(touches, with: event)
     setNeedsDisplay()
   }
 
-  override func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?) {
+  public override func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?) {
     super.touchesCancelled(touches!, with: event)
 
     setNeedsDisplay()
