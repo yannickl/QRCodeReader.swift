@@ -105,7 +105,7 @@ class YourCustomView: UIView, QRCodeReaderDisplayable {
 }
 
 lazy var reader = QRCodeReaderViewController(builder: QRCodeReaderViewControllerBuilder {
-  let readerView = QRCodeReaderContainer(displayable: QRCodeReaderView())
+  let readerView = QRCodeReaderContainer(displayable: YourCustomView())
 
   $0.readerView = readerView
 })
