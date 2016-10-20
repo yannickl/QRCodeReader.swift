@@ -43,6 +43,9 @@
 		CEBE11091DB8C73700F21CD8 /* QRCodeReaderViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBE11081DB8C73700F21CD8 /* QRCodeReaderViewContainer.swift */; };
 		CEBE110A1DB8C73700F21CD8 /* QRCodeReaderViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBE11081DB8C73700F21CD8 /* QRCodeReaderViewContainer.swift */; };
 		CEBE110B1DB8C73700F21CD8 /* QRCodeReaderViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBE11081DB8C73700F21CD8 /* QRCodeReaderViewContainer.swift */; };
+		CEBE110D1DB8C8B200F21CD8 /* QRCodeReaderViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBE110C1DB8C8B200F21CD8 /* QRCodeReaderViewControllerDelegate.swift */; };
+		CEBE110E1DB8C8B200F21CD8 /* QRCodeReaderViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBE110C1DB8C8B200F21CD8 /* QRCodeReaderViewControllerDelegate.swift */; };
+		CEBE110F1DB8C8B200F21CD8 /* QRCodeReaderViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBE110C1DB8C8B200F21CD8 /* QRCodeReaderViewControllerDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +102,7 @@
 		CE8FFEDA1BAB4E7F00D43F38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEBE11041DB8B22900F21CD8 /* QRCodeReaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeReaderView.swift; sourceTree = "<group>"; };
 		CEBE11081DB8C73700F21CD8 /* QRCodeReaderViewContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeReaderViewContainer.swift; sourceTree = "<group>"; };
+		CEBE110C1DB8C8B200F21CD8 /* QRCodeReaderViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeReaderViewControllerDelegate.swift; sourceTree = "<group>"; };
 		CEC20A861A14EF0D00E7D0AD /* CameraSwitchIcon.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = CameraSwitchIcon.playground; path = resources/CameraSwitchIcon.playground; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -199,6 +203,7 @@
 				CEBE11081DB8C73700F21CD8 /* QRCodeReaderViewContainer.swift */,
 				CE4E1ED51D81838F00D2AC35 /* QRCodeReaderViewController.swift */,
 				CE4E1ED61D81838F00D2AC35 /* QRCodeReaderViewControllerBuilder.swift */,
+				CEBE110C1DB8C8B200F21CD8 /* QRCodeReaderViewControllerDelegate.swift */,
 				CE4E1ED71D81838F00D2AC35 /* ReaderOverlayView.swift */,
 				CE4E1ED81D81838F00D2AC35 /* SwitchCameraButton.swift */,
 				CE4E1ED91D81838F00D2AC35 /* ToggleTorchButton.swift */,
@@ -381,6 +386,7 @@
 				CE412E9119D9A1E4000F294E /* ViewController.swift in Sources */,
 				CE412E8F19D9A1E4000F294E /* AppDelegate.swift in Sources */,
 				CEBE11091DB8C73700F21CD8 /* QRCodeReaderViewContainer.swift in Sources */,
+				CEBE110D1DB8C8B200F21CD8 /* QRCodeReaderViewControllerDelegate.swift in Sources */,
 				CEBE11051DB8B22900F21CD8 /* QRCodeReaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -392,6 +398,7 @@
 				CE4E1EE71D81839D00D2AC35 /* ToggleTorchButton.swift in Sources */,
 				CEBE11071DB8B23300F21CD8 /* QRCodeReaderView.swift in Sources */,
 				CE4E1EE51D81839D00D2AC35 /* ReaderOverlayView.swift in Sources */,
+				CEBE110E1DB8C8B200F21CD8 /* QRCodeReaderViewControllerDelegate.swift in Sources */,
 				CE4E1EE61D81839D00D2AC35 /* SwitchCameraButton.swift in Sources */,
 				CE4E1EE21D81839D00D2AC35 /* QRCodeReaderResult.swift in Sources */,
 				CEBE110A1DB8C73700F21CD8 /* QRCodeReaderViewContainer.swift in Sources */,
@@ -410,6 +417,7 @@
 				CE4E1EEA1D81839D00D2AC35 /* QRCodeReaderViewController.swift in Sources */,
 				CEBE110B1DB8C73700F21CD8 /* QRCodeReaderViewContainer.swift in Sources */,
 				CE4E1EEB1D81839D00D2AC35 /* QRCodeReaderViewControllerBuilder.swift in Sources */,
+				CEBE110F1DB8C8B200F21CD8 /* QRCodeReaderViewControllerDelegate.swift in Sources */,
 				CE4E1EE81D81839D00D2AC35 /* QRCodeReader.swift in Sources */,
 				CE4E1EED1D81839D00D2AC35 /* SwitchCameraButton.swift in Sources */,
 				CEBE11061DB8B22900F21CD8 /* QRCodeReaderView.swift in Sources */,

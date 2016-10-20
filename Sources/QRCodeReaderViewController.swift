@@ -29,11 +29,10 @@ import AVFoundation
 
 /// Convenient controller to display a view to scan/read 1D or 2D bar codes like the QRCodes. It is based on the `AVFoundation` framework from Apple. It aims to replace ZXing or ZBar for iOS 7 and over.
 public class QRCodeReaderViewController: UIViewController {
-  private let readerView: QRCodeReaderViewContainer = QRCodeReaderViewContainer<QRCodeReaderView>(view: QRCodeReaderView())
-
   /// The code reader object used to scan the bar code.
   public let codeReader: QRCodeReader
 
+  let readerView: QRCodeReaderContainer = QRCodeReaderContainer(displayable: QRCodeReaderView())
   let startScanningAtLoad: Bool
   let showCancelButton: Bool
   let showSwitchCameraButton: Bool
@@ -140,10 +139,10 @@ public class QRCodeReaderViewController: UIViewController {
 
     // Setup action methods
 
-    readerView.view.switchCameraButton?.addTarget(self, action: #selector(switchCameraAction), for: .touchUpInside)
-    readerView.view.toggleTorchButton?.addTarget(self, action: #selector(toggleTorchAction), for: .touchUpInside)
-    readerView.view.cancelButton?.setTitle(cancelButtonTitle, for: .normal)
-    readerView.view.cancelButton?.addTarget(self, action: #selector(cancelAction), for: .touchUpInside)
+    readerView.displayable.switchCameraButton?.addTarget(self, action: #selector(switchCameraAction), for: .touchUpInside)
+    readerView.displayable.toggleTorchButton?.addTarget(self, action: #selector(toggleTorchAction), for: .touchUpInside)
+    readerView.displayable.cancelButton?.setTitle(cancelButtonTitle, for: .normal)
+    readerView.displayable.cancelButton?.addTarget(self, action: #selector(cancelAction), for: .touchUpInside)
 
     // Setup camera preview layer
     codeReader.previewLayer.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height)
@@ -154,7 +153,7 @@ public class QRCodeReaderViewController: UIViewController {
       codeReader.previewLayer.connection.videoOrientation = QRCodeReader.videoOrientation(deviceOrientation: orientation, withSupportedOrientations: supportedInterfaceOrientations)
     }
 
-    readerView.view.cameraView.layer.insertSublayer(codeReader.previewLayer, at: 0)
+    readerView.displayable.cameraView.layer.insertSublayer(codeReader.previewLayer, at: 0)
 
     // Setup constraints
 
@@ -195,47 +194,5 @@ public class QRCodeReaderViewController: UIViewController {
 
   func toggleTorchAction(_ button: ToggleTorchButton) {
     codeReader.toggleTorch()
-  }
-}
-
-/**
- This protocol defines delegate methods for objects that implements the `QRCodeReaderDelegate`. The methods of the protocol allow the delegate to be notified when the reader did scan result and or when the user wants to stop to read some QRCodes.
- */
-public protocol QRCodeReaderViewControllerDelegate: class {
-  /**
-   Tells the delegate that the reader did scan a code.
-
-   - parameter reader: A code reader object informing the delegate about the scan result.
-   - parameter result: The result of the scan
-   */
-  func reader(_ reader: QRCodeReaderViewController, didScanResult result: QRCodeReaderResult)
-
-  /**
-   Tells the delegate that the camera was switched by the user
-   
-   - parameter reader: A code reader object informing the delegate about the scan result.
-   - parameter newCaptureDevice: The capture device that was switched to
-   */
-  func reader(_ reader: QRCodeReaderViewController, didSwitchCamera newCaptureDevice: AVCaptureDeviceInput)
-  
-  /**
-   Tells the delegate that the user wants to stop scanning codes.
-
-   - parameter reader: A code reader object informing the delegate about the cancellation.
-   */
-  func readerDidCancel(_ reader: QRCodeReaderViewController)
-
-}
-
-extension QRCodeReaderViewControllerDelegate {
-  
-  /**
-   Default implementation that No-Ops this callBack
-   
-   - parameter reader: A code reader object informing the delegate about the scan result.
-   - parameter newCaptureDevice: The capture device that was switched to
-   */
-  func reader(_ reader: QRCodeReaderViewController, didSwitchCamera newCaptureDevice: AVCaptureDeviceInput) {
-    
   }
 }

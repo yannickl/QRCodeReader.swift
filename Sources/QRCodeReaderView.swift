@@ -26,7 +26,7 @@
 
 import UIKit
 
-final class QRCodeReaderView: UIView, QRCodeReaderViewable {
+final class QRCodeReaderView: UIView, QRCodeReaderDisplayable {
   lazy var overlayView: UIView = {
     let ov = ReaderOverlayView()
 
