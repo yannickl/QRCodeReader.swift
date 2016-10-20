@@ -161,24 +161,24 @@ public final class SwitchCameraButton: UIButton {
 
   // MARK: - UIResponder Methods
 
-  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+  public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     super.touchesBegan(touches, with: event)
 
     setNeedsDisplay()
   }
 
-  override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+  public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
     super.touchesMoved(touches, with: event)
 
     setNeedsDisplay()
   }
 
-  override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+  public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
     super.touchesEnded(touches, with: event)
     setNeedsDisplay()
   }
 
-  override func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?) {
+  public override func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?) {
     super.touchesCancelled(touches!, with: event)
 
     setNeedsDisplay()

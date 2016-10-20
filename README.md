@@ -86,6 +86,31 @@ func readerDidCancel(_ reader: QRCodeReader) {
 
 *Note that you should check whether the device supports the reader library by using the `QRCodeReader.isAvailable()` or the `QRCodeReader.supportsMetadataObjectTypes()` methods.*
 
+#### Interface customization
+
+You can create your own interface to scan your 1D/2D codes by using the `QRCodeReaderDisplayable` protocol and the `readerView` property in the `QRCodeReaderViewControllerBuilder`:
+
+```swift
+class YourCustomView: UIView, QRCodeReaderDisplayable {
+  let cameraView: UIView            = UIView()
+  let cancelButton: UIButton?       = UIButton()
+  let switchCameraButton: UIButton? = SwitchCameraButton()
+  let toggleTorchButton: UIButton?  = ToggleTorchButton()
+
+  func setupComponents(showCancelButton: Bool, showSwitchCameraButton: Bool, showTorchButton: Bool) {
+    // addSubviews
+    // setup constraints
+    // etc.
+  }
+}
+
+lazy var reader = QRCodeReaderViewController(builder: QRCodeReaderViewControllerBuilder {
+  let readerView = QRCodeReaderContainer(displayable: QRCodeReaderView())
+
+  $0.readerView = readerView
+})
+```
+
 ### Installation
 
 The recommended approach to use _QRCodeReaderViewController_ in your project is using the [CocoaPods](http://cocoapods.org/) package manager, as it provides flexible dependency management and dead simple installation.

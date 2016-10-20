@@ -38,7 +38,7 @@ final class QRCodeReaderView: UIView, QRCodeReaderDisplayable {
   }()
 
   let cameraView: UIView = {
-    let cv = ReaderOverlayView()
+    let cv = UIView()
 
     cv.clipsToBounds                             = true
     cv.translatesAutoresizingMaskIntoConstraints = false
