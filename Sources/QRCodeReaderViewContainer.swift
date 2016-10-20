@@ -26,13 +26,23 @@
 
 import UIKit
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-  var window: UIWindow?
+public protocol QRCodeReaderViewable {
+  var cameraView: UIView { get }
+  var cancelButton: UIButton? { get }
+  var switchCameraButton: UIButton? { get }
+  var toggleTorchButton: UIButton? { get }
 
-  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-    // Override point for customization after application launch.
-    return true
-  }
+  func setupComponents(showCancelButton: Bool, showSwitchCameraButton: Bool, showTorchButton: Bool)
 }
 
+public class QRCodeReaderViewContainer<T: QRCodeReaderViewable> where T: UIView {
+  let view: T
+
+  public init(view: T) {
+    self.view = view
+  }
+
+  func setupComponents(showCancelButton: Bool, showSwitchCameraButton: Bool, showTorchButton: Bool) {
+    view.setupComponents(showCancelButton: showCancelButton, showSwitchCameraButton: showSwitchCameraButton, showTorchButton: showTorchButton)
+  }
+}

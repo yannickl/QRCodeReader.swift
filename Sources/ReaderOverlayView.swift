@@ -29,7 +29,7 @@ import UIKit
 /// Overlay over the camera view to display the area (a square) where to scan the code.
 final class ReaderOverlayView: UIView {
   private var overlay: CAShapeLayer = {
-    var overlay = CAShapeLayer()
+    var overlay             = CAShapeLayer()
     overlay.backgroundColor = UIColor.clear.cgColor
     overlay.fillColor       = UIColor.clear.cgColor
     overlay.strokeColor     = UIColor.white.cgColor
@@ -40,21 +40,19 @@ final class ReaderOverlayView: UIView {
     return overlay
   }()
 
-  init() {
-    super.init(frame: CGRect.zero)  // Workaround for init in iOS SDK 8.3
-
-    layer.addSublayer(overlay)
-  }
-
   override init(frame: CGRect) {
     super.init(frame: frame)
 
-    layer.addSublayer(overlay)
+    setupOverlay()
   }
 
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
 
+    setupOverlay()
+  }
+
+  private func setupOverlay() {
     layer.addSublayer(overlay)
   }
 
