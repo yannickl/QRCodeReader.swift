@@ -1,6 +1,4 @@
-<p align="center">
-  <img src="http://yannickloriot.com/resources/qrcodereader.swift-logo.png" alt="QRCodeReader.swift">
-</p>
+<h1><img src="https://cloud.githubusercontent.com/assets/798235/19688202/f98dce4a-9ac8-11e6-89fd-a8135acfd3e4.png" alt="QRCodeReader.swift"> QRCodeReader</h1>
 
 <p align="center">
   <a href="http://cocoadocs.org/docsets/QRCodeReader.swift/"><img alt="Supported Platforms" src="https://cocoapod-badges.herokuapp.com/p/QRCodeReader.swift/badge.svg"/></a>
