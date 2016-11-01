@@ -27,9 +27,9 @@
 import UIKit
 
 /// Overlay over the camera view to display the area (a square) where to scan the code.
-final class ReaderOverlayView: UIView {
+public final class ReaderOverlayView: UIView {
   private var overlay: CAShapeLayer = {
-    var overlay = CAShapeLayer()
+    var overlay             = CAShapeLayer()
     overlay.backgroundColor = UIColor.clearColor().CGColor
     overlay.fillColor       = UIColor.clearColor().CGColor
     overlay.strokeColor     = UIColor.whiteColor().CGColor
@@ -40,26 +40,24 @@ final class ReaderOverlayView: UIView {
     return overlay
   }()
 
-  init() {
-    super.init(frame: CGRectZero)  // Workaround for init in iOS SDK 8.3
-
-    layer.addSublayer(overlay)
-  }
-
   override init(frame: CGRect) {
     super.init(frame: frame)
 
-    layer.addSublayer(overlay)
+    setupOverlay()
   }
 
-  required init?(coder aDecoder: NSCoder) {
+  required public init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
 
+    setupOverlay()
+  }
+
+  private func setupOverlay() {
     layer.addSublayer(overlay)
   }
 
-  override func drawRect(rect: CGRect) {
-    var innerRect = CGRectInset(rect, 50, 50)
+    public override func drawRect(rect: CGRect) {
+    var innerRect = rect.insetBy(dx: 50, dy: 50)
     let minSize   = min(innerRect.width, innerRect.height)
 
     if innerRect.width != minSize {
@@ -71,7 +69,7 @@ final class ReaderOverlayView: UIView {
       innerRect.size.height = minSize
     }
 
-    let offsetRect = CGRectOffset(innerRect, 0, 15)
+    let offsetRect = innerRect.offsetBy(dx: 0, dy: 15)
 
     overlay.path  = UIBezierPath(roundedRect: offsetRect, cornerRadius: 5).CGPath
   }

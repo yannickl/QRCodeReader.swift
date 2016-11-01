@@ -28,12 +28,13 @@ import UIKit
 import AVFoundation
 
 class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
-
-  @IBOutlet weak var showCancelButtonSwitch: UISwitch!
+  lazy var reader = QRCodeReaderViewController(builder: QRCodeReaderViewControllerBuilder {
+    $0.reader          = QRCodeReader(metadataObjectTypes: [AVMetadataObjectTypeQRCode])
+    $0.showTorchButton = true
+  })
 
   @IBAction func scanAction(sender: AnyObject) {
     if QRCodeReader.supportsMetadataObjectTypes() {
-      let reader = createReader()
       reader.modalPresentationStyle = .FormSheet
       reader.delegate               = self
 
@@ -56,7 +57,9 @@ class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
   // MARK: - QRCodeReader Delegate Methods
 
   func reader(reader: QRCodeReaderViewController, didScanResult result: QRCodeReaderResult) {
-    self.dismissViewControllerAnimated(true) { [weak self] in
+    reader.stopScanning()
+
+    dismissViewControllerAnimated(true) { [weak self] in
       let alert = UIAlertController(
         title: "QRCodeReader",
         message: String (format:"%@ (of type %@)", result.value, result.metadataType),
@@ -67,18 +70,16 @@ class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
       self?.presentViewController(alert, animated: true, completion: nil)
     }
   }
-
-  func readerDidCancel(reader: QRCodeReaderViewController) {
-    self.dismissViewControllerAnimated(true, completion: nil)
-  }
-
-  private func createReader() -> QRCodeReaderViewController {
-    let builder = QRCodeViewControllerBuilder { builder in
-      builder.reader          = QRCodeReader(metadataObjectTypes: [AVMetadataObjectTypeQRCode])
-      builder.showTorchButton = true
-      builder.showCancelButton = self.showCancelButtonSwitch.on
+  
+  func reader(reader: QRCodeReaderViewController, didSwitchCamera newCaptureDevice: AVCaptureDeviceInput) {
+    if let cameraName = newCaptureDevice.device.localizedName {
+      print("Switching capturing to: \(cameraName)")
     }
+  }
+  
+  func readerDidCancel(reader: QRCodeReaderViewController) {
+    reader.stopScanning()
 
-    return QRCodeReaderViewController(builder: builder)
+    dismissViewControllerAnimated(true, completion: nil)
   }
 }

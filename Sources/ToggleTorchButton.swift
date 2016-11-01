@@ -27,23 +27,24 @@
 import UIKit
 
 /// The toggle torch button.
-@IBDesignable final class ToggleTorchButton: UIButton {
-  @IBInspectable var edgeColor: UIColor = .whiteColor() {
+@IBDesignable
+public final class ToggleTorchButton: UIButton {
+  @IBInspectable var edgeColor: UIColor = UIColor.whiteColor() {
     didSet {
       setNeedsDisplay()
     }
   }
 
-  @IBInspectable var fillColor: UIColor = .lightGrayColor() {
+  @IBInspectable var fillColor: UIColor = UIColor.lightGrayColor() {
     didSet {
       setNeedsDisplay()
     }
   }
 
-  @IBInspectable var edgeHighlightedColor: UIColor = .whiteColor()
-  @IBInspectable var fillHighlightedColor: UIColor = .darkGrayColor()
+  @IBInspectable var edgeHighlightedColor: UIColor = UIColor.whiteColor()
+  @IBInspectable var fillHighlightedColor: UIColor = UIColor.darkGrayColor()
 
-  override func drawRect(rect: CGRect) {
+  public override func drawRect(rect: CGRect) {
     // Colors
     let paintColor  = (self.state != .Highlighted) ? fillColor : fillHighlightedColor
     let strokeColor = (self.state != .Highlighted) ? edgeColor : edgeHighlightedColor
@@ -99,26 +100,26 @@ import UIKit
 
   // MARK: - UIResponder Methods
 
-  override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+  public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
     super.touchesBegan(touches, withEvent: event)
 
     setNeedsDisplay()
   }
 
-  override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+  public override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
     super.touchesMoved(touches, withEvent: event)
 
     setNeedsDisplay()
   }
 
-  override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+  public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
     super.touchesEnded(touches, withEvent: event)
     setNeedsDisplay()
   }
 
-  override func touchesCancelled(touches: Set<UITouch>, withEvent event: UIEvent?) {
+  public override func touchesCancelled(touches: Set<UITouch>, withEvent event: UIEvent?) {
     super.touchesCancelled(touches, withEvent: event)
-    
+
     setNeedsDisplay()
   }
 }
