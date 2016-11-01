@@ -27,23 +27,24 @@
 import UIKit
 
 /// The camera switch button.
-@IBDesignable final class SwitchCameraButton: UIButton {
-  @IBInspectable var edgeColor: UIColor = .whiteColor() {
+@IBDesignable
+public final class SwitchCameraButton: UIButton {
+  @IBInspectable var edgeColor: UIColor = UIColor.whiteColor() {
     didSet {
       setNeedsDisplay()
     }
   }
 
-  @IBInspectable var fillColor: UIColor = .darkGrayColor() {
+  @IBInspectable var fillColor: UIColor = UIColor.darkGrayColor() {
     didSet {
       setNeedsDisplay()
     }
   }
 
-  @IBInspectable var edgeHighlightedColor: UIColor = .whiteColor()
-  @IBInspectable var fillHighlightedColor: UIColor = .blackColor()
+  @IBInspectable var edgeHighlightedColor: UIColor = UIColor.whiteColor()
+  @IBInspectable var fillHighlightedColor: UIColor = UIColor.blackColor()
 
-  override func drawRect(rect: CGRect) {
+    public override func drawRect(rect: CGRect) {
     let width  = rect.width
     let height = rect.height
     let center = width / 2
@@ -124,7 +125,7 @@ import UIKit
     rigthArrowPath.addLineToPoint(CGPoint(x: arrowRightX + arrowHeadWidth, y: arrowRightY + arrowTailHeigth / 2))
     rigthArrowPath.addLineToPoint(CGPoint(x: arrowRightX + arrowHeadWidth, y: arrowRightY + arrowHeadHeigth / 2))
     rigthArrowPath.closePath()
-
+        
     // Drawing
     paintColor.setFill()
     rigthArrowPath.fill()
@@ -160,26 +161,26 @@ import UIKit
 
   // MARK: - UIResponder Methods
 
-  override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+  public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
     super.touchesBegan(touches, withEvent: event)
 
     setNeedsDisplay()
   }
 
-  override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+  public override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
     super.touchesMoved(touches, withEvent: event)
 
     setNeedsDisplay()
   }
 
-  override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+  public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
     super.touchesEnded(touches, withEvent: event)
     setNeedsDisplay()
   }
 
-  override func touchesCancelled(touches: Set<UITouch>, withEvent event: UIEvent?) {
+  public override func touchesCancelled(touches: Set<UITouch>, withEvent event: UIEvent?) {
     super.touchesCancelled(touches, withEvent: event)
-    
+
     setNeedsDisplay()
   }
 }
