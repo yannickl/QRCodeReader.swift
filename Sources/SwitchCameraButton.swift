@@ -125,7 +125,7 @@ public final class SwitchCameraButton: UIButton {
     rigthArrowPath.addLineToPoint(CGPoint(x: arrowRightX + arrowHeadWidth, y: arrowRightY + arrowTailHeigth / 2))
     rigthArrowPath.addLineToPoint(CGPoint(x: arrowRightX + arrowHeadWidth, y: arrowRightY + arrowHeadHeigth / 2))
     rigthArrowPath.closePath()
-        
+
     // Drawing
     paintColor.setFill()
     rigthArrowPath.fill()
