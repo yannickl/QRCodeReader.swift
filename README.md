@@ -1,14 +1,39 @@
-![QRCodeReader.swift](http://yannickloriot.com/resources/qrcodereader.swift-logo.png)
+<p align="center">
+  <img src="https://cloud.githubusercontent.com/assets/798235/19688388/c61a6ab8-9ac9-11e6-9757-e087c268f3a6.png" alt="QRCodeReader.swift">
+</p>
 
-[![License](https://cocoapod-badges.herokuapp.com/l/QRCodeReader.swift/badge.svg)](http://cocoadocs.org/docsets/QRCodeReader.swift/) [![Supported Plateforms](https://cocoapod-badges.herokuapp.com/p/QRCodeReader.swift/badge.svg)](http://cocoadocs.org/docsets/QRCodeReader.swift/) [![Version](https://cocoapod-badges.herokuapp.com/v/QRCodeReader.swift/badge.svg)](http://cocoadocs.org/docsets/QRCodeReader.swift/)
+<p align="center">
+  <a href="http://cocoadocs.org/docsets/QRCodeReader.swift/"><img alt="Supported Platforms" src="https://cocoapod-badges.herokuapp.com/p/QRCodeReader.swift/badge.svg"/></a>
+  <a href="http://cocoadocs.org/docsets/QRCodeReader.swift/"><img alt="Version" src="https://cocoapod-badges.herokuapp.com/v/QRCodeReader.swift/badge.svg"/></a>
+</p>
 
-The _QRCodeReader.swift_ was initially a simple QRCode reader but it now lets you the possibility to specify the [format type](https://developer.apple.com/library/ios/documentation/AVFoundation/Reference/AVMetadataMachineReadableCodeObject_Class/index.html#//apple_ref/doc/constant_group/Machine_Readable_Object_Types) you want to decode. It is based on the `AVFoundation` framework from Apple in order to replace ZXing or ZBar for iOS 8.0 and over.
+**QRCodeReader.swift** was a simple code reader (initially only QRCode) for iOS in Swift. It is based on the `AVFoundation` framework from Apple in order to replace ZXing or ZBar for iOS 8.0 and over. It can decodes these [format types](https://developer.apple.com/library/ios/documentation/AVFoundation/Reference/AVMetadataMachineReadableCodeObject_Class/index.html#//apple_ref/doc/constant_group/Machine_Readable_Object_Types).
 
 It provides a default view controller to display the camera view with the scan area overlay and it also provides a button to switch between the front and the back cameras.
 
-![screenshot](http://yannickloriot.com/resources/qrcodereader.swift-screenshot.jpg)
+<p align="center">
+  <img src="http://yannickloriot.com/resources/qrcodereader.swift-screenshot.jpg" alt="QRCodeReader.swift screenshot">
+</p>
+
+<p align="center">
+  <a href="#requirements">Requirements</a> • <a href="#usage">Usage</a> • <a href="#installation">Installation</a> • <a href="#contact">Contact</a> • <a href="#license-mit">License</a>
+</p>
+
+## Requirements
+
+- iOS 8.0+
+- Xcode 8.0+
+- Swift 2.3
 
 ## Usage
+
+In iOS10+, you will need first to reasoning about the camera use. For that you'll need to add the **Privacy - Camera Usage Description** *(NSCameraUsageDescription)* field in your Info.plist:
+
+<p align="center">
+  <img alt="privacy - camera usage description" src="https://cloud.githubusercontent.com/assets/798235/19264826/bc25b8dc-8fa2-11e6-9c13-17926384ebd1.png" height="28">
+</p>
+
+Then just follow these steps:
 
 -  Add delegate `QRCodeReaderViewControllerDelegate`
 -  Add `import AVFoundation`
@@ -17,7 +42,7 @@ It provides a default view controller to display the camera view with the scan a
 ```swift
 // Good practice: create the reader lazily to avoid cpu overload during the
 // initialization and each time we need to scan a QRCode
-lazy var readerVC = QRCodeReaderViewController(builder: QRCodeViewControllerBuilder {
+lazy var readerVC = QRCodeReaderViewController(builder: QRCodeReaderViewControllerBuilder {
   $0.reader = QRCodeReader(metadataObjectTypes: [AVMetadataObjectTypeQRCode])
 })
 
@@ -28,7 +53,7 @@ lazy var readerVC = QRCodeReaderViewController(builder: QRCodeViewControllerBuil
 
   // Or by using the closure pattern
   readerVC.completionBlock = { (result: QRCodeReaderResult?) in
-    println(result)
+    print(result)
   }
 
   // Presents the readerVC as modal form sheet
@@ -39,15 +64,52 @@ lazy var readerVC = QRCodeReaderViewController(builder: QRCodeViewControllerBuil
 // MARK: - QRCodeReaderViewController Delegate Methods
 
 func reader(reader: QRCodeReaderViewController, didScanResult result: QRCodeReaderResult) {
-   self.dismissViewControllerAnimated(true, completion: nil)
+  reader.stopScanning()
+
+  dismissViewControllerAnimated(true, completion: nil)
+}
+
+//This is an optional delegate method, that allows you to be notified when the user switches the cameraName
+//By pressing on the switch camera button
+func reader(reader: QRCodeReaderViewController, didSwitchCamera newCaptureDevice: AVCaptureDeviceInput) {
+  if let cameraName = newCaptureDevice.device.localizedName {
+    print("Switching capturing to: \(cameraName)")
+  }
 }
 
 func readerDidCancel(reader: QRCodeReaderViewController) {
-   self.dismissViewControllerAnimated(true, completion: nil)
+  reader.stopScanning()
+
+  dismissViewControllerAnimated(true, completion: nil)
 }
 ```
 
 *Note that you should check whether the device supports the reader library by using the `QRCodeReader.isAvailable()` or the `QRCodeReader.supportsMetadataObjectTypes()` methods.*
+
+#### Interface customization
+
+You can create your own interface to scan your 1D/2D codes by using the `QRCodeReaderDisplayable` protocol and the `readerView` property in the `QRCodeReaderViewControllerBuilder`:
+
+```swift
+class YourCustomView: UIView, QRCodeReaderDisplayable {
+  let cameraView: UIView            = UIView()
+  let cancelButton: UIButton?       = UIButton()
+  let switchCameraButton: UIButton? = SwitchCameraButton()
+  let toggleTorchButton: UIButton?  = ToggleTorchButton()
+
+  func setupComponents(showCancelButton: Bool, showSwitchCameraButton: Bool, showTorchButton: Bool) {
+    // addSubviews
+    // setup constraints
+    // etc.
+  }
+}
+
+lazy var reader = QRCodeReaderViewController(builder: QRCodeReaderViewControllerBuilder {
+  let readerView = QRCodeReaderContainer(displayable: YourCustomView())
+
+  $0.readerView = readerView
+})
+```
 
 ### Installation
 
