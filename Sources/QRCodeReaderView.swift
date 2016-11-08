@@ -27,7 +27,7 @@
 import UIKit
 
 final class QRCodeReaderView: UIView, QRCodeReaderDisplayable {
-  lazy var overlayView: UIView = {
+  lazy var overlayView: UIView? = {
     let ov = ReaderOverlayView()
 
     ov.backgroundColor                           = .clear
@@ -71,7 +71,7 @@ final class QRCodeReaderView: UIView, QRCodeReaderDisplayable {
     return ttb
   }()
 
-  func setupComponents(showCancelButton: Bool, showSwitchCameraButton: Bool, showTorchButton: Bool) {
+  func setupComponents(showCancelButton: Bool, showSwitchCameraButton: Bool, showTorchButton: Bool, showOverlayView: Bool) {
     translatesAutoresizingMaskIntoConstraints = false
 
     addComponents()
@@ -79,10 +79,11 @@ final class QRCodeReaderView: UIView, QRCodeReaderDisplayable {
     cancelButton?.isHidden       = !showCancelButton
     switchCameraButton?.isHidden = !showSwitchCameraButton
     toggleTorchButton?.isHidden  = !showTorchButton
+    overlayView?.isHidden        = !showOverlayView
 
-    guard let cb = cancelButton, let scb = switchCameraButton, let ttb = toggleTorchButton else { return }
+    guard let cb = cancelButton, let scb = switchCameraButton, let ttb = toggleTorchButton, let ov = overlayView else { return }
 
-    let views = ["cv": cameraView, "ov": overlayView, "cb": cb, "scb": scb, "ttb": ttb]
+    let views = ["cv": cameraView, "ov": ov, "cb": cb, "scb": scb, "ttb": ttb]
 
     addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[cv]|", options: [], metrics: nil, views: views))
 
@@ -105,7 +106,7 @@ final class QRCodeReaderView: UIView, QRCodeReaderDisplayable {
     }
 
     for attribute in Array<NSLayoutAttribute>([.left, .top, .right, .bottom]) {
-      addConstraint(NSLayoutConstraint(item: overlayView, attribute: attribute, relatedBy: .equal, toItem: cameraView, attribute: attribute, multiplier: 1, constant: 0))
+      addConstraint(NSLayoutConstraint(item: ov, attribute: attribute, relatedBy: .equal, toItem: cameraView, attribute: attribute, multiplier: 1, constant: 0))
     }
   }
 
@@ -113,7 +114,10 @@ final class QRCodeReaderView: UIView, QRCodeReaderDisplayable {
 
   private func addComponents() {
     addSubview(cameraView)
-    addSubview(overlayView)
+
+    if let ov = overlayView {
+      addSubview(ov)
+    }
 
     if let scb = switchCameraButton {
       addSubview(scb)
