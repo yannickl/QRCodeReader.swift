@@ -40,6 +40,9 @@ public protocol QRCodeReaderDisplayable {
   /// A toggle torch button.
   var toggleTorchButton: UIButton? { get }
 
+  /// A guide view upon the camera view
+  var overlayView: UIView? { get }
+
   /**
    Method called by the container to allows you to layout your view properly using the given flags.
    
@@ -47,7 +50,7 @@ public protocol QRCodeReaderDisplayable {
    - Parameter showSwitchCameraButton: Flag to know whether you should display the switch camera button.
    - Parameter showTorchButton: Flag to know whether you should display the toggle torch button.
    */
-  func setupComponents(showCancelButton: Bool, showSwitchCameraButton: Bool, showTorchButton: Bool)
+  func setupComponents(showCancelButton: Bool, showSwitchCameraButton: Bool, showTorchButton: Bool, showOverlayView: Bool)
 }
 
 /// The `QRCodeReaderContainer` structure embed the view displayed by the controller. The embeded view must be conform to the `QRCodeReaderDisplayable` protocol.
@@ -67,7 +70,7 @@ public struct QRCodeReaderContainer {
 
   // MARK: - Convenience Methods
 
-  func setupComponents(showCancelButton: Bool, showSwitchCameraButton: Bool, showTorchButton: Bool) {
-    displayable.setupComponents(showCancelButton: showCancelButton, showSwitchCameraButton: showSwitchCameraButton, showTorchButton: showTorchButton)
+  func setupComponents(showCancelButton: Bool, showSwitchCameraButton: Bool, showTorchButton: Bool, showOverlayView: Bool) {
+    displayable.setupComponents(showCancelButton: showCancelButton, showSwitchCameraButton: showSwitchCameraButton, showTorchButton: showTorchButton, showOverlayView: showOverlayView)
   }
 }

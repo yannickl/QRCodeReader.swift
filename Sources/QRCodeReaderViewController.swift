@@ -37,6 +37,7 @@ public class QRCodeReaderViewController: UIViewController {
   let showCancelButton: Bool
   let showSwitchCameraButton: Bool
   let showTorchButton: Bool
+  let showOverlayView: Bool
 
   // MARK: - Managing the Callback Responders
 
@@ -66,6 +67,7 @@ public class QRCodeReaderViewController: UIViewController {
     showCancelButton       = builder.showCancelButton
     showSwitchCameraButton = builder.showSwitchCameraButton
     showTorchButton        = builder.showTorchButton
+    showOverlayView        = builder.showOverlayView
 
     super.init(nibName: nil, bundle: nil)
 
@@ -90,6 +92,7 @@ public class QRCodeReaderViewController: UIViewController {
     showCancelButton       = false
     showTorchButton        = false
     showSwitchCameraButton = false
+    showOverlayView        = false
 
     super.init(coder: aDecoder)
   }
@@ -137,7 +140,7 @@ public class QRCodeReaderViewController: UIViewController {
     let sscb = showSwitchCameraButton && codeReader.hasFrontDevice
     let stb  = showTorchButton && codeReader.isTorchAvailable
 
-    readerView.setupComponents(showCancelButton: showCancelButton, showSwitchCameraButton: sscb, showTorchButton: stb)
+    readerView.setupComponents(showCancelButton: showCancelButton, showSwitchCameraButton: sscb, showTorchButton: stb, showOverlayView: showOverlayView)
 
     // Setup action methods
 
