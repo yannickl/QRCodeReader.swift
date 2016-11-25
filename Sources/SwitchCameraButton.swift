@@ -178,7 +178,7 @@ public final class SwitchCameraButton: UIButton {
     setNeedsDisplay()
   }
 
-  public override func touchesCancelled(touches: Set<UITouch>, withEvent event: UIEvent?) {
+  public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
     super.touchesCancelled(touches, withEvent: event)
 
     setNeedsDisplay()
