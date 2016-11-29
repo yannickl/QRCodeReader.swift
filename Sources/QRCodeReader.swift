@@ -72,13 +72,16 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
 
   // MARK: - Managing the Code Discovery
 
-  /// Flag to know whether the scanner should stop scanning when a code is found.
-  public var stopScanningWhenCodeIsFound: Bool = true
+  /// Flag to know whether the scanner should stop scanning when a code is found. (default: true)
+  public var stopScanningWhenCodeIsFound = true
 
-  /// Block is executed when a metadata object is found.
+  /// Flag to buzz when a code is found (default: true)
+  public var buzzWhenCodeIsFound = true
+  
+  /// Block to execute when a metadata object is found.
   public var didFindCode: ((QRCodeReaderResult) -> Void)?
 
-  // MARK: - Creating the Code Reade
+  // MARK: - Creating the Code Reader
 
   /**
    Initializes the code reader with the QRCode metadata type object.
@@ -340,8 +343,20 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
           if stopScanningWhenCodeIsFound {
             stopScanning()
           }
+          
+          if buzzWhenCodeIsFound {
+              AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
+          }
 
-          let scannedResult = QRCodeReaderResult(value: _readableCodeObject.stringValue, metadataType:_readableCodeObject.type)
+          var points:[CGPoint] = []
+          if let corners = _readableCodeObject.corners {
+            points = corners.map {
+              let dict = $0 as! CFDictionary
+              return CGPoint(dictionaryRepresentation: dict)!
+            }
+          }
+
+          let scannedResult = QRCodeReaderResult(value: _readableCodeObject.stringValue, metadataType:_readableCodeObject.type, corners: points)
           
           DispatchQueue.main.async(execute: { [weak self] in
             self?.didFindCode?(scannedResult)
