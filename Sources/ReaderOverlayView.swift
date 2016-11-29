@@ -28,6 +28,10 @@ import UIKit
 
 /// Overlay over the camera view to display the area (a square) where to scan the code.
 public final class ReaderOverlayView: UIView {
+  
+  /// color to highlight the QR code
+  public var highlightColor = UIColor.orange.withAlphaComponent(0.5)
+  
   private var overlay: CAShapeLayer = {
     var overlay             = CAShapeLayer()
     overlay.backgroundColor = UIColor.clear.cgColor
@@ -40,9 +44,9 @@ public final class ReaderOverlayView: UIView {
     return overlay
   }()
   
-  var highlight: CAShapeLayer = {
+  lazy var highlight: CAShapeLayer = {
     var layer = CAShapeLayer()
-    layer.fillColor = UIColor.orange.withAlphaComponent(0.5).cgColor
+    layer.fillColor = self.highlightColor.cgColor
     return layer
   }()
  

@@ -32,6 +32,9 @@ public class QRCodeReaderViewController: UIViewController {
   /// The code reader object used to scan the bar code.
   public let codeReader: QRCodeReader
 
+  /// amount of time to delay callback so code highlight can be see (default: 1.0)
+  public var delayToShowHighlight = 1.0
+  
   let readerView: QRCodeReaderContainer
   let startScanningAtLoad: Bool
   let showCancelButton: Bool
@@ -76,7 +79,7 @@ public class QRCodeReaderViewController: UIViewController {
     codeReader.didFindCode = { [weak self] resultAsObject in
       if let weakSelf = self {
         // delay so we can see highlight
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1, execute: {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + weakSelf.delayToShowHighlight, execute: {
           weakSelf.completionBlock?(resultAsObject)
           weakSelf.delegate?.reader(weakSelf, didScanResult: resultAsObject)
         })
