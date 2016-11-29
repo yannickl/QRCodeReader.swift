@@ -41,8 +41,4 @@ public struct QRCodeReaderResult {
    */
   public let metadataType: String
 
-  /**
-   The corners of the object found
-    */
-  public let corners: [CGPoint]
 }

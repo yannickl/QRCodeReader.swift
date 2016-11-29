@@ -75,14 +75,24 @@ public class QRCodeReaderViewController: UIViewController {
 
     codeReader.didFindCode = { [weak self] resultAsObject in
       if let weakSelf = self {
-        weakSelf.completionBlock?(resultAsObject)
-        weakSelf.delegate?.reader(weakSelf, didScanResult: resultAsObject)
+        // delay so we can see highlight
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1, execute: {
+          weakSelf.completionBlock?(resultAsObject)
+          weakSelf.delegate?.reader(weakSelf, didScanResult: resultAsObject)
+        })
       }
     }
 
     setupUIComponentsWithCancelButtonTitle(builder.cancelButtonTitle)
 
     NotificationCenter.default.addObserver(self, selector: #selector(orientationDidChange), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+    
+    codeReader.didFindCorners = { [weak self] corners in
+      if let overlayView = self?.readerView.displayable.overlayView as? ReaderOverlayView {
+        overlayView.showHighlight(corners)
+      }
+    }
+    
   }
 
   required public init?(coder aDecoder: NSCoder) {

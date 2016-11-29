@@ -75,11 +75,14 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   /// Flag to know whether the scanner should stop scanning when a code is found. (default: true)
   public var stopScanningWhenCodeIsFound = true
 
-  /// Flag to buzz when a code is found (default: true)
-  public var buzzWhenCodeIsFound = true
+  /// Flag to buzz when a code is found (default: false)
+  public var buzzWhenCodeIsFound = false
   
   /// Block to execute when a metadata object is found.
   public var didFindCode: ((QRCodeReaderResult) -> Void)?
+  
+  /// Block to execute when corners are found
+  public var didFindCorners: (([CGPoint]) -> Void)?
 
   // MARK: - Creating the Code Reader
 
@@ -348,15 +351,22 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
               AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
           }
 
-          var points:[CGPoint] = []
-          if let corners = _readableCodeObject.corners {
-            points = corners.map {
-              let dict = $0 as! CFDictionary
-              return CGPoint(dictionaryRepresentation: dict)!
+          // convert corners coordinates to our view
+          if let meta = previewLayer.transformedMetadataObject(for: _readableCodeObject) as? AVMetadataMachineReadableCodeObject {
+            var points:[CGPoint] = []
+            if let corners = meta.corners {
+              points = corners.map {
+                let dict = $0 as! CFDictionary
+                return CGPoint(dictionaryRepresentation: dict)!
+              }
+              DispatchQueue.main.async(execute: { [weak self] in
+                self?.didFindCorners?(points)
+              })
             }
+            
           }
-
-          let scannedResult = QRCodeReaderResult(value: _readableCodeObject.stringValue, metadataType:_readableCodeObject.type, corners: points)
+          
+          let scannedResult = QRCodeReaderResult(value: _readableCodeObject.stringValue, metadataType:_readableCodeObject.type)
           
           DispatchQueue.main.async(execute: { [weak self] in
             self?.didFindCode?(scannedResult)

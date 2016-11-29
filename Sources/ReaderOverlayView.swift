@@ -39,7 +39,13 @@ public final class ReaderOverlayView: UIView {
 
     return overlay
   }()
-
+  
+  var highlight: CAShapeLayer = {
+    var layer = CAShapeLayer()
+    layer.fillColor = UIColor.orange.withAlphaComponent(0.5).cgColor
+    return layer
+  }()
+ 
   override init(frame: CGRect) {
     super.init(frame: frame)
 
@@ -54,6 +60,17 @@ public final class ReaderOverlayView: UIView {
 
   private func setupOverlay() {
     layer.addSublayer(overlay)
+    layer.addSublayer(highlight)
+  }
+  
+  public func showHighlight(_ corners: [CGPoint]) {
+
+    let path = UIBezierPath()
+    for (index,point) in corners.enumerated() {
+      index == 0 ? path.move(to: point) : path.addLine(to: point)
+    }
+ 
+    self.highlight.path = path.cgPath
   }
 
   public override func draw(_ rect: CGRect) {

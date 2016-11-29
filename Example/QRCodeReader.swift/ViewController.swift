@@ -34,6 +34,9 @@ class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
   })
 
   @IBAction func scanAction(_ sender: AnyObject) {
+    
+    reader.codeReader.buzzWhenCodeIsFound = true
+    
     if QRCodeReader.supportsMetadataObjectTypes() {
       reader.modalPresentationStyle = .formSheet
       reader.delegate               = self
