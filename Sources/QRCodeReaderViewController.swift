@@ -32,8 +32,34 @@ public class QRCodeReaderViewController: UIViewController {
   /// The code reader object used to scan the bar code.
   public let codeReader: QRCodeReader
 
-  /// amount of time to delay callback so code highlight can be see (default: 1.0)
-  public var delayToShowHighlight = 1.0
+  /// amount of time to delay callback so code highlight can be see (default: 0.0)
+  public var delayToShowHighlight = 0.0
+  
+  /// highlight a found QR code (default: true)
+  public var showHighlight:Bool {
+    get { return codeReader.didFindCorners != nil }
+    set(highlight) {
+      
+      if highlight {
+
+        codeReader.didFindCorners = { [weak self] corners in
+          if let overlayView = self?.readerView.displayable.overlayView as? ReaderOverlayView {
+            overlayView.showHighlight(corners)
+          }
+        }
+        
+      } else {
+        codeReader.didFindCorners = nil
+        // remove any existing highlight
+        if let overlayView = readerView.displayable.overlayView as? ReaderOverlayView {
+          overlayView.showHighlight([])
+        }
+        
+      }
+
+    }
+    
+  }
   
   let readerView: QRCodeReaderContainer
   let startScanningAtLoad: Bool
@@ -76,6 +102,8 @@ public class QRCodeReaderViewController: UIViewController {
 
     view.backgroundColor = .black
 
+    showHighlight = true
+    
     codeReader.didFindCode = { [weak self] resultAsObject in
       if let weakSelf = self {
         // delay so we can see highlight
@@ -90,12 +118,6 @@ public class QRCodeReaderViewController: UIViewController {
 
     NotificationCenter.default.addObserver(self, selector: #selector(orientationDidChange), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
     
-    codeReader.didFindCorners = { [weak self] corners in
-      if let overlayView = self?.readerView.displayable.overlayView as? ReaderOverlayView {
-        overlayView.showHighlight(corners)
-      }
-    }
-    
   }
 
   required public init?(coder aDecoder: NSCoder) {
@@ -106,8 +128,9 @@ public class QRCodeReaderViewController: UIViewController {
     showTorchButton        = false
     showSwitchCameraButton = false
     showOverlayView        = false
-
+    
     super.init(coder: aDecoder)
+    
   }
 
   // MARK: - Responding to View Events
