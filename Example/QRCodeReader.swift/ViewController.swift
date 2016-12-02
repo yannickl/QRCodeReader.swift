@@ -49,8 +49,6 @@ class ViewController: UIViewController {
     reader.showHighlight = false // remove any existing highlight (as QRCodeReaderViewController is reused)
     reader.showHighlight = true
     
-    reader.delayToShowHighlight = 1.0
-    
     // results can be returned in a delegate or a completion block
     reader.delegate               = self
 
@@ -70,16 +68,20 @@ extension ViewController: QRCodeReaderViewControllerDelegate {
   func reader(_ reader: QRCodeReaderViewController, didScanResult result: QRCodeReaderResult) {
     reader.stopScanning()
     
-    dismiss(animated: true) { [weak self] in
-      let alert = UIAlertController(
-        title: "QRCodeReader",
-        message: String (format:"%@ (of type %@)", result.value, result.metadataType),
-        preferredStyle: .alert
-      )
-      alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-      
-      self?.present(alert, animated: true, completion: nil)
-    }
+    // delay dismiss so we can see highlighted QR code
+    
+    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1, execute: { [weak self] in
+      self?.dismiss(animated: true) { [weak self] in
+        let alert = UIAlertController(
+          title: "QRCodeReader",
+          message: String (format:"%@ (of type %@)", result.value, result.metadataType),
+          preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        
+        self?.present(alert, animated: true, completion: nil)
+      }
+    })
   }
   
   func reader(_ reader: QRCodeReaderViewController, didSwitchCamera newCaptureDevice: AVCaptureDeviceInput) {
