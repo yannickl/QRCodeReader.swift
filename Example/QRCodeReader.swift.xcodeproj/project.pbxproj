@@ -90,11 +90,11 @@
 		CE412E9E19D9A1E4000F294E /* QRCodeReader.swiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QRCodeReader.swiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE412EA319D9A1E4000F294E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE412EA419D9A1E4000F294E /* QRCodeReader_swiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeReader_swiftTests.swift; sourceTree = "<group>"; };
-		CE4E1ED31D81838F00D2AC35 /* QRCodeReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeReader.swift; sourceTree = "<group>"; };
-		CE4E1ED41D81838F00D2AC35 /* QRCodeReaderResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeReaderResult.swift; sourceTree = "<group>"; };
+		CE4E1ED31D81838F00D2AC35 /* QRCodeReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = QRCodeReader.swift; sourceTree = "<group>"; };
+		CE4E1ED41D81838F00D2AC35 /* QRCodeReaderResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = QRCodeReaderResult.swift; sourceTree = "<group>"; };
 		CE4E1ED51D81838F00D2AC35 /* QRCodeReaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeReaderViewController.swift; sourceTree = "<group>"; };
 		CE4E1ED61D81838F00D2AC35 /* QRCodeReaderViewControllerBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeReaderViewControllerBuilder.swift; sourceTree = "<group>"; };
-		CE4E1ED71D81838F00D2AC35 /* ReaderOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReaderOverlayView.swift; sourceTree = "<group>"; };
+		CE4E1ED71D81838F00D2AC35 /* ReaderOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = ReaderOverlayView.swift; sourceTree = "<group>"; };
 		CE4E1ED81D81838F00D2AC35 /* SwitchCameraButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchCameraButton.swift; sourceTree = "<group>"; };
 		CE4E1ED91D81838F00D2AC35 /* ToggleTorchButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToggleTorchButton.swift; sourceTree = "<group>"; };
 		CE8FFED61BAB4E7F00D43F38 /* QRCodeReader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = QRCodeReader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -142,6 +142,7 @@
 				CE8FFED71BAB4E7F00D43F38 /* QRCodeReader */,
 				CE412E8A19D9A1E4000F294E /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
 		};
 		CE412E8A19D9A1E4000F294E /* Products */ = {

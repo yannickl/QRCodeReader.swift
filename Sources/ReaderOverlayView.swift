@@ -28,6 +28,10 @@ import UIKit
 
 /// Overlay over the camera view to display the area (a square) where to scan the code.
 public final class ReaderOverlayView: UIView {
+  
+  /// color to highlight the QR code
+  public var highlightColor = UIColor.orange.withAlphaComponent(0.5)
+  
   private var overlay: CAShapeLayer = {
     var overlay             = CAShapeLayer()
     overlay.backgroundColor = UIColor.clear.cgColor
@@ -39,7 +43,13 @@ public final class ReaderOverlayView: UIView {
 
     return overlay
   }()
-
+  
+  lazy var highlight: CAShapeLayer = {
+    var layer = CAShapeLayer()
+    layer.fillColor = self.highlightColor.cgColor
+    return layer
+  }()
+ 
   override init(frame: CGRect) {
     super.init(frame: frame)
 
@@ -54,6 +64,17 @@ public final class ReaderOverlayView: UIView {
 
   private func setupOverlay() {
     layer.addSublayer(overlay)
+    layer.addSublayer(highlight)
+  }
+  
+  public func showHighlight(_ corners: [CGPoint]) {
+
+    let path = UIBezierPath()
+    for (index,point) in corners.enumerated() {
+      index == 0 ? path.move(to: point) : path.addLine(to: point)
+    }
+ 
+    self.highlight.path = path.cgPath
   }
 
   public override func draw(_ rect: CGRect) {

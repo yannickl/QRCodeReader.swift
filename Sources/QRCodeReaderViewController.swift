@@ -31,7 +31,33 @@ import AVFoundation
 public class QRCodeReaderViewController: UIViewController {
   /// The code reader object used to scan the bar code.
   public let codeReader: QRCodeReader
+  
+  /// highlight a found QR code (default: true)
+  public var showHighlight:Bool {
+    get { return codeReader.didFindCorners != nil }
+    set(highlight) {
+      
+      if highlight {
 
+        codeReader.didFindCorners = { [weak self] corners in
+          if let overlayView = self?.readerView.displayable.overlayView as? ReaderOverlayView {
+            overlayView.showHighlight(corners)
+          }
+        }
+        
+      } else {
+        codeReader.didFindCorners = nil
+        // remove any existing highlight
+        if let overlayView = readerView.displayable.overlayView as? ReaderOverlayView {
+          overlayView.showHighlight([])
+        }
+        
+      }
+
+    }
+    
+  }
+  
   let readerView: QRCodeReaderContainer
   let startScanningAtLoad: Bool
   let showCancelButton: Bool
@@ -73,16 +99,19 @@ public class QRCodeReaderViewController: UIViewController {
 
     view.backgroundColor = .black
 
+    showHighlight = true
+    
     codeReader.didFindCode = { [weak self] resultAsObject in
       if let weakSelf = self {
-        weakSelf.completionBlock?(resultAsObject)
-        weakSelf.delegate?.reader(weakSelf, didScanResult: resultAsObject)
+          weakSelf.completionBlock?(resultAsObject)
+          weakSelf.delegate?.reader(weakSelf, didScanResult: resultAsObject)
       }
     }
 
     setupUIComponentsWithCancelButtonTitle(builder.cancelButtonTitle)
 
     NotificationCenter.default.addObserver(self, selector: #selector(orientationDidChange), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+    
   }
 
   required public init?(coder aDecoder: NSCoder) {
@@ -93,8 +122,9 @@ public class QRCodeReaderViewController: UIViewController {
     showTorchButton        = false
     showSwitchCameraButton = false
     showOverlayView        = false
-
+    
     super.init(coder: aDecoder)
+    
   }
 
   // MARK: - Responding to View Events
