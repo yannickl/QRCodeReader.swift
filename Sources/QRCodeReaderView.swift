@@ -110,6 +110,30 @@ final class QRCodeReaderView: UIView, QRCodeReaderDisplayable {
     }
   }
 
+  // MARK: - Scan Result Indication
+  
+  func startTimerForBorderReset() {
+    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
+      if let ovl = self.overlayView as? ReaderOverlayView {
+        ovl.overlayColor = .white
+      }
+    }
+  }
+  
+  func addRedBorder() {
+    self.startTimerForBorderReset()
+    if let ovl = self.overlayView as? ReaderOverlayView {
+      ovl.overlayColor = .red
+    }
+  }
+  
+  func addGreenBorder() {
+    self.startTimerForBorderReset()
+    if let ovl = self.overlayView as? ReaderOverlayView {
+      ovl.overlayColor = .green
+    }
+  }
+  
   // MARK: - Convenience Methods
 
   private func addComponents() {

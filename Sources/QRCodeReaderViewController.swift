@@ -75,11 +75,22 @@ public class QRCodeReaderViewController: UIViewController {
 
     codeReader.didFindCode = { [weak self] resultAsObject in
       if let weakSelf = self {
+        if let qrv = weakSelf.readerView.displayable as? QRCodeReaderView {
+          qrv.addGreenBorder()
+        }
         weakSelf.completionBlock?(resultAsObject)
         weakSelf.delegate?.reader(weakSelf, didScanResult: resultAsObject)
       }
     }
 
+    codeReader.didFailDecoding = { [weak self] in
+      if let weakSelf = self {
+        if let qrv = weakSelf.readerView.displayable as? QRCodeReaderView {
+          qrv.addRedBorder()
+        }
+      }
+    }
+    
     setupUIComponentsWithCancelButtonTitle(builder.cancelButtonTitle)
 
     NotificationCenter.default.addObserver(self, selector: #selector(orientationDidChange), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)

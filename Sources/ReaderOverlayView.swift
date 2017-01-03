@@ -56,6 +56,13 @@ public final class ReaderOverlayView: UIView {
     layer.addSublayer(overlay)
   }
 
+  var overlayColor: UIColor = UIColor.white {
+    didSet {
+      self.overlay.strokeColor = overlayColor.cgColor
+      self.setNeedsDisplay()
+    }
+  }
+  
   public override func draw(_ rect: CGRect) {
     var innerRect = rect.insetBy(dx: 50, dy: 50)
     let minSize   = min(innerRect.width, innerRect.height)
