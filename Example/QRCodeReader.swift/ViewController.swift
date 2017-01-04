@@ -34,24 +34,31 @@ class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
   })
 
   @IBAction func scanAction(_ sender: AnyObject) {
-    if (try? QRCodeReader.supportsMetadataObjectTypes()) ?? false {
-      reader.modalPresentationStyle = .formSheet
-      reader.delegate               = self
+    do {
+      if try QRCodeReader.supportsMetadataObjectTypes() {
+        reader.modalPresentationStyle = .formSheet
+        reader.delegate               = self
 
-      reader.completionBlock = { (result: QRCodeReaderResult?) in
-        if let result = result {
-          print("Completion with result: \(result.value) of type \(result.metadataType)")
+        reader.completionBlock = { (result: QRCodeReaderResult?) in
+          if let result = result {
+            print("Completion with result: \(result.value) of type \(result.metadataType)")
+          }
         }
+
+        present(reader, animated: true, completion: nil)
       }
+      else {
+        let alert = UIAlertController(title: "Error", message: "Reader not supported by the current device", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
 
-      present(reader, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
+      }
+    } catch let error as NSError {
+      if error.code == -11852 {
+        //This app is not authorized to use Back Camera.
+      }
     }
-    else {
-      let alert = UIAlertController(title: "Error", message: "Reader not supported by the current device", preferredStyle: .alert)
-      alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-
-      present(alert, animated: true, completion: nil)
-    }
+    
   }
 
   // MARK: - QRCodeReader Delegate Methods
