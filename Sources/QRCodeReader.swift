@@ -344,9 +344,9 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
               if stopScanningWhenCodeIsFound {
                 stopScanning()
               }
-              
+
               let scannedResult = QRCodeReaderResult(value: sVal, metadataType:_readableCodeObject.type)
-              
+
               DispatchQueue.main.async(execute: { [weak self] in
                 self?.didFindCode?(scannedResult)
               })
@@ -354,8 +354,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
           }
         }
         else {
-          NSLog("Could not retrieve a valid string value for code type \(_readableCodeObject.type)")
-          self.didFailDecoding?()
+          didFailDecoding?()
         }
       }
     }
