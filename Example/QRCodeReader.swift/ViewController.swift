@@ -47,16 +47,31 @@ class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
 
         present(reader, animated: true, completion: nil)
       }
-      else {
-        let alert = UIAlertController(title: "Error", message: "Reader not supported by the current device", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-
-        present(alert, animated: true, completion: nil)
-      }
     } catch let error as NSError {
-      if error.code == -11852 {
-        //This app is not authorized to use Back Camera.
-      }
+      switch error.code {
+            case -11852:
+                
+                let alert = UIAlertController(title: "Error", message: "This app is not authorized to use Back Camera.", preferredStyle: .alert)
+                
+                alert.addAction(UIAlertAction(title: "Setting", style: .default, handler: { (_) in
+                    DispatchQueue.main.async {
+                        if let settingsURL = URL(string: UIApplicationOpenSettingsURLString) {
+                            UIApplication.shared.openURL(settingsURL)
+                        }
+                    }
+                }))
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                present(alert, animated: true, completion: nil)
+                
+                
+                
+            case -11814:
+                let alert = UIAlertController(title: "Error", message: "Reader not supported by the current device", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+
+                present(alert, animated: true, completion: nil)
+            default:()
+            }
     }
     
   }
