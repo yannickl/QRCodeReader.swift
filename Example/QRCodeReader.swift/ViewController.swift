@@ -34,24 +34,46 @@ class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
   })
 
   @IBAction func scanAction(_ sender: AnyObject) {
-    if QRCodeReader.supportsMetadataObjectTypes() {
-      reader.modalPresentationStyle = .formSheet
-      reader.delegate               = self
+    do {
+      if try QRCodeReader.supportsMetadataObjectTypes() {
+        reader.modalPresentationStyle = .formSheet
+        reader.delegate               = self
 
-      reader.completionBlock = { (result: QRCodeReaderResult?) in
-        if let result = result {
-          print("Completion with result: \(result.value) of type \(result.metadataType)")
+        reader.completionBlock = { (result: QRCodeReaderResult?) in
+          if let result = result {
+            print("Completion with result: \(result.value) of type \(result.metadataType)")
+          }
         }
+
+        present(reader, animated: true, completion: nil)
       }
+    } catch let error as NSError {
+      switch error.code {
+            case -11852:
+                
+                let alert = UIAlertController(title: "Error", message: "This app is not authorized to use Back Camera.", preferredStyle: .alert)
+                
+                alert.addAction(UIAlertAction(title: "Setting", style: .default, handler: { (_) in
+                    DispatchQueue.main.async {
+                        if let settingsURL = URL(string: UIApplicationOpenSettingsURLString) {
+                            UIApplication.shared.openURL(settingsURL)
+                        }
+                    }
+                }))
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                present(alert, animated: true, completion: nil)
+                
+                
+                
+            case -11814:
+                let alert = UIAlertController(title: "Error", message: "Reader not supported by the current device", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
 
-      present(reader, animated: true, completion: nil)
+                present(alert, animated: true, completion: nil)
+            default:()
+            }
     }
-    else {
-      let alert = UIAlertController(title: "Error", message: "Reader not supported by the current device", preferredStyle: .alert)
-      alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-
-      present(alert, animated: true, completion: nil)
-    }
+    
   }
 
   // MARK: - QRCodeReader Delegate Methods

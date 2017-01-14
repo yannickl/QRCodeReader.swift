@@ -306,10 +306,10 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
 
    - returns: A boolean value that indicates whether the device supports the given metadata object types.
    */
-  public class func supportsMetadataObjectTypes(_ metadataTypes: [String]? = nil) -> Bool {
+  public class func supportsMetadataObjectTypes(_ metadataTypes: [String]? = nil) throws -> Bool {
     let captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
 
-    guard let deviceInput = try? AVCaptureDeviceInput(device: captureDevice) else { return false }
+    let deviceInput = try AVCaptureDeviceInput(device: captureDevice)
 
     let output  = AVCaptureMetadataOutput()
     let session = AVCaptureSession()
