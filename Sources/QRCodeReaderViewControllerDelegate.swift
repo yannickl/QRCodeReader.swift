@@ -62,5 +62,5 @@ extension QRCodeReaderViewControllerDelegate {
    - parameter reader: A code reader object informing the delegate about the scan result.
    - parameter newCaptureDevice: The capture device that was switched to
    */
-  func reader(_ reader: QRCodeReaderViewController, didSwitchCamera newCaptureDevice: AVCaptureDeviceInput) {}
+  public func reader(_ reader: QRCodeReaderViewController, didSwitchCamera newCaptureDevice: AVCaptureDeviceInput) {}
 }
