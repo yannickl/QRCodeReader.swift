@@ -63,7 +63,7 @@ lazy var readerVC = QRCodeReaderViewController(builder: QRCodeReaderViewControll
 
 // MARK: - QRCodeReaderViewController Delegate Methods
 
-func reader(_ reader: QRCodeReader, didScanResult result: QRCodeReaderResult) {
+func reader(_ reader: QRCodeReaderViewController, didScanResult result: QRCodeReaderResult) {
   reader.stopScanning()
 
   dismiss(animated: true, completion: nil)
@@ -77,7 +77,7 @@ func reader(_ reader: QRCodeReaderViewController, didSwitchCamera newCaptureDevi
     }
 }
 
-func readerDidCancel(_ reader: QRCodeReader) {
+func readerDidCancel(_ reader: QRCodeReaderViewController) {
   reader.stopScanning()
 
   dismiss(animated: true, completion: nil)
