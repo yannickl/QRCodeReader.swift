@@ -1,5 +1,12 @@
 # Change log
 
+## [Version 7.3.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/7.3.0)
+Release on 2017-02-09
+
+- [ADD] `showOverlayView` property in the `QRCodeReaderViewControllerBuilder`
+- [ADD] `supportsMetadataObjectTypes` can throw errors now
+- [FIX] `reader(_:didSwitchCamera:)` delegate method is now optional
+
 ## [Version 7.2.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/7.2.0)
 Released on 2016-10-20.
 

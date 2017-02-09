@@ -14,6 +14,7 @@ Please keep the list sorted.
 
  * [Alex Kreutz](https://github.com/bbsan2k)
  * [Bas Broek](https://github.com/BasThomas)
+ * [Coder Liao](https://github.com/lgw51)
  * [Cody Duncan](https://github.com/cody1024d)
  * [David Crook](https://github.com/dpcrook)
  * [Daniel Larsson](https://github.com/larssondaniel)

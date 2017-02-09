@@ -50,7 +50,6 @@ class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
     } catch let error as NSError {
       switch error.code {
             case -11852:
-                
                 let alert = UIAlertController(title: "Error", message: "This app is not authorized to use Back Camera.", preferredStyle: .alert)
                 
                 alert.addAction(UIAlertAction(title: "Setting", style: .default, handler: { (_) in
