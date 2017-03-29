@@ -1,5 +1,10 @@
 # Change log
 
+## [Version 7.4.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/7.4.0)
+Release on 2017-03-29
+
+**Swift 3.1 supports**
+
 ## [Version 7.3.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/7.3.0)
 Release on 2017-02-09
 

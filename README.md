@@ -46,8 +46,9 @@ lazy var readerVC: QRCodeReaderViewController = {
     let builder = QRCodeReaderViewControllerBuilder {
         $0.reader = QRCodeReader(metadataObjectTypes: [AVMetadataObjectTypeQRCode], captureDevicePosition: .back)
     }
+    
     return QRCodeReaderViewController(builder: builder)
-} ()
+}()
 
 @IBAction func scanAction(_ sender: AnyObject) {
   // Retrieve the QRCode content
@@ -107,11 +108,15 @@ class YourCustomView: UIView, QRCodeReaderDisplayable {
   }
 }
 
-lazy var reader = QRCodeReaderViewController(builder: QRCodeReaderViewControllerBuilder {
-  let readerView = QRCodeReaderContainer(displayable: YourCustomView())
+lazy var reader: QRCodeReaderViewController = {
+    let builder = QRCodeReaderViewControllerBuilder {
+      let readerView = QRCodeReaderContainer(displayable: YourCustomView())
 
-  $0.readerView = readerView
-})
+      $0.readerView = readerView
+    }
+    
+    return QRCodeReaderViewController(builder: builder)
+  }()
 ```
 
 ### Installation
@@ -137,7 +142,7 @@ platform :ios, '8.0'
 use_frameworks!
 
 target 'TargetName' do
-    pod 'QRCodeReader.swift', '~> 7.3.0'
+    pod 'QRCodeReader.swift', '~> 7.4.0'
 end
 ```
 
@@ -169,7 +174,7 @@ $ brew install carthage
 To integrate `QRCodeReader` into your Xcode project using Carthage, specify it in your `Cartfile` file:
 
 ```ogdl
-github "yannickl/QRCodeReader.swift" >= 7.3.0
+github "yannickl/QRCodeReader.swift" >= 7.4.0
 ```
 
 #### Swift Package Manager
@@ -183,7 +188,7 @@ let package = Package(
     name: "YOUR_PROJECT_NAME",
     targets: [],
     dependencies: [
-        .Package(url: "https://github.com/yannickl/QRCodeReader.swift.git", versions: "7.3.0" ..< Version.max)
+        .Package(url: "https://github.com/yannickl/QRCodeReader.swift.git", versions: "7.4.0" ..< Version.max)
     ]
 )
 ```

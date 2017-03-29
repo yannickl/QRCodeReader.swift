@@ -35,7 +35,7 @@ class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
     }
     
     return QRCodeReaderViewController(builder: builder)
-  } ()
+  }()
 
   @IBAction func scanAction(_ sender: AnyObject) {
     do {
