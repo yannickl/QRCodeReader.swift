@@ -119,7 +119,7 @@ public final class ToggleTorchButton: UIButton {
 
   public override func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?) {
     super.touchesCancelled(touches!, with: event)
-
+    
     setNeedsDisplay()
   }
 }

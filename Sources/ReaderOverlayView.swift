@@ -62,7 +62,7 @@ public final class ReaderOverlayView: UIView {
       self.setNeedsDisplay()
     }
   }
-  
+
   public override func draw(_ rect: CGRect) {
     var innerRect = rect.insetBy(dx: 50, dy: 50)
     let minSize   = min(innerRect.width, innerRect.height)

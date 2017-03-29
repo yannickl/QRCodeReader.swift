@@ -45,7 +45,7 @@ public protocol QRCodeReaderDisplayable {
 
   /**
    Method called by the container to allows you to layout your view properly using the given flags.
-   
+
    - Parameter showCancelButton: Flag to know whether you should display the cancel button.
    - Parameter showSwitchCameraButton: Flag to know whether you should display the switch camera button.
    - Parameter showTorchButton: Flag to know whether you should display the toggle torch button.
@@ -60,7 +60,7 @@ public struct QRCodeReaderContainer {
 
   /**
    Creates a QRCode container object that embeds a given displayable view.
-   
+
    - Parameter displayable: An UIView conforms to the `QRCodeReaderDisplayable` protocol.
    */
   public init<T: QRCodeReaderDisplayable>(displayable: T) where T: UIView {

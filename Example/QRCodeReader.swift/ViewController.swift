@@ -28,14 +28,14 @@ import UIKit
 import AVFoundation
 
 class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
+  lazy var reader: QRCodeReaderViewController = {
+    let builder = QRCodeReaderViewControllerBuilder {
+      $0.reader = QRCodeReader(metadataObjectTypes: [AVMetadataObjectTypeQRCode], captureDevicePosition: .back)
+      $0.showTorchButton = true
+    }
     
-   lazy var reader: QRCodeReaderViewController = {
-       let builder = QRCodeReaderViewControllerBuilder {
-           $0.reader = QRCodeReader(metadataObjectTypes: [AVMetadataObjectTypeQRCode], captureDevicePosition: .back)
-           $0.showTorchButton = true
-       }
-       return QRCodeReaderViewController(builder: builder)
-   } ()
+    return QRCodeReaderViewController(builder: builder)
+  } ()
 
   @IBAction func scanAction(_ sender: AnyObject) {
     do {
@@ -53,30 +53,30 @@ class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
       }
     } catch let error as NSError {
       switch error.code {
-            case -11852:
-                let alert = UIAlertController(title: "Error", message: "This app is not authorized to use Back Camera.", preferredStyle: .alert)
-                
-                alert.addAction(UIAlertAction(title: "Setting", style: .default, handler: { (_) in
-                    DispatchQueue.main.async {
-                        if let settingsURL = URL(string: UIApplicationOpenSettingsURLString) {
-                            UIApplication.shared.openURL(settingsURL)
-                        }
-                    }
-                }))
-                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-                present(alert, animated: true, completion: nil)
-                
-                
-                
-            case -11814:
-                let alert = UIAlertController(title: "Error", message: "Reader not supported by the current device", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+      case -11852:
+        let alert = UIAlertController(title: "Error", message: "This app is not authorized to use Back Camera.", preferredStyle: .alert)
 
-                present(alert, animated: true, completion: nil)
-            default:()
+        alert.addAction(UIAlertAction(title: "Setting", style: .default, handler: { (_) in
+          DispatchQueue.main.async {
+            if let settingsURL = URL(string: UIApplicationOpenSettingsURLString) {
+              UIApplication.shared.openURL(settingsURL)
             }
+          }
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
+
+
+
+      case -11814:
+        let alert = UIAlertController(title: "Error", message: "Reader not supported by the current device", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+
+        present(alert, animated: true, completion: nil)
+      default:()
+      }
     }
-    
+
   }
 
   // MARK: - QRCodeReader Delegate Methods
@@ -95,13 +95,13 @@ class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
       self?.present(alert, animated: true, completion: nil)
     }
   }
-  
+
   func reader(_ reader: QRCodeReaderViewController, didSwitchCamera newCaptureDevice: AVCaptureDeviceInput) {
     if let cameraName = newCaptureDevice.device.localizedName {
       print("Switching capturing to: \(cameraName)")
     }
   }
-  
+
   func readerDidCancel(_ reader: QRCodeReaderViewController) {
     reader.stopScanning()
 
