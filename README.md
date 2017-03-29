@@ -42,9 +42,12 @@ Then just follow these steps:
 ```swift
 // Good practice: create the reader lazily to avoid cpu overload during the
 // initialization and each time we need to scan a QRCode
-lazy var readerVC = QRCodeReaderViewController(builder: QRCodeReaderViewControllerBuilder {
-  $0.reader = QRCodeReader(metadataObjectTypes: [AVMetadataObjectTypeQRCode], captureDevicePosition: .back)
-})
+lazy var readerVC: QRCodeReaderViewController = {
+    let builder = QRCodeReaderViewControllerBuilder {
+        $0.reader = QRCodeReader(metadataObjectTypes: [AVMetadataObjectTypeQRCode], captureDevicePosition: .back)
+    }
+    return QRCodeReaderViewController(builder: builder)
+} ()
 
 @IBAction func scanAction(_ sender: AnyObject) {
   // Retrieve the QRCode content
