@@ -96,7 +96,7 @@ class YourCustomView: UIView, QRCodeReaderDisplayable {
   let cancelButton: UIButton?       = UIButton()
   let switchCameraButton: UIButton? = SwitchCameraButton()
   let toggleTorchButton: UIButton?  = ToggleTorchButton()
-  let overlayView: UIView?          = UIView()
+  var overlayView: UIView?          = UIView()
 
   func setupComponents(showCancelButton: Bool, showSwitchCameraButton: Bool, showTorchButton: Bool, showOverlayView: Bool) {
     // addSubviews
