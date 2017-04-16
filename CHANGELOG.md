@@ -1,5 +1,10 @@
 # Change log
 
+## [Version 7.4.1](https://github.com/yannickl/QRCodeReader.swift/releases/tag/7.4.1)
+Release on 2017-04-16
+
+- [ADD] Make the `QRCodeReader`'s `metadataOutput` property public
+
 ## [Version 7.4.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/7.4.0)
 Release on 2017-03-29
 

@@ -57,8 +57,8 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
     return nil
   }()
 
-  var metadataOutput = AVCaptureMetadataOutput()
-  var session        = AVCaptureSession()
+  public var metadataOutput = AVCaptureMetadataOutput()
+  var session               = AVCaptureSession()
 
   // MARK: - Managing the Properties
 
