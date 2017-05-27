@@ -137,6 +137,9 @@ public class QRCodeReaderViewController: UIViewController {
 
   func orientationDidChange(_ notification: Notification) {
     readerView.view.setNeedsDisplay()
+    if showOverlayView == true, let qrv = readerView.displayable as? QRCodeReaderView {
+        qrv.overlayView?.setNeedsDisplay()
+    }
 
     if let device = notification.object as? UIDevice , codeReader.previewLayer.connection.isVideoOrientationSupported {
       codeReader.previewLayer.connection.videoOrientation = QRCodeReader.videoOrientation(deviceOrientation: device.orientation, withSupportedOrientations: supportedInterfaceOrientations, fallbackOrientation: codeReader.previewLayer.connection.videoOrientation)
