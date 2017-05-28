@@ -24,5 +24,6 @@ Please keep the list sorted.
  * [Pablo Lerma](https://github.com/PabloLerma)
  * [Petko Todorov](https://github.com/petkotodorov)
  * [Samuel Duursma](https://github.com/sdduursma)
+ * [Sebastien Zwickert](https://github.com/dilaroga)
  * [Søren Lind Kristiansen](https://github.com/sorenlind)
  * [Yurii](https://github.com/kaphacius)

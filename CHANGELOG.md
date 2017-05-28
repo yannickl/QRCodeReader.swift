@@ -1,5 +1,10 @@
 # Change log
 
+## [Version 7.4.2](https://github.com/yannickl/QRCodeReader.swift/releases/tag/7.4.2)
+Release on 2017-05-28
+
+- [FIX] Overlay orientation
+
 ## [Version 7.4.1](https://github.com/yannickl/QRCodeReader.swift/releases/tag/7.4.1)
 Release on 2017-04-16
 

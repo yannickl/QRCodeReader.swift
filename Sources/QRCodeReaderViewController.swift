@@ -137,7 +137,8 @@ public class QRCodeReaderViewController: UIViewController {
 
   func orientationDidChange(_ notification: Notification) {
     readerView.view.setNeedsDisplay()
-    if showOverlayView == true, let qrv = readerView.displayable as? QRCodeReaderView {
+
+    if showOverlayView, let qrv = readerView.displayable as? QRCodeReaderView {
         qrv.overlayView?.setNeedsDisplay()
     }
 
