@@ -79,6 +79,11 @@ public final class QRCodeReaderViewControllerBuilder {
    */
   public var showOverlayView = true
 
+  /**
+    Flag to display the guide view.
+  */
+  public var handleOrientationChange = true
+
 
   // MARK: - Initializing a Flap View
 

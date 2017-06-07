@@ -38,6 +38,7 @@ public class QRCodeReaderViewController: UIViewController {
   let showSwitchCameraButton: Bool
   let showTorchButton: Bool
   let showOverlayView: Bool
+  let handleOrientationChange: Bool
 
   // MARK: - Managing the Callback Responders
 
@@ -61,13 +62,14 @@ public class QRCodeReaderViewController: UIViewController {
    - parameter builder: A QRCodeViewController builder object.
    */
   required public init(builder: QRCodeReaderViewControllerBuilder) {
-    readerView             = builder.readerView
-    startScanningAtLoad    = builder.startScanningAtLoad
-    codeReader             = builder.reader
-    showCancelButton       = builder.showCancelButton
-    showSwitchCameraButton = builder.showSwitchCameraButton
-    showTorchButton        = builder.showTorchButton
-    showOverlayView        = builder.showOverlayView
+    readerView              = builder.readerView
+    startScanningAtLoad     = builder.startScanningAtLoad
+    codeReader              = builder.reader
+    showCancelButton        = builder.showCancelButton
+    showSwitchCameraButton  = builder.showSwitchCameraButton
+    showTorchButton         = builder.showTorchButton
+    showOverlayView         = builder.showOverlayView
+    handleOrientationChange = builder.handleOrientationChange
 
     super.init(nibName: nil, bundle: nil)
 
@@ -97,13 +99,14 @@ public class QRCodeReaderViewController: UIViewController {
   }
 
   required public init?(coder aDecoder: NSCoder) {
-    codeReader             = QRCodeReader()
-    readerView             = QRCodeReaderContainer(displayable: QRCodeReaderView())
-    startScanningAtLoad    = false
-    showCancelButton       = false
-    showTorchButton        = false
-    showSwitchCameraButton = false
-    showOverlayView        = false
+    codeReader              = QRCodeReader()
+    readerView              = QRCodeReaderContainer(displayable: QRCodeReaderView())
+    startScanningAtLoad     = false
+    showCancelButton        = false
+    showTorchButton         = false
+    showSwitchCameraButton  = false
+    showOverlayView         = false
+    handleOrientationChange = false
 
     super.init(coder: aDecoder)
   }
@@ -142,7 +145,7 @@ public class QRCodeReaderViewController: UIViewController {
         qrv.overlayView?.setNeedsDisplay()
     }
 
-    if let device = notification.object as? UIDevice , codeReader.previewLayer.connection.isVideoOrientationSupported {
+    if handleOrientationChange == true, let device = notification.object as? UIDevice , codeReader.previewLayer.connection.isVideoOrientationSupported {
       codeReader.previewLayer.connection.videoOrientation = QRCodeReader.videoOrientation(deviceOrientation: device.orientation, withSupportedOrientations: supportedInterfaceOrientations, fallbackOrientation: codeReader.previewLayer.connection.videoOrientation)
     }
   }
