@@ -138,9 +138,12 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
       }
     }
 
-
     metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
-    metadataOutput.metadataObjectTypes = metadataObjectTypes
+    let requested = Set(metadataObjectTypes)
+    let desired = metadataOutput.availableMetadataObjectTypes.filter {
+      requested.contains($0 as! String)
+    }
+    metadataOutput.metadataObjectTypes = desired
     previewLayer.videoGravity          = AVLayerVideoGravityResizeAspectFill
   }
 
