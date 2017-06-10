@@ -145,8 +145,8 @@ public class QRCodeReaderViewController: UIViewController {
         qrv.overlayView?.setNeedsDisplay()
     }
 
-    if handleOrientationChange == true, let device = notification.object as? UIDevice , codeReader.previewLayer.connection.isVideoOrientationSupported {
-      codeReader.previewLayer.connection.videoOrientation = QRCodeReader.videoOrientation(deviceOrientation: device.orientation, withSupportedOrientations: supportedInterfaceOrientations, fallbackOrientation: codeReader.previewLayer.connection.videoOrientation)
+    if handleOrientationChange == true, let device = notification.object as? UIDevice, let connection = codeReader.previewLayer.connection, connection.isVideoOrientationSupported {
+      connection.videoOrientation = QRCodeReader.videoOrientation(deviceOrientation: device.orientation, withSupportedOrientations: supportedInterfaceOrientations, fallbackOrientation: connection.videoOrientation)
     }
   }
 
@@ -170,10 +170,10 @@ public class QRCodeReaderViewController: UIViewController {
     // Setup camera preview layer
     codeReader.previewLayer.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height)
 
-    if codeReader.previewLayer.connection.isVideoOrientationSupported {
+    if let connection = codeReader.previewLayer.connection, connection.isVideoOrientationSupported {
       let orientation = UIDevice.current.orientation
 
-      codeReader.previewLayer.connection.videoOrientation = QRCodeReader.videoOrientation(deviceOrientation: orientation, withSupportedOrientations: supportedInterfaceOrientations)
+      connection.videoOrientation = QRCodeReader.videoOrientation(deviceOrientation: orientation, withSupportedOrientations: supportedInterfaceOrientations)
     }
 
     readerView.displayable.cameraView.layer.insertSublayer(codeReader.previewLayer, at: 0)
