@@ -37,6 +37,7 @@ Then just follow these steps:
 
 -  Add delegate `QRCodeReaderViewControllerDelegate`
 -  Add `import AVFoundation`
+-  Add `import QRCodeReader`
 -  The `QRCodeReaderViewControllerDelegate` implementations is:
 
 ```swift
