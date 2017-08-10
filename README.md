@@ -144,7 +144,7 @@ platform :ios, '8.0'
 use_frameworks!
 
 target 'TargetName' do
-    pod 'QRCodeReader.swift', '~> 7.5.0'
+    pod 'QRCodeReader.swift', '~> 7.5.1'
 end
 ```
 
@@ -176,7 +176,7 @@ $ brew install carthage
 To integrate `QRCodeReader` into your Xcode project using Carthage, specify it in your `Cartfile` file:
 
 ```ogdl
-github "yannickl/QRCodeReader.swift" >= 7.5.0
+github "yannickl/QRCodeReader.swift" >= 7.5.1
 ```
 
 #### Swift Package Manager
@@ -190,7 +190,7 @@ let package = Package(
     name: "YOUR_PROJECT_NAME",
     targets: [],
     dependencies: [
-        .Package(url: "https://github.com/yannickl/QRCodeReader.swift.git", versions: "7.5.0" ..< Version.max)
+        .Package(url: "https://github.com/yannickl/QRCodeReader.swift.git", versions: "7.5.1" ..< Version.max)
     ]
 )
 ```

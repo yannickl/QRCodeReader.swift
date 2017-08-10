@@ -74,8 +74,7 @@ final public class QRCodeReaderView: UIView, QRCodeReaderDisplayable {
   private weak var reader: QRCodeReader?
 
   public func setupComponents(showCancelButton: Bool, showSwitchCameraButton: Bool, showTorchButton: Bool, showOverlayView: Bool, reader: QRCodeReader?) {
-    self.reader                               = reader
-    translatesAutoresizingMaskIntoConstraints = false
+    self.reader = reader
 
     addComponents()
 

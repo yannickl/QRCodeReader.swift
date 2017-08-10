@@ -136,6 +136,7 @@ public class QRCodeReaderViewController: UIViewController {
     let sscb = showSwitchCameraButton && codeReader.hasFrontDevice
     let stb  = showTorchButton && codeReader.isTorchAvailable
 
+    readerView.view.translatesAutoresizingMaskIntoConstraints = false
     readerView.setupComponents(showCancelButton: showCancelButton, showSwitchCameraButton: sscb, showTorchButton: stb, showOverlayView: showOverlayView, reader: codeReader)
 
     // Setup action methods
