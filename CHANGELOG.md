@@ -1,5 +1,11 @@
 # Change log
 
+## [Version 7.5.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/7.5.0)
+Release on 2017-08-10
+
+- [REFACTORING] Makes the `QRCodeReaderView` public
+- [REFACTORING] The rotation is now managed by the `QRCodeReaderView`
+
 ## [Version 7.4.2](https://github.com/yannickl/QRCodeReader.swift/releases/tag/7.4.2)
 Release on 2017-05-28
 

@@ -49,8 +49,10 @@ public protocol QRCodeReaderDisplayable {
    - Parameter showCancelButton: Flag to know whether you should display the cancel button.
    - Parameter showSwitchCameraButton: Flag to know whether you should display the switch camera button.
    - Parameter showTorchButton: Flag to know whether you should display the toggle torch button.
+   - Parameter showOverlayView: Flag to know whether you should display the overlay.
+   - Parameter reader: A reference to the code reader.
    */
-  func setupComponents(showCancelButton: Bool, showSwitchCameraButton: Bool, showTorchButton: Bool, showOverlayView: Bool)
+  func setupComponents(showCancelButton: Bool, showSwitchCameraButton: Bool, showTorchButton: Bool, showOverlayView: Bool, reader: QRCodeReader?)
 }
 
 /// The `QRCodeReaderContainer` structure embed the view displayed by the controller. The embeded view must be conform to the `QRCodeReaderDisplayable` protocol.
@@ -70,7 +72,7 @@ public struct QRCodeReaderContainer {
 
   // MARK: - Convenience Methods
 
-  func setupComponents(showCancelButton: Bool, showSwitchCameraButton: Bool, showTorchButton: Bool, showOverlayView: Bool) {
-    displayable.setupComponents(showCancelButton: showCancelButton, showSwitchCameraButton: showSwitchCameraButton, showTorchButton: showTorchButton, showOverlayView: showOverlayView)
+  func setupComponents(showCancelButton: Bool, showSwitchCameraButton: Bool, showTorchButton: Bool, showOverlayView: Bool, reader: QRCodeReader? = nil) {
+    displayable.setupComponents(showCancelButton: showCancelButton, showSwitchCameraButton: showSwitchCameraButton, showTorchButton: showTorchButton, showOverlayView: showOverlayView, reader: reader)
   }
 }

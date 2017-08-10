@@ -38,7 +38,6 @@ public class QRCodeReaderViewController: UIViewController {
   let showSwitchCameraButton: Bool
   let showTorchButton: Bool
   let showOverlayView: Bool
-  let handleOrientationChange: Bool
 
   // MARK: - Managing the Callback Responders
 
@@ -62,14 +61,13 @@ public class QRCodeReaderViewController: UIViewController {
    - parameter builder: A QRCodeViewController builder object.
    */
   required public init(builder: QRCodeReaderViewControllerBuilder) {
-    readerView              = builder.readerView
-    startScanningAtLoad     = builder.startScanningAtLoad
-    codeReader              = builder.reader
-    showCancelButton        = builder.showCancelButton
-    showSwitchCameraButton  = builder.showSwitchCameraButton
-    showTorchButton         = builder.showTorchButton
-    showOverlayView         = builder.showOverlayView
-    handleOrientationChange = builder.handleOrientationChange
+    readerView             = builder.readerView
+    startScanningAtLoad    = builder.startScanningAtLoad
+    codeReader             = builder.reader
+    showCancelButton       = builder.showCancelButton
+    showSwitchCameraButton = builder.showSwitchCameraButton
+    showTorchButton        = builder.showTorchButton
+    showOverlayView        = builder.showOverlayView
 
     super.init(nibName: nil, bundle: nil)
 
@@ -94,27 +92,21 @@ public class QRCodeReaderViewController: UIViewController {
     }
 
     setupUIComponentsWithCancelButtonTitle(builder.cancelButtonTitle)
-
-    NotificationCenter.default.addObserver(self, selector: #selector(orientationDidChange), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
   }
 
   required public init?(coder aDecoder: NSCoder) {
-    codeReader              = QRCodeReader()
-    readerView              = QRCodeReaderContainer(displayable: QRCodeReaderView())
-    startScanningAtLoad     = false
-    showCancelButton        = false
-    showTorchButton         = false
-    showSwitchCameraButton  = false
-    showOverlayView         = false
-    handleOrientationChange = false
+    codeReader             = QRCodeReader()
+    readerView             = QRCodeReaderContainer(displayable: QRCodeReaderView())
+    startScanningAtLoad    = false
+    showCancelButton       = false
+    showTorchButton        = false
+    showSwitchCameraButton = false
+    showOverlayView        = false
 
     super.init(coder: aDecoder)
   }
 
   // MARK: - Responding to View Events
-  override public var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-    return parent?.supportedInterfaceOrientations ?? .all
-  }
 
   override public func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
@@ -136,20 +128,6 @@ public class QRCodeReaderViewController: UIViewController {
     codeReader.previewLayer.frame = view.bounds
   }
 
-  // MARK: - Managing the Orientation
-
-  func orientationDidChange(_ notification: Notification) {
-    readerView.view.setNeedsDisplay()
-
-    if showOverlayView, let qrv = readerView.displayable as? QRCodeReaderView {
-        qrv.overlayView?.setNeedsDisplay()
-    }
-
-    if handleOrientationChange == true, let device = notification.object as? UIDevice, let connection = codeReader.previewLayer.connection, connection.isVideoOrientationSupported {
-      connection.videoOrientation = QRCodeReader.videoOrientation(deviceOrientation: device.orientation, withSupportedOrientations: supportedInterfaceOrientations, fallbackOrientation: connection.videoOrientation)
-    }
-  }
-
   // MARK: - Initializing the AV Components
 
   private func setupUIComponentsWithCancelButtonTitle(_ cancelButtonTitle: String) {
@@ -158,7 +136,7 @@ public class QRCodeReaderViewController: UIViewController {
     let sscb = showSwitchCameraButton && codeReader.hasFrontDevice
     let stb  = showTorchButton && codeReader.isTorchAvailable
 
-    readerView.setupComponents(showCancelButton: showCancelButton, showSwitchCameraButton: sscb, showTorchButton: stb, showOverlayView: showOverlayView)
+    readerView.setupComponents(showCancelButton: showCancelButton, showSwitchCameraButton: sscb, showTorchButton: stb, showOverlayView: showOverlayView, reader: codeReader)
 
     // Setup action methods
 
