@@ -145,17 +145,6 @@ public class QRCodeReaderViewController: UIViewController {
     readerView.displayable.cancelButton?.setTitle(cancelButtonTitle, for: .normal)
     readerView.displayable.cancelButton?.addTarget(self, action: #selector(cancelAction), for: .touchUpInside)
 
-    // Setup camera preview layer
-    codeReader.previewLayer.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height)
-
-    if let connection = codeReader.previewLayer.connection, connection.isVideoOrientationSupported {
-      let orientation = UIDevice.current.orientation
-
-      connection.videoOrientation = QRCodeReader.videoOrientation(deviceOrientation: orientation, withSupportedOrientations: supportedInterfaceOrientations)
-    }
-
-    readerView.displayable.cameraView.layer.insertSublayer(codeReader.previewLayer, at: 0)
-
     // Setup constraints
 
     for attribute in [NSLayoutAttribute.left, NSLayoutAttribute.top, NSLayoutAttribute.right, NSLayoutAttribute.bottom] {

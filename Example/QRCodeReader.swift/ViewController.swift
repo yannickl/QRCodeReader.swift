@@ -28,7 +28,7 @@ import AVFoundation
 import UIKit
 
 class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
-  @IBOutlet weak var previewView: UIView!
+  @IBOutlet weak var previewView: QRCodeReaderView!
   lazy var reader: QRCodeReader = QRCodeReader()
   lazy var readerVC: QRCodeReaderViewController = {
     let builder = QRCodeReaderViewControllerBuilder {
@@ -93,8 +93,7 @@ class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
   @IBAction func scanInPreviewAction(_ sender: Any) {
     guard checkScanPermissions(), !reader.isRunning else { return }
 
-    reader.previewLayer.frame = previewView.bounds
-    previewView.layer.addSublayer(reader.previewLayer)
+    previewView.setupComponents(showCancelButton: false, showSwitchCameraButton: false, showTorchButton: false, showOverlayView: true, reader: reader)
 
     reader.startScanning()
     reader.didFindCode = { result in

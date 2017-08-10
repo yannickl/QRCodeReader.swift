@@ -113,6 +113,12 @@ final public class QRCodeReaderView: UIView, QRCodeReaderDisplayable {
     }
   }
 
+  public override func layoutSubviews() {
+    super.layoutSubviews()
+
+    reader?.previewLayer.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height)
+  }
+
   // MARK: - Scan Result Indication
 
   func startTimerForBorderReset() {
@@ -172,6 +178,12 @@ final public class QRCodeReaderView: UIView, QRCodeReaderDisplayable {
     
     if let cb = cancelButton {
       addSubview(cb)
+    }
+
+    if let reader = reader {
+      cameraView.layer.insertSublayer(reader.previewLayer, at: 0)
+      
+      orientationDidChange()
     }
   }
 }
