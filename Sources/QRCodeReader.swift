@@ -29,14 +29,17 @@ import AVFoundation
 
 /// Reader object base on the `AVCaptureDevice` to read / scan 1D and 2D codes.
 public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegate {
+  private let sessionQueue         = DispatchQueue(label: "session queue")
+  private let metadataObjectsQueue = DispatchQueue(label: "com.yannickloriot.qr", attributes: [], target: nil)
+  
   var defaultDevice: AVCaptureDevice = AVCaptureDevice.default(for: AVMediaType.video)!
   var frontDevice: AVCaptureDevice?  = {
     if #available(iOS 10, *) {
-      return AVCaptureDevice.default(AVCaptureDevice.DeviceType.builtInWideAngleCamera, for: AVMediaType.video, position: .front)
+      return AVCaptureDevice.default(.builtInWideAngleCamera, for: AVMediaType.video, position: .front)
     }
     else {
       for device in AVCaptureDevice.devices(for: AVMediaType.video) {
-        if device.position == AVCaptureDevice.Position.front {
+        if device.position == .front {
           return device
         }
       }
@@ -119,14 +122,22 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
 
     super.init()
 
-    configureDefaultComponents(withCaptureDevicePosition: captureDevicePosition)
+    sessionQueue.async {
+      self.configureDefaultComponents(withCaptureDevicePosition: captureDevicePosition)
+    }
   }
 
   // MARK: - Initializing the AV Components
 
   private func configureDefaultComponents(withCaptureDevicePosition: AVCaptureDevice.Position) {
-    session.addOutput(metadataOutput)
+    for output in session.outputs {
+      session.removeOutput(output)
+    }
+    for input in session.inputs {
+      session.removeInput(input)
+    }
 
+    // Add video input
     switch withCaptureDevicePosition {
     case .front:
       if let _frontDeviceInput = frontDeviceInput {
@@ -138,10 +149,13 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
       }
     }
 
+    // Add metadata output
+    session.addOutput(metadataOutput)
+    metadataOutput.setMetadataObjectsDelegate(self, queue: metadataObjectsQueue)
+    metadataOutput.metadataObjectTypes = metadataOutput.availableMetadataObjectTypes//metadataObjectTypes
+    previewLayer.videoGravity          = .resizeAspectFill
 
-    metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
-    metadataOutput.metadataObjectTypes = metadataObjectTypes
-    previewLayer.videoGravity          = AVLayerVideoGravity.resizeAspectFill
+    session.commitConfiguration()
   }
 
   /// Switch between the back and the front camera.
@@ -159,6 +173,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
 
       session.commitConfiguration()
     }
+
     return session.inputs.first as? AVCaptureDeviceInput
   }
 
@@ -171,14 +186,18 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
    */
   public func startScanning() {
     if !session.isRunning {
-      session.startRunning()
+      sessionQueue.async {
+        self.session.startRunning()
+      }
     }
   }
 
   /// Stops scanning the codes.
   public func stopScanning() {
     if session.isRunning {
-      session.stopRunning()
+      sessionQueue.async {
+        self.session.stopRunning()
+      }
     }
   }
 
@@ -335,7 +354,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
 
   // MARK: - AVCaptureMetadataOutputObjects Delegate Methods
 
-  public func metadataOutput(captureOutput: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+  public func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
     for current in metadataObjects {
       if let _readableCodeObject = current as? AVMetadataMachineReadableCodeObject {
         if _readableCodeObject.stringValue != nil {
