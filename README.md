@@ -45,7 +45,7 @@ Then just follow these steps:
 // initialization and each time we need to scan a QRCode
 lazy var readerVC: QRCodeReaderViewController = {
     let builder = QRCodeReaderViewControllerBuilder {
-        $0.reader = QRCodeReader(metadataObjectTypes: [AVMetadataObjectTypeQRCode], captureDevicePosition: .back)
+        $0.reader = QRCodeReader(metadataObjectTypes: [.qr], captureDevicePosition: .back)
     }
     
     return QRCodeReaderViewController(builder: builder)
