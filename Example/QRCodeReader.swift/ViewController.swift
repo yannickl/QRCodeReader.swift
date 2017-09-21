@@ -32,7 +32,7 @@ class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
   lazy var reader: QRCodeReader = QRCodeReader()
   lazy var readerVC: QRCodeReaderViewController = {
     let builder = QRCodeReaderViewControllerBuilder {
-      $0.reader = QRCodeReader(metadataObjectTypes: [AVMetadataObjectTypeQRCode], captureDevicePosition: .back)
+      $0.reader = QRCodeReader(metadataObjectTypes: [AVMetadataObject.ObjectType.qr], captureDevicePosition: .back)
       $0.showTorchButton = true
     }
     
@@ -124,9 +124,7 @@ class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
   }
 
   func reader(_ reader: QRCodeReaderViewController, didSwitchCamera newCaptureDevice: AVCaptureDeviceInput) {
-    if let cameraName = newCaptureDevice.device.localizedName {
-      print("Switching capturing to: \(cameraName)")
-    }
+    print("Switching capturing to: \(newCaptureDevice.device.localizedName)")
   }
 
   func readerDidCancel(_ reader: QRCodeReaderViewController) {

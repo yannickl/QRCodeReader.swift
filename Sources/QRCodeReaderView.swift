@@ -144,7 +144,7 @@ final public class QRCodeReaderView: UIView, QRCodeReaderDisplayable {
     }
   }
 
-  func orientationDidChange() {
+  @objc func orientationDidChange() {
     setNeedsDisplay()
     overlayView?.setNeedsDisplay()
 

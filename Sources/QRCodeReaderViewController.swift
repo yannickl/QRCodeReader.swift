@@ -167,7 +167,7 @@ public class QRCodeReaderViewController: UIViewController {
 
   // MARK: - Catching Button Events
 
-  func cancelAction(_ button: UIButton) {
+  @objc func cancelAction(_ button: UIButton) {
     codeReader.stopScanning()
 
     if let _completionBlock = completionBlock {
@@ -177,13 +177,13 @@ public class QRCodeReaderViewController: UIViewController {
     delegate?.readerDidCancel(self)
   }
 
-  func switchCameraAction(_ button: SwitchCameraButton) {
+  @objc func switchCameraAction(_ button: SwitchCameraButton) {
     if let newDevice = codeReader.switchDeviceInput() {
       delegate?.reader(self, didSwitchCamera: newDevice)
     }
   }
   
-  func toggleTorchAction(_ button: ToggleTorchButton) {
+  @objc func toggleTorchAction(_ button: ToggleTorchButton) {
     codeReader.toggleTorch()
   }
 }
