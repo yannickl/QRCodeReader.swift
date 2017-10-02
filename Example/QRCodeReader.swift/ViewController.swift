@@ -45,13 +45,13 @@ class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
     do {
       return try QRCodeReader.supportsMetadataObjectTypes()
     } catch let error as NSError {
-      let alert: UIAlertController?
+      let alert: UIAlertController
 
       switch error.code {
       case -11852:
         alert = UIAlertController(title: "Error", message: "This app is not authorized to use Back Camera.", preferredStyle: .alert)
 
-        alert?.addAction(UIAlertAction(title: "Setting", style: .default, handler: { (_) in
+        alert.addAction(UIAlertAction(title: "Setting", style: .default, handler: { (_) in
           DispatchQueue.main.async {
             if let settingsURL = URL(string: UIApplicationOpenSettingsURLString) {
               UIApplication.shared.openURL(settingsURL)
@@ -59,17 +59,13 @@ class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
           }
         }))
 
-        alert?.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-      case -11814:
-        alert = UIAlertController(title: "Error", message: "Reader not supported by the current device", preferredStyle: .alert)
-        alert?.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
       default:
-        alert = nil
+        alert = UIAlertController(title: "Error", message: "Reader not supported by the current device", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
       }
 
-      guard let vc = alert else { return false }
-
-      present(vc, animated: true, completion: nil)
+      present(alert, animated: true, completion: nil)
 
       return false
     }

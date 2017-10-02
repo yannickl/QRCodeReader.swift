@@ -32,8 +32,8 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   private let sessionQueue         = DispatchQueue(label: "session queue")
   private let metadataObjectsQueue = DispatchQueue(label: "com.yannickloriot.qr", attributes: [], target: nil)
   
-  var defaultDevice: AVCaptureDevice = AVCaptureDevice.default(for: AVMediaType.video)!
-  var frontDevice: AVCaptureDevice?  = {
+  var defaultDevice: AVCaptureDevice? = AVCaptureDevice.default(for: .video)
+  var frontDevice: AVCaptureDevice?   = {
     if #available(iOS 10, *) {
       return AVCaptureDevice.default(.builtInWideAngleCamera, for: AVMediaType.video, position: .front)
     }
@@ -49,7 +49,9 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   }()
 
   lazy var defaultDeviceInput: AVCaptureDeviceInput? = {
-    return try? AVCaptureDeviceInput(device: self.defaultDevice)
+    guard let defaultDevice = defaultDevice else { return nil }
+
+    return try? AVCaptureDeviceInput(device: defaultDevice)
   }()
 
   lazy var frontDeviceInput: AVCaptureDeviceInput? = {
@@ -227,7 +229,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
    - returns: true if a torch is available.
    */
   public var isTorchAvailable: Bool {
-    return defaultDevice.isTorchAvailable
+    return defaultDevice?.isTorchAvailable ?? false
   }
 
   /**
@@ -235,12 +237,11 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
    */
   public func toggleTorch() {
     do {
-      try defaultDevice.lockForConfiguration()
+      try defaultDevice?.lockForConfiguration()
 
-      let current             = defaultDevice.torchMode
-      defaultDevice.torchMode = AVCaptureDevice.TorchMode.on == current ? .off : .on
+      defaultDevice?.torchMode = defaultDevice?.torchMode == .on ? .off : .on
 
-      defaultDevice.unlockForConfiguration()
+      defaultDevice?.unlockForConfiguration()
     }
     catch _ { }
   }
@@ -326,12 +327,13 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
    - returns: A boolean value that indicates whether the device supports the given metadata object types.
    */
   public class func supportsMetadataObjectTypes(_ metadataTypes: [AVMetadataObject.ObjectType]? = nil) throws -> Bool {
-    let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
+    guard let captureDevice = AVCaptureDevice.default(for: .video) else {
+      throw NSError(domain: "com.yannickloriot.error", code: -1001, userInfo: nil)
+    }
 
-    let deviceInput = try AVCaptureDeviceInput(device: captureDevice!)
-
-    let output  = AVCaptureMetadataOutput()
-    let session = AVCaptureSession()
+    let deviceInput = try AVCaptureDeviceInput(device: captureDevice)
+    let output      = AVCaptureMetadataOutput()
+    let session     = AVCaptureSession()
 
     session.addInput(deviceInput)
     session.addOutput(output)
@@ -340,11 +342,11 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
 
     if metadataObjectTypes == nil || metadataObjectTypes?.count == 0 {
       // Check the QRCode metadata object type by default
-      metadataObjectTypes = [AVMetadataObject.ObjectType.qr]
+      metadataObjectTypes = [.qr]
     }
 
     for metadataObjectType in metadataObjectTypes! {
-      if !output.availableMetadataObjectTypes.contains(where: { $0 == metadataObjectType }) {
+      if !output.availableMetadataObjectTypes.contains { $0 == metadataObjectType } {
         return false
       }
     }
