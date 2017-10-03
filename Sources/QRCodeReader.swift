@@ -314,9 +314,9 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
    - returns: A boolean value that indicates whether the reader is available.
    */
   public class func isAvailable() -> Bool {
-    let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
+    guard let captureDevice = AVCaptureDevice.default(for: .video) else { return false }
 
-    return (try? AVCaptureDeviceInput(device: captureDevice!)) != nil
+    return (try? AVCaptureDeviceInput(device: captureDevice)) != nil
   }
 
   /**
