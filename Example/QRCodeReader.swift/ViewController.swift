@@ -28,11 +28,15 @@ import AVFoundation
 import UIKit
 
 class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
-  @IBOutlet weak var previewView: QRCodeReaderView!
+  @IBOutlet weak var previewView: QRCodeReaderView! {
+    didSet {
+      previewView.setupComponents(showCancelButton: false, showSwitchCameraButton: false, showTorchButton: false, showOverlayView: true, reader: reader)
+    }
+  }
   lazy var reader: QRCodeReader = QRCodeReader()
   lazy var readerVC: QRCodeReaderViewController = {
     let builder = QRCodeReaderViewControllerBuilder {
-      $0.reader = QRCodeReader(metadataObjectTypes: [AVMetadataObject.ObjectType.qr], captureDevicePosition: .back)
+      $0.reader = QRCodeReader(metadataObjectTypes: [.qr], captureDevicePosition: .back)
       $0.showTorchButton = true
     }
     
@@ -89,17 +93,11 @@ class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
   @IBAction func scanInPreviewAction(_ sender: Any) {
     guard checkScanPermissions(), !reader.isRunning else { return }
 
-    previewView.setupComponents(showCancelButton: false, showSwitchCameraButton: false, showTorchButton: false, showOverlayView: true, reader: reader)
+    reader.didFindCode = { result in
+      print("Completion with result: \(result.value) of type \(result.metadataType)")
+    }
 
     reader.startScanning()
-    reader.didFindCode = { result in
-      let alert = UIAlertController(
-        title: "QRCodeReader",
-        message: String (format:"%@ (of type %@)", result.value, result.metadataType),
-        preferredStyle: .alert
-      )
-      alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-    }
   }
 
   // MARK: - QRCodeReader Delegate Methods

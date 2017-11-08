@@ -115,7 +115,7 @@ final public class QRCodeReaderView: UIView, QRCodeReaderDisplayable {
   public override func layoutSubviews() {
     super.layoutSubviews()
 
-    reader?.previewLayer.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height)
+    reader?.previewLayer.frame = bounds
   }
 
   // MARK: - Scan Result Indication

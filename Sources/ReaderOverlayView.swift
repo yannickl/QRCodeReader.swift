@@ -59,6 +59,7 @@ public final class ReaderOverlayView: UIView {
   var overlayColor: UIColor = UIColor.white {
     didSet {
       self.overlay.strokeColor = overlayColor.cgColor
+      
       self.setNeedsDisplay()
     }
   }
@@ -76,8 +77,6 @@ public final class ReaderOverlayView: UIView {
       innerRect.size.height = minSize
     }
 
-    let offsetRect = innerRect.offsetBy(dx: 0, dy: 15)
-
-    overlay.path  = UIBezierPath(roundedRect: offsetRect, cornerRadius: 5).cgPath
+    overlay.path = UIBezierPath(roundedRect: innerRect, cornerRadius: 5).cgPath
   }
 }
