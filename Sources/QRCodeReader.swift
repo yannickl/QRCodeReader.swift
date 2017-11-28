@@ -156,7 +156,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
     metadataOutput.setMetadataObjectsDelegate(self, queue: metadataObjectsQueue)
     let allTypes = Set(metadataOutput.availableMetadataObjectTypes)
     let filtered = metadataObjectTypes.filter { (mediaType) -> Bool in
-        allTypes.contains(mediaType)
+      allTypes.contains(mediaType)
     }
     metadataOutput.metadataObjectTypes = filtered
     previewLayer.videoGravity          = .resizeAspectFill
@@ -361,25 +361,29 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   // MARK: - AVCaptureMetadataOutputObjects Delegate Methods
 
   public func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-    for current in metadataObjects {
-      if let _readableCodeObject = current as? AVMetadataMachineReadableCodeObject {
-        if _readableCodeObject.stringValue != nil {
-          if metadataObjectTypes.contains(_readableCodeObject.type) {
-            if let sVal = _readableCodeObject.stringValue {
-              if stopScanningWhenCodeIsFound {
-                stopScanning()
+    sessionQueue.async { [weak self] in
+      guard let weakSelf = self else { return }
+
+      for current in metadataObjects {
+        if let _readableCodeObject = current as? AVMetadataMachineReadableCodeObject {
+          if _readableCodeObject.stringValue != nil {
+            if weakSelf.metadataObjectTypes.contains(_readableCodeObject.type) {
+              guard weakSelf.session.isRunning, let sVal = _readableCodeObject.stringValue else { return }
+
+              if weakSelf.stopScanningWhenCodeIsFound {
+                weakSelf.session.stopRunning()
               }
 
               let scannedResult = QRCodeReaderResult(value: sVal, metadataType:_readableCodeObject.type.rawValue)
 
-              DispatchQueue.main.async(execute: { [weak self] in
-                self?.didFindCode?(scannedResult)
-              })
+              DispatchQueue.main.async {
+                weakSelf.didFindCode?(scannedResult)
+              }
             }
           }
         }
         else {
-          didFailDecoding?()
+          weakSelf.didFailDecoding?()
         }
       }
     }
