@@ -27,6 +27,11 @@
 import UIKit
 import AVFoundation
 
+protocol QRCodeReaderLifeCycleDelegate: class {
+  func readerDidStartScanning()
+  func readerDidStopScanning()
+}
+
 /// Reader object base on the `AVCaptureDevice` to read / scan 1D and 2D codes.
 public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegate {
   private let sessionQueue         = DispatchQueue(label: "session queue")
@@ -64,6 +69,8 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
 
   public var metadataOutput = AVCaptureMetadataOutput()
   var session               = AVCaptureSession()
+
+  weak var lifeCycleDelegate: QRCodeReaderLifeCycleDelegate?
 
   // MARK: - Managing the Properties
 
@@ -195,6 +202,10 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
       guard !self.session.isRunning else { return }
 
       self.session.startRunning()
+
+      DispatchQueue.main.async {
+        self.lifeCycleDelegate?.readerDidStartScanning()
+      }
     }
   }
 
@@ -204,6 +215,10 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
       guard self.session.isRunning else { return }
 
       self.session.stopRunning()
+
+      DispatchQueue.main.async {
+        self.lifeCycleDelegate?.readerDidStopScanning()
+      }
     }
   }
 
@@ -372,6 +387,10 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
 
               if weakSelf.stopScanningWhenCodeIsFound {
                 weakSelf.session.stopRunning()
+
+                DispatchQueue.main.async {
+                  weakSelf.lifeCycleDelegate?.readerDidStopScanning()
+                }
               }
 
               let scannedResult = QRCodeReaderResult(value: sVal, metadataType:_readableCodeObject.type.rawValue)
