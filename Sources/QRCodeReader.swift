@@ -75,9 +75,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   // MARK: - Managing the Properties
 
   /// CALayer that you use to display video as it is being captured by an input device.
-  public lazy var previewLayer: AVCaptureVideoPreviewLayer = {
-    return AVCaptureVideoPreviewLayer(session: self.session)
-  }()
+  public let previewLayer: AVCaptureVideoPreviewLayer
 
   /// An array of object identifying the types of metadata objects to process.
   public let metadataObjectTypes: [AVMetadataObject.ObjectType]
@@ -128,7 +126,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
    */
   public init(metadataObjectTypes types: [AVMetadataObject.ObjectType], captureDevicePosition: AVCaptureDevice.Position) {
     metadataObjectTypes = types
-
+    previewLayer = AVCaptureVideoPreviewLayer(session: session)
     super.init()
 
     sessionQueue.async {
