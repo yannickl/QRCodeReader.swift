@@ -1,16 +1,20 @@
 # Change log
 
+## [Version 8.1.1](https://github.com/yannickl/QRCodeReader.swift/releases/tag/8.1.1)
+Release on 2018-17-02
+
+ - Fixing the camera display by removing the `weak` reference in the QRCodeReaderView (#120)
+
 ## [Version 8.1.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/8.1.0)
 Release on 2018-25-01
 
-- Fixing the scan duplication by introducing a backgroun serial queue (#127)
-- Fixing some camera orientation glitches when init a `QRCodeReaderView` 
+ - Fixing the scan duplication by introducing a backgroun serial queue (#127)
+ - Fixing some camera orientation glitches when init a `QRCodeReaderView` 
 
 ## [Version 8.0.4](https://github.com/yannickl/QRCodeReader.swift/releases/tag/8.0.4)
 Release on 2017-11-26
 
  - Fixing the stopScanning method to avoid scan duplication (#127)
- - Fixing the camera display by removing the `weak` reference in the QRCodeReaderView (#120)
 
 ## [Version 8.0.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/8.0.0)
 Release on 2017-09-21

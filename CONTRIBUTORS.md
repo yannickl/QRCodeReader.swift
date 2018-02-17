@@ -23,6 +23,7 @@ Please keep the list sorted.
  * [Mesashi Beheim](https://github.com/masa-beheim)
  * [Pablo Lerma](https://github.com/PabloLerma)
  * [Petko Todorov](https://github.com/petkotodorov)
+ * [Ravil Khusainov](https://github.com/kabanishe23)
  * [Samuel Duursma](https://github.com/sdduursma)
  * [Sebastien Zwickert](https://github.com/dilaroga)
  * [Søren Lind Kristiansen](https://github.com/sorenlind)
