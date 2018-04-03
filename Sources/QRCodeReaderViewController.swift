@@ -112,6 +112,8 @@ public class QRCodeReaderViewController: UIViewController {
     super.viewWillAppear(animated)
 
     if startScanningAtLoad {
+      readerView.displayable.setNeedsUpdateOrientation()
+
       startScanning()
     }
   }
@@ -148,7 +150,7 @@ public class QRCodeReaderViewController: UIViewController {
 
     // Setup constraints
 
-    for attribute in [NSLayoutAttribute.left, NSLayoutAttribute.top, NSLayoutAttribute.right, NSLayoutAttribute.bottom] {
+    for attribute in [.left, .top, .right, .bottom] as [NSLayoutAttribute] {
       view.addConstraint(NSLayoutConstraint(item: readerView.view, attribute: attribute, relatedBy: .equal, toItem: view, attribute: attribute, multiplier: 1, constant: 0))
     }
   }

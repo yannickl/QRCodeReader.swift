@@ -145,7 +145,7 @@ final public class QRCodeReaderView: UIView, QRCodeReaderDisplayable {
     }
   }
 
-  @objc func orientationDidChange() {
+  @objc public func setNeedsUpdateOrientation() {
     setNeedsDisplay()
 
     overlayView?.setNeedsDisplay()
@@ -162,7 +162,7 @@ final public class QRCodeReaderView: UIView, QRCodeReaderDisplayable {
   // MARK: - Convenience Methods
 
   private func addComponents() {
-    NotificationCenter.default.addObserver(self, selector: #selector(QRCodeReaderView.orientationDidChange), name: .UIDeviceOrientationDidChange, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(self.setNeedsUpdateOrientation), name: .UIDeviceOrientationDidChange, object: nil)
 
     addSubview(cameraView)
 
@@ -183,17 +183,16 @@ final public class QRCodeReaderView: UIView, QRCodeReaderDisplayable {
     }
 
     if let reader = reader {
-      print("reader", reader.previewLayer)
       cameraView.layer.insertSublayer(reader.previewLayer, at: 0)
       
-      orientationDidChange()
+      setNeedsUpdateOrientation()
     }
   }
 }
 
 extension QRCodeReaderView: QRCodeReaderLifeCycleDelegate {
   func readerDidStartScanning() {
-    orientationDidChange()
+    setNeedsUpdateOrientation()
   }
 
   func readerDidStopScanning() {}

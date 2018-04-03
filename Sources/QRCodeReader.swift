@@ -126,7 +126,8 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
    */
   public init(metadataObjectTypes types: [AVMetadataObject.ObjectType], captureDevicePosition: AVCaptureDevice.Position) {
     metadataObjectTypes = types
-    previewLayer = AVCaptureVideoPreviewLayer(session: session)
+    previewLayer        = AVCaptureVideoPreviewLayer(session: session)
+
     super.init()
 
     sessionQueue.async {
@@ -159,10 +160,12 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
     // Add metadata output
     session.addOutput(metadataOutput)
     metadataOutput.setMetadataObjectsDelegate(self, queue: metadataObjectsQueue)
+
     let allTypes = Set(metadataOutput.availableMetadataObjectTypes)
     let filtered = metadataObjectTypes.filter { (mediaType) -> Bool in
       allTypes.contains(mediaType)
     }
+
     metadataOutput.metadataObjectTypes = filtered
     previewLayer.videoGravity          = .resizeAspectFill
 

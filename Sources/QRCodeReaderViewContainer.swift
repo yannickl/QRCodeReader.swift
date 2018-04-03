@@ -43,6 +43,9 @@ public protocol QRCodeReaderDisplayable {
   /// A guide view upon the camera view
   var overlayView: UIView? { get }
 
+  /// Notify the receiver to update its orientation.
+  func setNeedsUpdateOrientation()
+
   /**
    Method called by the container to allows you to layout your view properly using the given flags.
 

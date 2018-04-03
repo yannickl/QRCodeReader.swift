@@ -1,5 +1,10 @@
 # Change log
 
+## [Version 8.2.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/8.2.0)
+Release on 2018-04-03
+
+- Fixing the camera orientation when view is display (#123).
+
 ## [Version 8.1.1](https://github.com/yannickl/QRCodeReader.swift/releases/tag/8.1.1)
 Release on 2018-17-02
 
