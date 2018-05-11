@@ -150,8 +150,14 @@ public class QRCodeReaderViewController: UIViewController {
 
     // Setup constraints
 
-    for attribute in [.left, .top, .right, .bottom] as [NSLayoutAttribute] {
-      view.addConstraint(NSLayoutConstraint(item: readerView.view, attribute: attribute, relatedBy: .equal, toItem: view, attribute: attribute, multiplier: 1, constant: 0))
+    for attribute in [.left, .top, .right] as [NSLayoutAttribute] {
+        NSLayoutConstraint(item: readerView.view, attribute: attribute, relatedBy: .equal, toItem: view, attribute: attribute, multiplier: 1, constant: 0).isActive = true
+    }
+    
+    if #available(iOS 11.0, *) {
+        view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: readerView.view.bottomAnchor).isActive = true
+    } else {
+        NSLayoutConstraint(item: readerView.view, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
     }
   }
 

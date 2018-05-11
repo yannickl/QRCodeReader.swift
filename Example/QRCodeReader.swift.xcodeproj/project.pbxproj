@@ -310,7 +310,7 @@
 				TargetAttributes = {
 					CE412E8819D9A1E4000F294E = {
 						CreatedOnToolsVersion = 6.0.1;
-						DevelopmentTeam = WNK46V33W9;
+						DevelopmentTeam = M8F9QH57A6;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
@@ -567,7 +567,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = WNK46V33W9;
+				DEVELOPMENT_TEAM = M8F9QH57A6;
 				INFOPLIST_FILE = QRCodeReader.swift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.workandplay.qrcodereader;
@@ -582,7 +582,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = WNK46V33W9;
+				DEVELOPMENT_TEAM = M8F9QH57A6;
 				INFOPLIST_FILE = QRCodeReader.swift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.workandplay.qrcodereader;
