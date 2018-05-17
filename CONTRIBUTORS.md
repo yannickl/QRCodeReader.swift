@@ -21,6 +21,7 @@ Please keep the list sorted.
  * [Daniel Tartaglia](https://github.com/dtartaglia)
  * [Jan Karlo Dela Cruz](https://github.com/jankdc)
  * [Mesashi Beheim](https://github.com/masa-beheim)
+ * [Oliver Krakora](https://github.com/oliverkrakora)
  * [Pablo Lerma](https://github.com/PabloLerma)
  * [Petko Todorov](https://github.com/petkotodorov)
  * [Ravil Khusainov](https://github.com/kabanishe23)
