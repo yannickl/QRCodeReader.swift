@@ -38,6 +38,7 @@ public class QRCodeReaderViewController: UIViewController {
   let showSwitchCameraButton: Bool
   let showTorchButton: Bool
   let showOverlayView: Bool
+  let customPreferredStatusBarStyle: UIStatusBarStyle?
 
   // MARK: - Managing the Callback Responders
 
@@ -61,13 +62,14 @@ public class QRCodeReaderViewController: UIViewController {
    - parameter builder: A QRCodeViewController builder object.
    */
   required public init(builder: QRCodeReaderViewControllerBuilder) {
-    readerView             = builder.readerView
-    startScanningAtLoad    = builder.startScanningAtLoad
-    codeReader             = builder.reader
-    showCancelButton       = builder.showCancelButton
-    showSwitchCameraButton = builder.showSwitchCameraButton
-    showTorchButton        = builder.showTorchButton
-    showOverlayView        = builder.showOverlayView
+    readerView                    = builder.readerView
+    startScanningAtLoad           = builder.startScanningAtLoad
+    codeReader                    = builder.reader
+    showCancelButton              = builder.showCancelButton
+    showSwitchCameraButton        = builder.showSwitchCameraButton
+    showTorchButton               = builder.showTorchButton
+    showOverlayView               = builder.showOverlayView
+    customPreferredStatusBarStyle = builder.preferredStatusBarStyle
 
     super.init(nibName: nil, bundle: nil)
 
@@ -95,13 +97,14 @@ public class QRCodeReaderViewController: UIViewController {
   }
 
   required public init?(coder aDecoder: NSCoder) {
-    codeReader             = QRCodeReader()
-    readerView             = QRCodeReaderContainer(displayable: QRCodeReaderView())
-    startScanningAtLoad    = false
-    showCancelButton       = false
-    showTorchButton        = false
-    showSwitchCameraButton = false
-    showOverlayView        = false
+    codeReader                    = QRCodeReader()
+    readerView                    = QRCodeReaderContainer(displayable: QRCodeReaderView())
+    startScanningAtLoad           = false
+    showCancelButton              = false
+    showTorchButton               = false
+    showSwitchCameraButton        = false
+    showOverlayView               = false
+    customPreferredStatusBarStyle = nil
 
     super.init(coder: aDecoder)
   }
@@ -130,6 +133,10 @@ public class QRCodeReaderViewController: UIViewController {
     codeReader.previewLayer.frame = view.bounds
   }
 
+  public override var preferredStatusBarStyle: UIStatusBarStyle {
+    return customPreferredStatusBarStyle ?? super.preferredStatusBarStyle
+  }
+
   // MARK: - Initializing the AV Components
 
   private func setupUIComponentsWithCancelButtonTitle(_ cancelButtonTitle: String) {
@@ -156,7 +163,8 @@ public class QRCodeReaderViewController: UIViewController {
     
     if #available(iOS 11.0, *) {
         view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: readerView.view.bottomAnchor).isActive = true
-    } else {
+    }
+    else {
         NSLayoutConstraint(item: readerView.view, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
     }
   }

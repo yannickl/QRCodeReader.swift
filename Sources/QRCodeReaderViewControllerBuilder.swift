@@ -25,6 +25,7 @@
  */
 
 import Foundation
+import UIKit
 
 /**
  The QRCodeViewControllerBuilder aims to create a simple configuration object for
@@ -84,6 +85,11 @@ public final class QRCodeReaderViewControllerBuilder {
   */
   public var handleOrientationChange = true
 
+  /**
+   A UIStatusBarStyle key indicating your preferred status bar style for the view controller.
+   Nil by default. It means it'll use the current context status bar style.
+  */
+  public var preferredStatusBarStyle: UIStatusBarStyle? = nil
 
   // MARK: - Initializing a Flap View
 
