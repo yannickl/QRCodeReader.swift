@@ -20,6 +20,7 @@ Please keep the list sorted.
  * [Daniel Larsson](https://github.com/larssondaniel)
  * [Daniel Tartaglia](https://github.com/dtartaglia)
  * [Jan Karlo Dela Cruz](https://github.com/jankdc)
+ * [Max Desiatov](https://github.com/maxdesiatov)
  * [Mesashi Beheim](https://github.com/masa-beheim)
  * [Oliver Krakora](https://github.com/oliverkrakora)
  * [Pablo Lerma](https://github.com/PabloLerma)

@@ -1,5 +1,10 @@
 # Change log
 
+## [Version 9.0.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/9.0.0)
+Release on 2018-09-19
+
+**Swift 4.2 supports**
+
 ## [Version 8.2.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/8.2.0)
 Release on 2018-05-17
 
