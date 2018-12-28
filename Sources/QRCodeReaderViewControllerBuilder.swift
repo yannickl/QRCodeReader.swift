@@ -94,7 +94,7 @@ public final class QRCodeReaderViewControllerBuilder {
   /**
    Flag to display the guide view.
    */
-  public var showOverlayView = true
+  public var showOverlayView = false
 
   /**
     Flag to display the guide view.

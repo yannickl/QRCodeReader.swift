@@ -31,9 +31,12 @@ class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
   @IBOutlet weak var previewView: QRCodeReaderView! {
     didSet {
       previewView.setupComponents(with: QRCodeReaderViewControllerBuilder {
-        $0.reader = reader
-        $0.showTorchButton = false
+        $0.reader                 = reader
+        $0.showTorchButton        = false
         $0.showSwitchCameraButton = false
+        $0.showCancelButton       = false
+        $0.showOverlayView        = true
+        $0.rectOfInterest         = CGRect(x: 0.2, y: 0.2, width: 0.6, height: 0.6)
       })
     }
   }
@@ -43,7 +46,8 @@ class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
       $0.reader                  = QRCodeReader(metadataObjectTypes: [.qr], captureDevicePosition: .back)
       $0.showTorchButton         = true
       $0.preferredStatusBarStyle = .lightContent
-      $0.rectOfInterest          = CGRect(x: 0.15, y: 0.15, width: 0.7, height: 0.7)
+      $0.showOverlayView        = true
+      $0.rectOfInterest          = CGRect(x: 0.2, y: 0.2, width: 0.6, height: 0.6)
       
       $0.reader.stopScanningWhenCodeIsFound = false
     }
@@ -126,7 +130,7 @@ class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
   }
 
   func reader(_ reader: QRCodeReaderViewController, didSwitchCamera newCaptureDevice: AVCaptureDeviceInput) {
-    print("Switching capturing to: \(newCaptureDevice.device.localizedName)")
+    print("Switching capture to: \(newCaptureDevice.device.localizedName)")
   }
 
   func readerDidCancel(_ reader: QRCodeReaderViewController) {

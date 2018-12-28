@@ -78,7 +78,7 @@ func reader(_ reader: QRCodeReaderViewController, didScanResult result: QRCodeRe
 //By pressing on the switch camera button
 func reader(_ reader: QRCodeReaderViewController, didSwitchCamera newCaptureDevice: AVCaptureDeviceInput) {
     if let cameraName = newCaptureDevice.device.localizedName {
-      print("Switching capturing to: \(cameraName)")
+      print("Switching capture to: \(cameraName)")
     }
 }
 
