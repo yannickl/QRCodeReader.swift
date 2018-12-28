@@ -37,8 +37,8 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
   private let sessionQueue         = DispatchQueue(label: "session queue")
   private let metadataObjectsQueue = DispatchQueue(label: "com.yannickloriot.qr", attributes: [], target: nil)
   
-  var defaultDevice: AVCaptureDevice? = AVCaptureDevice.default(for: .video)
-  var frontDevice: AVCaptureDevice?   = {
+  let defaultDevice: AVCaptureDevice? = AVCaptureDevice.default(for: .video)
+  let frontDevice: AVCaptureDevice?   = {
     if #available(iOS 10, *) {
       return AVCaptureDevice.default(.builtInWideAngleCamera, for: AVMediaType.video, position: .front)
     }
@@ -67,8 +67,8 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
     return nil
   }()
 
-  public var metadataOutput = AVCaptureMetadataOutput()
-  var session               = AVCaptureSession()
+  let session        = AVCaptureSession()
+  let metadataOutput = AVCaptureMetadataOutput()
 
   weak var lifeCycleDelegate: QRCodeReaderLifeCycleDelegate?
 

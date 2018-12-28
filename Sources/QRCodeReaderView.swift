@@ -73,16 +73,16 @@ final public class QRCodeReaderView: UIView, QRCodeReaderDisplayable {
 
   private weak var reader: QRCodeReader?
 
-  public func setupComponents(showCancelButton: Bool, showSwitchCameraButton: Bool, showTorchButton: Bool, showOverlayView: Bool, reader: QRCodeReader?) {
-    self.reader               = reader
+  public func setupComponents(with builder: QRCodeReaderViewControllerBuilder) {
+    self.reader               = builder.reader
     reader?.lifeCycleDelegate = self
 
     addComponents()
 
-    cancelButton?.isHidden       = !showCancelButton
-    switchCameraButton?.isHidden = !showSwitchCameraButton
-    toggleTorchButton?.isHidden  = !showTorchButton
-    overlayView?.isHidden        = !showOverlayView
+    cancelButton?.isHidden       = !builder.showCancelButton
+    switchCameraButton?.isHidden = !builder.showSwitchCameraButton
+    toggleTorchButton?.isHidden  = !builder.showTorchButton
+    overlayView?.isHidden        = !builder.showOverlayView
 
     guard let cb = cancelButton, let scb = switchCameraButton, let ttb = toggleTorchButton, let ov = overlayView else { return }
 
@@ -90,7 +90,7 @@ final public class QRCodeReaderView: UIView, QRCodeReaderDisplayable {
 
     addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[cv]|", options: [], metrics: nil, views: views))
 
-    if showCancelButton {
+    if builder.showCancelButton {
       addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[cv][cb(40)]|", options: [], metrics: nil, views: views))
       addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[cb]-|", options: [], metrics: nil, views: views))
     }
@@ -98,18 +98,22 @@ final public class QRCodeReaderView: UIView, QRCodeReaderDisplayable {
       addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[cv]|", options: [], metrics: nil, views: views))
     }
 
-    if showSwitchCameraButton {
+    if builder.showSwitchCameraButton {
       addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-[scb(50)]", options: [], metrics: nil, views: views))
       addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[scb(70)]|", options: [], metrics: nil, views: views))
     }
 
-    if showTorchButton {
+    if builder.showTorchButton {
       addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-[ttb(50)]", options: [], metrics: nil, views: views))
       addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[ttb(70)]", options: [], metrics: nil, views: views))
     }
 
     for attribute in Array<NSLayoutConstraint.Attribute>([.left, .top, .right, .bottom]) {
       addConstraint(NSLayoutConstraint(item: ov, attribute: attribute, relatedBy: .equal, toItem: cameraView, attribute: attribute, multiplier: 1, constant: 0))
+    }
+
+    if let readerOverlayView = overlayView as? ReaderOverlayView {
+      readerOverlayView.rectOfInterest = builder.rectOfInterest
     }
   }
 

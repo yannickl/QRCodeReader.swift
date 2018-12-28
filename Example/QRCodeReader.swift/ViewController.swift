@@ -30,7 +30,11 @@ import UIKit
 class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
   @IBOutlet weak var previewView: QRCodeReaderView! {
     didSet {
-      previewView.setupComponents(showCancelButton: false, showSwitchCameraButton: false, showTorchButton: false, showOverlayView: true, reader: reader)
+      previewView.setupComponents(with: QRCodeReaderViewControllerBuilder {
+        $0.reader = reader
+        $0.showTorchButton = false
+        $0.showSwitchCameraButton = false
+      })
     }
   }
   lazy var reader: QRCodeReader = QRCodeReader()
@@ -39,6 +43,7 @@ class ViewController: UIViewController, QRCodeReaderViewControllerDelegate {
       $0.reader                  = QRCodeReader(metadataObjectTypes: [.qr], captureDevicePosition: .back)
       $0.showTorchButton         = true
       $0.preferredStatusBarStyle = .lightContent
+      $0.rectOfInterest          = CGRect(x: 0.15, y: 0.15, width: 0.7, height: 0.7)
       
       $0.reader.stopScanningWhenCodeIsFound = false
     }

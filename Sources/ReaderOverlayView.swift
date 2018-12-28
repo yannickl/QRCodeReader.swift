@@ -58,24 +58,25 @@ public final class ReaderOverlayView: UIView {
 
   var overlayColor: UIColor = UIColor.white {
     didSet {
-      self.overlay.strokeColor = overlayColor.cgColor
+      overlay.strokeColor = overlayColor.cgColor
       
-      self.setNeedsDisplay()
+      setNeedsDisplay()
+    }
+  }
+
+  var rectOfInterest: CGRect = CGRect(x: 0, y: 0, width: 1, height: 1) {
+    didSet {
+      setNeedsDisplay()
     }
   }
 
   public override func draw(_ rect: CGRect) {
-    var innerRect = rect.insetBy(dx: 50, dy: 50)
-    let minSize   = min(innerRect.width, innerRect.height)
-
-    if innerRect.width != minSize {
-      innerRect.origin.x   += (innerRect.width - minSize) / 2
-      innerRect.size.width = minSize
-    }
-    else if innerRect.height != minSize {
-      innerRect.origin.y    += (innerRect.height - minSize) / 2
-      innerRect.size.height = minSize
-    }
+    let innerRect = CGRect(
+      x: rect.width * rectOfInterest.minX,
+      y: rect.height * rectOfInterest.minY,
+      width: rect.width * rectOfInterest.width,
+      height: rect.height * rectOfInterest.height
+    )
 
     overlay.path = UIBezierPath(roundedRect: innerRect, cornerRadius: 5).cgPath
   }
