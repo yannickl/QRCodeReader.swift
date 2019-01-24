@@ -1,6 +1,7 @@
 # Change log
 
-## Version 10.0.0
+## [Version 10.0.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/10.0.0)
+Release on 2019-01-24
 
 - [ADD] Allowing the scan area configuration (#157 #106)
 - [UPDATE] The `showOverlayView` builder property is now `false` by default
