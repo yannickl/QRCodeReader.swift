@@ -46,6 +46,13 @@ Then just follow these steps:
 lazy var readerVC: QRCodeReaderViewController = {
     let builder = QRCodeReaderViewControllerBuilder {
         $0.reader = QRCodeReader(metadataObjectTypes: [.qr], captureDevicePosition: .back)
+        
+        // Configure the view controller (optional)
+        $0.showTorchButton        = false
+        $0.showSwitchCameraButton = false
+        $0.showCancelButton       = false
+        $0.showOverlayView        = true
+        $0.rectOfInterest         = CGRect(x: 0.2, y: 0.2, width: 0.6, height: 0.6)
     }
     
     return QRCodeReaderViewController(builder: builder)
@@ -63,6 +70,7 @@ lazy var readerVC: QRCodeReaderViewController = {
 
   // Presents the readerVC as modal form sheet
   readerVC.modalPresentationStyle = .formSheet
+ 
   present(readerVC, animated: true, completion: nil)
 }
 
@@ -103,7 +111,7 @@ class YourCustomView: UIView, QRCodeReaderDisplayable {
   let toggleTorchButton: UIButton?  = ToggleTorchButton()
   var overlayView: UIView?          = UIView()
 
-  func setupComponents(showCancelButton: Bool, showSwitchCameraButton: Bool, showTorchButton: Bool, showOverlayView: Bool) {
+  func setupComponents(with builder: QRCodeReaderViewControllerBuilder) {
     // addSubviews
     // setup constraints
     // etc.
@@ -129,13 +137,13 @@ The recommended approach to use _QRCodeReaderViewController_ in your project is 
 
 Install CocoaPods if not already available:
 
-``` bash
+```bash
 $ [sudo] gem install cocoapods
 $ pod setup
 ```
 Go to the directory of your Xcode project, and Create and Edit your Podfile and add _QRCodeReader.swift_ to your corresponding `TargetName`:
 
-``` bash
+```bash
 $ cd /path/to/MyProject
 $ touch Podfile
 $ edit Podfile
@@ -150,13 +158,13 @@ end
 
 Install into your project:
 
-``` bash
+```bash
 $ pod install
 ```
 
 Open your project in Xcode from the .xcworkspace file (not the usual project file):
 
-``` bash
+```bash
 $ open MyProject.xcworkspace
 ```
 
