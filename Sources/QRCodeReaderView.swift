@@ -67,6 +67,7 @@ final public class QRCodeReaderView: UIView, QRCodeReaderDisplayable {
     let ttb = ToggleTorchButton()
 
     ttb.translatesAutoresizingMaskIntoConstraints = false
+    ttb.addTarget(self, action: #selector(toggleTorchAction), for: .touchDown)
 
     return ttb
   }()
@@ -197,6 +198,10 @@ final public class QRCodeReaderView: UIView, QRCodeReaderDisplayable {
       
       setNeedsUpdateOrientation()
     }
+  }
+
+  @objc func toggleTorchAction(_ button: ToggleTorchButton) {
+    reader?.toggleTorch()
   }
 }
 
