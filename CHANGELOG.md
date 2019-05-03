@@ -1,7 +1,14 @@
 # Change log
 
+## [Version 10.1.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/10.1.0)
+Release on 2019-05-03
+
+- [ADD] `QRCodeReaderDisplayable` protocol to allow color customisation
+
 ## [Version 10.0.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/10.0.0)
 Release on 2019-01-24
+
+**Swift 5 supports**
 
 - [ADD] Allowing the scan area configuration (#157 #106)
 - [UPDATE] The `showOverlayView` builder property is now `false` by default
