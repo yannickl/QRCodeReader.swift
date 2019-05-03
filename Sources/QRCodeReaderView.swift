@@ -27,7 +27,7 @@
 import UIKit
 
 final public class QRCodeReaderView: UIView, QRCodeReaderDisplayable {
-  public lazy var overlayView: UIView? = {
+  public lazy var overlayView: QRCodeReaderViewOverlay? = {
     let ov = ReaderOverlayView()
 
     ov.backgroundColor                           = .clear
@@ -127,26 +127,20 @@ final public class QRCodeReaderView: UIView, QRCodeReaderDisplayable {
 
   func startTimerForBorderReset() {
     DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
-      if let ovl = self.overlayView as? ReaderOverlayView {
-        ovl.overlayColor = .white
-      }
+      self.overlayView?.setState(.normal)
     }
   }
 
   func addRedBorder() {
     self.startTimerForBorderReset()
 
-    if let ovl = self.overlayView as? ReaderOverlayView {
-      ovl.overlayColor = .red
-    }
+    self.overlayView?.setState(.wrong)
   }
 
   func addGreenBorder() {
     self.startTimerForBorderReset()
     
-    if let ovl = self.overlayView as? ReaderOverlayView {
-      ovl.overlayColor = .green
-    }
+    self.overlayView?.setState(.valid)
   }
 
   @objc public func setNeedsUpdateOrientation() {

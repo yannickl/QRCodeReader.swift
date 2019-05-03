@@ -151,7 +151,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
       if let _frontDeviceInput = frontDeviceInput {
         session.addInput(_frontDeviceInput)
       }
-    case .back, .unspecified:
+    default:
       if let _defaultDeviceInput = defaultDeviceInput {
         session.addInput(_defaultDeviceInput)
       }
@@ -319,10 +319,10 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
       return .landscapeLeft
     case .landscapeRight:
       return .landscapeRight
-    case .portrait:
-      return .portrait
     case .portraitUpsideDown:
       return .portraitUpsideDown
+    default:
+      return .portrait
     }
   }
 
