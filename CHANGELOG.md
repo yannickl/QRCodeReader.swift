@@ -1,5 +1,67 @@
 # Change log
 
+## [Version 10.1.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/10.1.0)
+Release on 2019-05-03
+
+- [ADD] `QRCodeReaderDisplayable` protocol to allow color customisation
+
+## [Version 10.0.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/10.0.0)
+Release on 2019-01-24
+
+**Swift 5 supports**
+
+- [ADD] Allowing the scan area configuration (#157 #106)
+- [UPDATE] The `showOverlayView` builder property is now `false` by default
+
+## [Version 9.0.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/9.0.0)
+Release on 2018-09-19
+
+**Swift 4.2 supports**
+
+## [Version 8.2.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/8.2.0)
+Release on 2018-05-17
+
+- [FIX] Camera orientation when view is display (#123)
+- [FIX] Safe area constraints (#128)
+- [ADD] `preferredStatusBarStyle` property in the `QRCodeReaderViewControllerBuilder`
+
+## [Version 8.1.1](https://github.com/yannickl/QRCodeReader.swift/releases/tag/8.1.1)
+Release on 2018-17-02
+
+ - [FIX] Camera display by removing the `weak` reference in the QRCodeReaderView (#120)
+
+## [Version 8.1.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/8.1.0)
+Release on 2018-25-01
+
+ - [FIX] Scan duplication by introducing a backgroun serial queue (#127)
+ - [FIX] Camera orientation glitches when init a `QRCodeReaderView` 
+
+## [Version 8.0.4](https://github.com/yannickl/QRCodeReader.swift/releases/tag/8.0.4)
+Release on 2017-11-26
+
+ - [FIX] `stopScanning` method to avoid scan duplication (#127)
+
+## [Version 8.0.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/8.0.0)
+Release on 2017-09-21
+
+**Swift 4.0 supports**
+
+## [Version 7.5.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/7.5.0)
+Release on 2017-08-10
+
+- [REFACTORING] Makes the `QRCodeReaderView` public
+- [REFACTORING] The rotation is now managed by the `QRCodeReaderView`
+
+## [Version 7.4.2](https://github.com/yannickl/QRCodeReader.swift/releases/tag/7.4.2)
+Release on 2017-05-28
+
+- [FIX] Overlay orientation
+
+## [Version 7.4.1](https://github.com/yannickl/QRCodeReader.swift/releases/tag/7.4.1)
+Release on 2017-04-16
+
+- [ADD] Make the `QRCodeReader`'s `metadataOutput` property public
+
 ## [Version 7.4.0](https://github.com/yannickl/QRCodeReader.swift/releases/tag/7.4.0)
 Release on 2017-03-29
 
