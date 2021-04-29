@@ -148,8 +148,7 @@ final public class QRCodeReaderView: UIView, QRCodeReaderDisplayable {
 
     overlayView?.setNeedsDisplay()
 
-    if let connection = reader?.previewLayer.connection, connection.isVideoOrientationSupported {
-      let application                    = UIApplication.shared
+    if let connection = reader?.previewLayer.connection, connection.isVideoOrientationSupported, let application = QRCodeReaderView.sharedApplication {
       let orientation                    = UIDevice.current.orientation
       let supportedInterfaceOrientations = application.supportedInterfaceOrientations(for: application.keyWindow)
 
@@ -158,6 +157,11 @@ final public class QRCodeReaderView: UIView, QRCodeReaderDisplayable {
   }
 
   // MARK: - Convenience Methods
+
+  private class var sharedApplication: UIApplication? {
+    let selector = NSSelectorFromString("sharedApplication")
+    return UIApplication.perform(selector)?.takeRetainedValue() as? UIApplication
+  }
 
   private func addComponents() {
     #if swift(>=4.2)
