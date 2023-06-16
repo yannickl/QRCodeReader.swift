@@ -130,7 +130,7 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
 
     super.init()
 
-    sessionQueue.async {
+    DispatchQueue.main.async {
       self.configureDefaultComponents(withCaptureDevicePosition: captureDevicePosition)
     }
   }
