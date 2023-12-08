@@ -157,16 +157,24 @@ final public class QRCodeReaderView: UIView, QRCodeReaderDisplayable {
     }
   }
 
+   deinit {
+     NotificationCenter.default.removeObserver(self, name: orientationNotificationName, object: nil)
+     print("QRCodeReaderView --- deinit")
+   }
+
+   private var orientationNotificationName: NSNotification.Name {
+     #if swift(>=4.2)
+     let notificationName = UIDevice.orientationDidChangeNotification
+     #else
+     let notificationName = NSNotification.Name.UIDeviceOrientationDidChange
+     #endif
+     return notificationName
+  }
+    
   // MARK: - Convenience Methods
 
   private func addComponents() {
-    #if swift(>=4.2)
-    let notificationName = UIDevice.orientationDidChangeNotification
-    #else
-    let notificationName = NSNotification.Name.UIDeviceOrientationDidChange
-    #endif
-
-    NotificationCenter.default.addObserver(self, selector: #selector(self.setNeedsUpdateOrientation), name: notificationName, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(self.setNeedsUpdateOrientation), name: orientationNotificationName, object: nil)
 
     addSubview(cameraView)
 
