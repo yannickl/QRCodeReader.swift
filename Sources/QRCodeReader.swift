@@ -135,6 +135,9 @@ public final class QRCodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegat
     }
   }
 
+  deinit {
+    print("QRCodeReader --- deinit")
+  }
   // MARK: - Initializing the AV Components
 
   private func configureDefaultComponents(withCaptureDevicePosition: AVCaptureDevice.Position) {

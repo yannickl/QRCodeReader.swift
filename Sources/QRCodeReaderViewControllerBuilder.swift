@@ -130,6 +130,9 @@ public final class QRCodeReaderViewControllerBuilder {
    */
   public init() {}
 
+  deinit {
+    print("QRCodeReaderViewControllerBuilder --- deinit")
+  }
   /**
    Initialize a QRCodeReaderViewController builder with default values.
 

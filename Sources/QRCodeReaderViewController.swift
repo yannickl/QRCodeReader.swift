@@ -64,9 +64,9 @@ public class QRCodeReaderViewController: UIViewController {
 
     view.backgroundColor = .black
 
-    codeReader.didFindCode = { [weak self] resultAsObject in
+    codeReader.didFindCode = { [weak self, weak builder] resultAsObject in
       if let weakSelf = self {
-        if let qrv = builder.readerView.displayable as? QRCodeReaderView {
+        if let qrv = builder?.readerView.displayable as? QRCodeReaderView {
           qrv.addGreenBorder()
         }
         weakSelf.completionBlock?(resultAsObject)
@@ -74,8 +74,8 @@ public class QRCodeReaderViewController: UIViewController {
       }
     }
 
-    codeReader.didFailDecoding = {
-      if let qrv = builder.readerView.displayable as? QRCodeReaderView {
+    codeReader.didFailDecoding = { [weak builder] in
+      if let qrv = builder?.readerView.displayable as? QRCodeReaderView {
         qrv.addRedBorder()
       }
     }
